@@ -1,6 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+@import url('http://fonts.googleapis.com/earlyaccess/droidarabickufi.css');
 
 body {
     font-family:'Droid Arabic Kufi','Open Sans',sans-serif;
+}
+
+a {
+    color: #4f5467;
+
+}
+a:hover {
+    color: #000000;
+    text-decoration: none;
+}
+
+#app .logo {
+    padding-right: 100px;
+    background: url("../images/logo.png") right no-repeat;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#app .logo .l1 {
+    color:#801211;
+}
+
+#app .logo .l2 {
+    color:#c71618;
+}
+
+.navbar-brand {
+    height: 70px;
+    line-height: 51px;
+}
+
+.navbar-nav>li>a {
+    line-height: 40px;
 }

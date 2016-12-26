@@ -10,6 +10,9 @@ return [
     */
 
     'nom_app' => 'عين حشاد',
+
+    'nom_app_part_1' => 'عين',
+    'nom_app_part_2' => 'حشاد',
     'system' => 'المرصد الوطني',
     'observatoir' => 'للحقوق والحريات النقابية',
     'dashboard' => 'لوحة التحكم',
@@ -55,6 +58,9 @@ return [
 
 
     'selectionnez' => 'حدد',
+
+    'notifications' => 'الإشعارات',
+    'mesages' => 'الرسائل'
 
 
 ];

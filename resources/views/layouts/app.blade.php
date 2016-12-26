@@ -12,7 +12,10 @@
 
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+
+@yield('header')
 
     <!-- Scripts -->
     <script>
@@ -36,17 +39,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ trans('main.nom_app') }}
+                    <a class="navbar-brand logo" href="{{ url('/') }}">
+                       <span class="l1">@lang('main.nom_app_part_1')</span> <span class="l2">@lang('main.nom_app_part_2')</span>
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        @if (!Auth::guest())
-                            <li><a href="{{ url('/users') }}">Users</a></li>
-                        @endif
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -66,7 +67,7 @@
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            @lang('main.logout')
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
