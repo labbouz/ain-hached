@@ -1,36 +1,33 @@
 @extends('layouts.app')
 
+@section('header')
+    <link href="/css/pages/users.css" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
-        <div class="row toolbar">
-            <div class="col-md-6">
-                <form>
-                    <input type="text" name="search">
-                </form>
-            </div>
-            <div class="col-md-3">
-                <div class="search">
+        <div class="row">
+            <div class="col-md-12">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                        {{ csrf_field() }}
 
-                </div>
-            </div>
-            <div class="col-md-3">
-                <a class=""></a>
+                    <input type="search" class="form-control" id="input-search" placeholder="Rechercher..." autocomplete="off">
+                </form>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 card">
-                <p>
-                    <span class="nom">LABBOUZ</span>
-                    <span class="prenom">Abdelmonam</span>
-                </p>
-                <p>
-                    @lang('users.droits') : <span class="droit">راصد</span>
-                </p>
-                <p>
-                    @lang('users.la_permission_regional') : <span class="detail">أريانة</span>
-                </p>
 
-            </div>
+            @for ($i = 0; $i < 10; $i++)
+                <div class="col-md-3 container-card">
+                    <div class="text-right card box">
+                            <span class="nom">LABBOUZ</span>
+                            <span class="prenom">Abdelmonam</span>
+                    </div>
+                </div>
+
+            @endfor
+
+
         </div>
     </div>
 @endsection
