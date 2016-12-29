@@ -10,7 +10,8 @@ a {
     color: #4f5467;
 
 }
-a:hover {
+a:hover,
+a:focus{
     color: #000000;
     text-decoration: none;
 }
@@ -38,6 +39,30 @@ a:hover {
 .navbar-nav>li>a {
     line-height: 40px;
 }
+
+/******** commun *******/
+.page-title {
+
+    background-color: #ffffff;
+    border: 1px solid #d6dadb;
+    margin: 0;
+    padding: 20px;
+
+
+}
+.page-title h3 {
+    margin: 0 0 10px 0;
+    text-align: right;
+    font-weight: 700;
+}
+
+.page-title p {
+    margin: 0;
+    text-align: right;
+    font-weight: 400;
+}
+
+
 
 /****** theme box ******/
 
@@ -70,6 +95,28 @@ a:hover {
     cursor: pointer;
 }
 
+.add {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+.add .fa {
+    text-align: center;
+    display: block;
+    height: 53px;
+    line-height: 53px;
+    font-size: 41px;
+}
+
+.add .text {
+    text-align: center;
+    display: block;
+    padding: 10px 16px;
+    font-size: 18px;
+}
+
 /******** form *************/
 .form-control:focus {
     border-color: #000000;
@@ -78,7 +125,11 @@ a:hover {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
-input[type=search] {
+label {
+    font-weight: 400;
+}
+
+input.form-control {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;

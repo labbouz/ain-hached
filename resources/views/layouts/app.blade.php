@@ -82,6 +82,8 @@
             </div>
         </nav>
 
+        @yield('page-title')
+
         @yield('content')
     </div>
 
