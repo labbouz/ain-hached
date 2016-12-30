@@ -40,13 +40,22 @@ a:focus{
     line-height: 40px;
 }
 
+.loading {
+    display: block;
+    margin: auto;
+    width: 44px;
+    height: 100%;
+    background: url('../images/loading.gif') center no-repeat;
+}
+
 /******** commun *******/
 .page-title {
-
+    position: relative;
+    min-height: 100px;
     background-color: #ffffff;
     border: 1px solid #d6dadb;
-    margin: 0;
-    padding: 20px;
+    margin: 0 0 15px 0;
+
 
 
 }
@@ -62,7 +71,23 @@ a:focus{
     font-weight: 400;
 }
 
+.page-title > div {
+    position: absolute;
+    width: 100%;
 
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
+
+.header_action {
+    display: none;
+}
+
+#header_loading {
+    display: block;
+    height: 100%;
+}
 
 /****** theme box ******/
 
@@ -79,15 +104,23 @@ a:focus{
 
 /****** theme card ******/
 
-.container-card {
+.container-card,
+.container-action{
     margin: 15px 0;
     float: right;
 }
 
+.container-card {
+    display: none;
+}
+
+.tool_bar_action {
+    display: none;
+}
+
 .card {
     position: relative;
-    height: 44px;
-
+    min-height: 100px;
     margin: 0;
     padding: 0 14px;
     line-height: 42px;
@@ -118,6 +151,10 @@ a:focus{
 }
 
 /******** form *************/
+
+#espace_form {
+    display: none;
+}
 .form-control:focus {
     border-color: #000000;
     outline: 0;

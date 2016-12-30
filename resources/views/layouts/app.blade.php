@@ -87,9 +87,16 @@
         @yield('content')
     </div>
 
+    <div id="api">
+        @yield('url_ajax')
+    </div>
+
     <!-- Scripts -->
     <script src="/js/jquery-1.12.4.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>
+
+    @yield('footer')
 </body>
 </html>

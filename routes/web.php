@@ -20,3 +20,5 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UserController');
+
+Route::post('REST/users', 'UserController@getUsersJSON')->name('json.users.index');

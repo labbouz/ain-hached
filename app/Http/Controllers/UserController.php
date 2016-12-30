@@ -84,4 +84,22 @@ class UserController extends Controller
     {
         //
     }
+
+
+    /**
+     * Ajax list
+     */
+
+    public function getUsersJSON()
+    {
+
+        $users = User::all();
+
+        $reponse = [
+            'status' => 'success',
+            'elements' => $users,
+        ];
+
+        return response()->json($reponse);
+    }
 }
