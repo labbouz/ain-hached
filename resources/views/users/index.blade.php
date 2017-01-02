@@ -73,26 +73,45 @@
     </div>
 
     <div id="template_form_add" class="hide">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 form-cart">
-            <form autocomplete="off">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            <form autocomplete="off" class="form-cart" dir="rtl">
                 <div class="form-group">
                     <input type="text" class="form-control" id="name" placeholder="@lang('users.name_user')" value="" />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="" />
+                    <input type="email" class="form-control" id="email" placeholder="@lang('users.email')" value="" />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
+                    <select class="form-control" id="role_id">
+                        <option value="0" selected disabled hidden>@lang('users.droits')</option>
+                        <option value="1">@lang('users.role_admin')</option>
+                        <option value="2">@lang('users.role_observateur_regional')</option>
+                        <option value="3">@lang('users.role_observateur_secteur')</option>
+                        <option value="4">@lang('users.role_observateur')</option>
+                    </select>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Check me out
-                    </label>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="@lang('users.password')">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password-confirm" placeholder="@lang('users.confirm_password')">
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary">
+                            @lang('main.save')
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary">
+                            @lang('main.cancel')
+                        </button>
+                    </div>
+
+                </div>
+
             </form>
         </div>
     </div>

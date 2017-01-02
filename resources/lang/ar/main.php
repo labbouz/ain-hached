@@ -60,7 +60,10 @@ return [
     'selectionnez' => 'حدد',
 
     'notifications' => 'الإشعارات',
-    'mesages' => 'الرسائل'
+    'mesages' => 'الرسائل',
+
+    'save' => 'تسجيل',
+    'cancel' => 'إلغاء'
 
 
 ];

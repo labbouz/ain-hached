@@ -44,7 +44,7 @@ a:focus{
     display: block;
     margin: auto;
     width: 44px;
-    height: 100%;
+    height: 44px;
     background: url('../images/loading.gif') center no-repeat;
 }
 
@@ -54,7 +54,7 @@ a:focus{
     min-height: 100px;
     background-color: #ffffff;
     border: 1px solid #d6dadb;
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
 
 
 
@@ -72,11 +72,8 @@ a:focus{
 }
 
 .page-title > div {
-    position: absolute;
     width: 100%;
 
-    top: 0;
-    right: 0;
     padding: 20px;
 }
 
@@ -84,9 +81,9 @@ a:focus{
     display: none;
 }
 
-#header_loading {
-    display: block;
-    height: 100%;
+#header_loading .loading {
+    height: 58px;
+
 }
 
 /****** theme box ******/
@@ -106,7 +103,7 @@ a:focus{
 
 .container-card,
 .container-action{
-    margin: 15px 0;
+    margin: 0 0 20px 0;
     float: right;
 }
 
@@ -155,6 +152,19 @@ a:focus{
 #espace_form {
     display: none;
 }
+
+.form-cart {
+    display: block;
+    float: left;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #d0d5d6;
+    padding: 25px;
+}
+
+.form-control {
+    height: 40px;
+}
 .form-control:focus {
     border-color: #000000;
     outline: 0;
@@ -166,7 +176,9 @@ label {
     font-weight: 400;
 }
 
-input.form-control {
+input.form-control,
+textarea.form-control,
+select.form-control{
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;

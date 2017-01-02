@@ -18,7 +18,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/setting', 'HomeController@setting')->name('setting');
 
 Route::resource('users', 'UserController');
+Route::resource('secteurs', 'SecteurController');
 
 Route::post('REST/users', 'UserController@getUsersJSON')->name('json.users.index');
+Route::post('REST/secteurs', 'SecteurController@getUsersJSON')->name('json.secteurs.index');

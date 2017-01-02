@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'عبدالمنعم لبوز',
             'email' => 'labbouz@gmail.com',
             'password' => bcrypt('ccxccb01'),
+            'created_at' => date('Y-m-d H:i:s')
         ]);
 
         for($i=0; $i<100; $i++) {
@@ -26,6 +27,7 @@ class UsersTableSeeder extends Seeder
                 'name' => str_random(10),
                 'email' => str_random(10).'@gmail.com',
                 'password' => bcrypt('secret'),
+                'created_at' => date('Y-m-d H:i:s')
             ]);
         }
     }

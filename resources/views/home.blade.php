@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('home') }}"><i class="fa fa-files-o fa-lg" ></i>
+                <a href="{{ route('home') }}"><i class="fa fa-archive fa-lg" ></i>
                     <span>@lang('main.files')</span>
                 </a>
             </div>
@@ -48,7 +48,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-cogs fa-lg" ></i>
+                <a href="{{ route('setting') }}"><i class="fa fa-cogs fa-lg" ></i>
                     <span>@lang('main.configuration')</span>
                 </a>
             </div>

@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
+use App\Secteur;
+//use App\Convention;
 
-// use Debugbar;
-
-class UserController extends Controller
+class SecteurController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -28,8 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        return view('users.index', compact('users'));
+        return view('secteures.index', compact('users'));
     }
 
     /**
@@ -98,25 +95,16 @@ class UserController extends Controller
         //
     }
 
-
-    /**
-     * Ajax list
-     */
-
     public function getUsersJSON()
     {
 
-        $users = User::all();
+        $secteures = Secteur::all();
 
         $reponse = [
             'status' => 'success',
-            'elements' => $users,
+            'elements' => $secteures,
         ];
-/*
-        Debugbar::addMessage('message type error', 'error');
-        Debugbar::addMessage('message type warning', 'warning');
-        Debugbar::addMessage('message type test', 'info');
-*/
+
         return response()->json($reponse);
     }
 }
