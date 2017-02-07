@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/users.css" rel="stylesheet">
+    <link href="/css/pages/secteurs.css" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -62,6 +62,15 @@
                 <span class="fa fa-plus-circle"></span>
                 <span class="text">@lang('secteur.add_secteur')</span>
             </a>
+            <div class="form-data box">
+                <form autocomplete="off" class="form-cart" dir="rtl">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="" />
+                    </div>
+                    <button>Ok</button>
+
+                </form>
+            </div>
         </div>
     </div>
 

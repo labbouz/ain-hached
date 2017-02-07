@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 
     var _url = $('#api').find('#index').val();
+
     var _csrf_token = $('#api').find('input[name="_token"]').val();
 
     var _dataRequest = {
@@ -51,9 +52,19 @@ $(document).ready(function(){
         });
     };
 
+
     var setFormAdd = function() {
 
+        var _container_form = $('#template_form_add').html();
 
+        alert(_container_form);
+
+        $('#espace_form').append(_container_form).show('scale', {
+            duration: 500,
+            direction : 'vertical',
+            origin:['top','center'],
+            easing: 'easeOutBack'
+        });
     };
 
 
