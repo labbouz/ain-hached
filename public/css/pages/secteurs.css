@@ -1,4 +1,62 @@
 
-.form-data {
+.container_element {
     height: 100px;
 }
+
+.container_element .form-box {
+    display: none;
+}
+
+.container_element .form-box .form-cart {
+    padding: 8px;
+    height: 56px;
+    border: none;
+}
+
+.container_element .form-box .form-cart .form-group{
+    margin-bottom: 0;
+}
+
+.container_element .form-box .form-cart input[type=text] {
+    font-size: 15px;
+
+}
+
+.container_element .form-box .toolbar_box {
+    display: block;
+    float: left;
+    height: 42px;
+    width: 100%;
+    background-color: #4F5467 ;
+    text-align: center;
+}
+
+.container_element .form-box .toolbar_box a {
+    text-decoration: none;
+    line-height: 42px;
+    margin: 0 20px;
+    padding: 0;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.container_element .form-box .toolbar_box a i {
+    font-size: 20px;
+    line-height: 42px;
+}
+
+.container_element .form-box .toolbar_box a:hover,
+.container_element .form-box .toolbar_box a:focus {
+}
+
+
+.container_element .form-box .toolbar_box .save_element:hover {
+    color: #00c292;
+}
+.container_element .form-box .toolbar_box .cancel_element:hover {
+    color: #fb9678;
+}
+
+
+
+

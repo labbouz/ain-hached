@@ -58,19 +58,30 @@
 
     <div id="template_form_add" class="hide">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-action">
-            <a href="javascript:void(0)" class="add box">
-                <span class="fa fa-plus-circle"></span>
-                <span class="text">@lang('secteur.add_secteur')</span>
-            </a>
-            <div class="form-data box">
-                <form autocomplete="off" class="form-cart" dir="rtl">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="" />
-                    </div>
-                    <button>Ok</button>
+            <div class="container_element box">
+                <a href="javascript:void(0)" class="add">
+                    <span class="fa fa-plus-circle"></span>
+                    <span class="text">@lang('secteur.add_secteur')</span>
+                </a>
 
-                </form>
+                <div class="form-box">
+                    <form autocomplete="off" class="form-cart" dir="rtl">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="" />
+                        </div>
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_element"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+
             </div>
+
+
         </div>
     </div>
 

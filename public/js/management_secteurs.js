@@ -53,22 +53,6 @@ $(document).ready(function(){
     };
 
 
-    var setFormAdd = function() {
-
-        var _container_form = $('#template_form_add').html();
-
-        alert(_container_form);
-
-        $('#espace_form').append(_container_form).show('scale', {
-            duration: 500,
-            direction : 'vertical',
-            origin:['top','center'],
-            easing: 'easeOutBack'
-        });
-    };
-
-
-
     function getList(url, data) {
 
         setLoading();
@@ -109,16 +93,22 @@ $(document).ready(function(){
 
     $(document).on('click', '.add', function(){
 
-        /*
-        $('#list_elements').hide('scale', {
-            duration: 500,
-            origin:['middle','center'],
-            easing: 'easeInBack'
-        }, function(){
-            setFormAdd();
+        var _selectorContainer = $(this).closest( ".container_element" );
+        $(this).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box' ).show('fade', {}, 'slow');
         });
-        */
-        setFormAdd();
+
+
+    });
+
+    $(document).on('click', '.cancel_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.add' ).show('fade', {}, 'slow', function(){
+                _selectorContainer.find( 'form' )[0].reset();
+            });
+        });
 
 
     });
