@@ -47,7 +47,21 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nom_secteur' => 'required|max:255',
+        ]);
+
+
+
+        $secteuradedd = new Secteur;
+        $secteuradedd->nom_secteur = $request->nom_secteur;
+        $secteuradedd->save();
+        $response = array(
+            'status' => 'success',
+            'msg' => 'Setting created successfully',
+        );
+
+        return response()->json($response);
     }
 
     /**

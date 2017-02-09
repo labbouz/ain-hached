@@ -113,6 +113,25 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click', '.save_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.loader' ).show('fade', {}, 'slow', function(){
+                // request ajax for save
+                swal({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        });
+
+
+    });
+
     $(document).on('click', '#list_elements .card', function(){
         alert('OK');
     });

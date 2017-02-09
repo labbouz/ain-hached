@@ -57,6 +57,15 @@
     color: #fb9678;
 }
 
+.container_element .loader {
+    display: none;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 50px;
+}
+
 
 
 

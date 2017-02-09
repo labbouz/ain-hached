@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/sweetalert.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
 
 @yield('header')
@@ -95,6 +96,7 @@
     <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
     <script src="/js/app.js"></script>
 
     @yield('footer')
