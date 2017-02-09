@@ -97,6 +97,11 @@
     <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/sweetalert.min.js"></script>
+
+    <script src="js/jquery-validation/jquery.validate.min.js"></script>
+    <script src="js/jquery-validation/additional-methods.min.js"></script>
+    <script src="js/jquery-validation/localization/messages_ar.min.js"></script>
+
     <script src="/js/app.js"></script>
 
     @yield('footer')

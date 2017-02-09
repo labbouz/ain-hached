@@ -12,6 +12,7 @@ $(document).ready(function(){
     };
 
     /************* Initialisation ***/
+    setLoading();
     getList(_url, _dataRequest);
 
     var loadElements = function(elements) {
@@ -55,8 +56,6 @@ $(document).ready(function(){
 
     function getList(url, data) {
 
-        setLoading();
-
         $.ajax({
             type: 'post',
             url: url,
@@ -83,6 +82,46 @@ $(document).ready(function(){
         });
     }
 
+    function addElement(url, data) {
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function(data) {
+
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    $('#list_elements').html('');
+                    getList(_url, _dataRequest);
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+                }
+            },
+            error: function(data){
+                //console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        });
+    }
+
     function setLoading() {
         var _container_loading = $('#template_loading').html();
 
@@ -95,7 +134,18 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
         $(this).hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.form-box' ).show('fade', {}, 'slow');
+            _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
+        });
+
+
+    });
+
+
+    $(document).on('click', '.edit', function(){
+
+        var _selectorContainer = $(this).closest( ".container-card" );
+        _selectorContainer.find('.container_element').hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
         });
 
 
@@ -105,7 +155,7 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.add' ).show('fade', {}, 'slow', function(){
+            _selectorContainer.find( '.add' ).show('fade', {}, 'fast', function(){
                 _selectorContainer.find( 'form' )[0].reset();
             });
         });
@@ -116,29 +166,44 @@ $(document).ready(function(){
     $(document).on('click', '.save_element', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
-        _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.loader' ).show('fade', {}, 'slow', function(){
-                // request ajax for save
+
+        var form = _selectorContainer.find('form');
+
+        form.validate({
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
                 swal({
-                    title: "Good job!",
-                    text: "You clicked the button!",
-                    type: "success",
-                    timer: 2000,
-                    showConfirmButton: false
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
                 });
-            });
+
+            }
         });
 
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _url_action = $('#api').find('#store').val();
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        nom_secteur : $('#nom_secteur').val()
+                    };
+
+                    addElement(_url_action, _dataRequestAction);
+
+                });
+            });
+
+        }
 
     });
-
-    $(document).on('click', '#list_elements .card', function(){
-        alert('OK');
-    });
-
-
-
-
 
 
 });

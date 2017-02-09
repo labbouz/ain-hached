@@ -119,10 +119,9 @@ a:focus{
     position: relative;
     min-height: 100px;
     margin: 0;
-    padding: 0 14px;
+    padding: 0;
     line-height: 42px;
     font-size: 15px;
-    cursor: pointer;
 }
 
 .add {

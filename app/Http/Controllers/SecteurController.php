@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
+
 
 use App\Secteur;
 //use App\Convention;
@@ -47,18 +49,28 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+
+        $validator = Validator::make($request->all(), [
             'nom_secteur' => 'required|max:255',
         ]);
 
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
 
+            return $response ;
+        }
 
+        // save secteur
         $secteuradedd = new Secteur;
         $secteuradedd->nom_secteur = $request->nom_secteur;
         $secteuradedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => 'Setting created successfully',
+            'msg' => trans('secteur.message_save_succes_secteur'),
         );
 
         return response()->json($response);
@@ -112,7 +124,8 @@ class SecteurController extends Controller
     public function getUsersJSON()
     {
 
-        $secteures = Secteur::all();
+        //$secteures = Secteur::all();
+        $secteures = Secteur::orderBy('id', 'desc')->get();
 
         $reponse = [
             'status' => 'success',
