@@ -107,7 +107,31 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'nom_secteur' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save secteur
+        $secteurUpdated = Secteur::find($id);
+        $secteurUpdated->fill( $request->all() )->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('secteur.message_update_succes_secteur'),
+        );
+
+        return response()->json($response);
     }
 
     /**

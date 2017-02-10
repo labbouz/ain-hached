@@ -43,21 +43,22 @@
 @section('url_ajax')
     <input id="index" type="hidden" value="{{ route('json.secteurs.index') }}">
     <input id="store" type="hidden" value="{{ route('secteurs.store') }}">
+
     {{ csrf_field() }}
 
     <div id="template_container" class="hide">
         <div id="id_{id}" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-card">
             <div class="container_element box">
 
-                <div class="container_element card">
+                <div class="edit_card card">
                     <div class="label_elemen">
-                        <span class="edit">{nom_secteur}</span>
+                        <span class="edit" dir="rtl">{nom_secteur}</span>
                     </div>
 
 
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="remove" data-warning="@lang('main.etes_vous_sure')" data-text-warning="@lang('secteur.suppression_defenitife')" data-confirm-buttontext="@lang('main.confirmButtonText')" data-cancel-buttonText="@lang('main.cancelButtonText')"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
 
@@ -66,15 +67,15 @@
 
 
                 <div class="form-box">
-                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="" data-error="@lang('main.info_monquant')" required />
+                            <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="{nom_secteur}" data-error="@lang('main.info_monquant')" data-reset="{nom_secteur}" required />
                         </div>
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)" class="cancel_element"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
-                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+                        <a href="javascript:void(0)" class="cancel_edit"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
                     </div>
                 </div>
@@ -109,7 +110,7 @@
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)" class="cancel_element"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
                         <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
                     </div>

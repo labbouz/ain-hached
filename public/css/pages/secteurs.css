@@ -37,6 +37,7 @@
     cursor: pointer;
 }
 
+.container_element .edit_card .toolbar_box,
 .container_element .form-box .toolbar_box {
     display: block;
     float: left;
@@ -45,7 +46,7 @@
     background-color: #4F5467 ;
     text-align: center;
 }
-
+.container_element .edit_card .toolbar_box a,
 .container_element .form-box .toolbar_box a {
     outline: none;
     text-decoration: none;
@@ -56,6 +57,7 @@
     color: #ffffff;
 }
 
+.container_element .edit_card .toolbar_box ai,
 .container_element .form-box .toolbar_box a i {
     font-size: 20px;
     line-height: 42px;
@@ -65,27 +67,24 @@
 .container_element .form-box .toolbar_box a:focus {
 }
 
-.container-card .container_element .toolbar_box {
+.container_element .edit_card .toolbar_box {
     text-align: right;
 }
-.container-card .container_element .toolbar_box a {
+
+.container_element .edit_card .toolbar_box a,
+.container_element .toolbar_box a {
     margin: 0 10px 0 0;
 }
-
-.container-card .toolbar_box a:hover {
-    color: #d9d9d9;
+.container_element .edit_card .toolbar_box a i {
+    font-size: 20px;
+    line-height: 42px;
 }
 
 
-
-
-.container_element .form-box .toolbar_box .save_element:hover {
+.container_element .toolbar_box a:hover {
     color: #d9d9d9;
 }
-.container_element .form-box .toolbar_box .cancel_element:hover {
-    color: #d9d9d9;
 
-}
 .container-card .loader,
 .container_element .loader {
     display: none;

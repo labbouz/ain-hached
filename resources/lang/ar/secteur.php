@@ -15,8 +15,9 @@ return [
     'add_secteur' => 'إضافة قطاع جديد',
     'message_save_succes_secteur' => ' تم اضافة القطاع بنجاح',
     'detail_secteur_edit' => 'تفاصيل خاصة بالقطاع الخاص ',
+    'suppression_defenitife' =>'هل تريد حذف هذا القطاع نهائيا من النظام ؟',
     'message_delete_succes_secteur' => 'تم حذف القطاع بنجاح',
-    'message_update_succes_secteur' => 'تم التعديل بنجاح',
+    'message_update_succes_secteur' => 'تم تعديل القطاع بنجاح',
 
     'edit_secteur' => 'تعديل في قطاع',
     'detail_secteur' => 'تعديل قطاع',

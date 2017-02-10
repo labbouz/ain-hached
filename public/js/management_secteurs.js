@@ -27,7 +27,7 @@ $(document).ready(function(){
                 var _container = $('#template_container').html();
 
                 $.each(data, function (index, data) {
-                    _container = _container.replace("{"+index+"}", data);
+                    _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
                 });
 
                 $('#list_elements').append(_container);
@@ -122,6 +122,60 @@ $(document).ready(function(){
         });
     }
 
+    function updateElement(url, data_elemen, id_elemen) {
+
+        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_secteur);
+                    _selectorContainer.find( 'form' ).find( '#nom_secteur' ).attr('data-reset', data_elemen.nom_secteur);
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                }
+            },
+            error: function(data){
+                //console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find('.cancel_edit').trigger( "click" );
+            }
+        });
+
+    }
+
     function setLoading() {
         var _container_loading = $('#template_loading').html();
 
@@ -143,20 +197,36 @@ $(document).ready(function(){
 
     $(document).on('click', '.edit', function(){
 
-        var _selectorContainer = $(this).closest( ".container-card" );
-        _selectorContainer.find('.container_element').hide('fade', {}, 'fast', function(){
+        var _selectorContainer = $(this).closest( ".container_element" );
+        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
         });
 
 
     });
 
-    $(document).on('click', '.cancel_element', function(){
+    $(document).on('click', '.cancel_add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.add' ).show('fade', {}, 'fast', function(){
                 _selectorContainer.find( 'form' )[0].reset();
+            });
+        });
+
+
+    });
+
+    $(document).on('click', '.cancel_edit', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+               // reset edit
+                _selectorContainer.find( 'form' ).find('input').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                })
             });
         });
 
@@ -205,5 +275,97 @@ $(document).ready(function(){
 
     });
 
+
+    $(document).on('click', '.update_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find('form');
+
+        form.validate({
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+
+
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _idElement = form.attr('data-id');
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/' + _idElement;
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        nom_secteur : form.find('#nom_secteur').val(),
+                        _method: "PATCH"
+                    };
+
+                    updateElement(_url_action, _dataRequestAction, _idElement);
+
+                });
+            });
+
+        }
+
+    });
+
+    $(document).on('click', '.remove', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find('form');
+
+        swal({
+                title: $(this).attr('data-warning'),
+                text: $(this).attr('data-text-warning'),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#4F5467",
+                confirmButtonText: $(this).attr('data-confirm-buttontext'),
+                cancelButtonText: $(this).attr('data-cancel-buttonText'),
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                } else {
+                    swal("Cancelled", "error");
+                }
+            });
+    });
+    /*
+
+     var _idElement = form.attr('data-id');
+
+     var _url_action = $('#api').find('#store').val();
+     _url_action = _url_action + '/' + _idElement;
+
+     var _dataRequestAction = {
+     _token : _csrf_token,
+     nom_secteur : form.find('#nom_secteur').val(),
+     _method: "PATCH"
+     };
+
+     //removeElement(_url_action, _dataRequestAction, _idElement);
+
+
+     */
 
 });

@@ -68,5 +68,11 @@ return [
     'problem_sauve' => 'هناك خطأ في التسجيل',
     'info_monquant' => 'الرجاء القيام بإكمال الإستمارة',
 
+    'etes_vous_sure' => 'هل أنت واثق؟',
+
+    'confirmButtonText' => 'نعم، قم بالحذف ',
+    'cancelButtonText' => 'لا، قم بالإلغاء',
+
+
 
 ];
