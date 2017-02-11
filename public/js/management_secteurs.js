@@ -108,6 +108,8 @@ $(document).ready(function(){
                         type: "error",
                         confirmButtonColor: "#4F5467"
                     });
+
+                    $('.cancel_add').trigger( "click" );
                 }
             },
             error: function(data){
@@ -118,6 +120,8 @@ $(document).ready(function(){
                     timer: 2000,
                     showConfirmButton: false
                 });
+
+                $('.cancel_add').trigger( "click" );
             }
         });
     }
@@ -171,6 +175,46 @@ $(document).ready(function(){
                 });
 
                 _selectorContainer.find('.cancel_edit').trigger( "click" );
+            }
+        });
+
+    }
+
+    function removeElement(url, data_elemen, id_elemen) {
+
+        var _selectorContainerCard = $("#id_"+id_elemen);
+
+        $.ajax({
+            type: 'DELETE',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+
+                    _selectorContainerCard.hide('fade', {}, 'fast', function(){
+                        $(this).remove();
+                    });
+
+
+                }
+            },
+            error: function(data){
+                //console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             }
         });
 
@@ -327,45 +371,47 @@ $(document).ready(function(){
 
     $(document).on('click', '.remove', function(){
 
-        var _selectorContainer = $(this).closest( ".container_element" );
+        var _selectoRemove = $(this);
+        var _selectorContainer = _selectoRemove.closest( ".container_element" );
 
         var form = _selectorContainer.find('form');
 
         swal({
-                title: $(this).attr('data-warning'),
-                text: $(this).attr('data-text-warning'),
+                title: _selectoRemove.attr('data-warning'),
+                text: _selectoRemove.attr('data-text-warning'),
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#4F5467",
-                confirmButtonText: $(this).attr('data-confirm-buttontext'),
-                cancelButtonText: $(this).attr('data-cancel-buttonText'),
+                confirmButtonText: _selectoRemove.attr('data-confirm-buttontext'),
+                cancelButtonText: _selectoRemove.attr('data-cancel-buttonText'),
                 closeOnConfirm: false,
-                closeOnCancel: false
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
             },
             function(isConfirm){
                 if (isConfirm) {
-                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+
+                    var _idElement = form.attr('data-id');
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/' + _idElement;
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        _method: "DELETE"
+                    };
+
+                    removeElement(_url_action, _dataRequestAction, _idElement);
+
+
                 } else {
-                    swal("Cancelled", "error");
+                    swal({
+                        title: _selectoRemove.attr('data-cancelled'),
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
                 }
             });
     });
-    /*
-
-     var _idElement = form.attr('data-id');
-
-     var _url_action = $('#api').find('#store').val();
-     _url_action = _url_action + '/' + _idElement;
-
-     var _dataRequestAction = {
-     _token : _csrf_token,
-     nom_secteur : form.find('#nom_secteur').val(),
-     _method: "PATCH"
-     };
-
-     //removeElement(_url_action, _dataRequestAction, _idElement);
-
-
-     */
 
 });

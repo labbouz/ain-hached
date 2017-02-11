@@ -72,6 +72,7 @@ return [
 
     'confirmButtonText' => 'نعم، قم بالحذف ',
     'cancelButtonText' => 'لا، قم بالإلغاء',
+    'cancelled' => 'تم الالغاء',
 
 
 

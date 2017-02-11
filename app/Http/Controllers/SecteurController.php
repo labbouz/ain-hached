@@ -51,7 +51,7 @@ class SecteurController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|max:255',
+            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -108,8 +108,10 @@ class SecteurController extends Controller
     public function update(Request $request, $id)
     {
 
+        $secteurUpdated = Secteur::find($id);
+
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|max:255',
+            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -123,7 +125,6 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated = Secteur::find($id);
         $secteurUpdated->fill( $request->all() )->save();
 
         $response = array(
@@ -142,7 +143,14 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Secteur::find($id)->delete();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('secteur.message_delete_succes_secteur'),
+        );
+
+        return response()->json($response);
     }
 
     public function getUsersJSON()

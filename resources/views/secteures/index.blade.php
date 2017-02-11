@@ -58,7 +58,13 @@
 
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)" class="remove" data-warning="@lang('main.etes_vous_sure')" data-text-warning="@lang('secteur.suppression_defenitife')" data-confirm-buttontext="@lang('main.confirmButtonText')" data-cancel-buttonText="@lang('main.cancelButtonText')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="remove"
+                           data-warning="@lang('main.etes_vous_sure')"
+                           data-text-warning="@lang('secteur.suppression_defenitife')"
+                           data-confirm-buttontext="@lang('main.confirmButtonText')"
+                           data-cancel-buttonText="@lang('main.cancelButtonText')"
+                           data-cancelled="@lang('main.cancelled')"
+                        ><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
 
