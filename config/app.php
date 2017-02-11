@@ -169,6 +169,9 @@ return [
 
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        //Laravel Activitylog
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
+
         //
 
         /*
