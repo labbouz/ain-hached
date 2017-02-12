@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 
+use App\Move;
 
-use App\Secteur;
-//use App\Convention;
-
-class SecteurController extends Controller
+class MoveController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -28,7 +27,7 @@ class SecteurController extends Controller
      */
     public function index()
     {
-        return view('secteures.index');
+        return view('moves.index');
     }
 
     /**
@@ -49,9 +48,8 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
+            'nom_move' => 'required|unique:moves,nom_move|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -65,12 +63,12 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteuradedd = new Secteur;
-        $secteuradedd->nom_secteur = $request->nom_secteur;
-        $secteuradedd->save();
+        $moveadedd = new Move;
+        $moveadedd->nom_move = $request->nom_move;
+        $moveadedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_save_succes_secteur'),
+            'msg' => trans('move.message_save_succes_move'),
         );
 
         return response()->json($response);
@@ -107,11 +105,10 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $secteurUpdated = Secteur::find($id);
+        $moveUpdated = Move::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
+            'nom_move' => 'required|unique:moves,nom_move,'.$moveUpdated->id.'|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -125,11 +122,11 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated->fill( $request->all() )->save();
+        $moveUpdated->fill( $request->all() )->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_update_succes_secteur'),
+            'msg' => trans('move.message_update_succes_move'),
         );
 
         return response()->json($response);
@@ -143,11 +140,11 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        Secteur::find($id)->delete();
+        Move::find($id)->delete();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_delete_succes_secteur'),
+            'msg' => trans('move.message_delete_succes_move'),
         );
 
         return response()->json($response);
@@ -157,11 +154,11 @@ class SecteurController extends Controller
     {
 
         //$secteures = Secteur::all();
-        $secteures = Secteur::orderBy('id', 'desc')->get();
+        $move = Move::orderBy('id', 'desc')->get();
 
         $reponse = [
             'status' => 'success',
-            'elements' => $secteures,
+            'elements' => $move,
         ];
 
         return response()->json($reponse);

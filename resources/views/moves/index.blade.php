@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/secteurs.css" rel="stylesheet">
+    <link href="/css/pages/moves.css" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -12,14 +12,16 @@
                     <div id="header_loading" class="header_action header_action_active"></div>
 
                     <div id="header_index" class="header_action">
+
                         <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true"></i></a>
-                        <h3> @lang('secteur.secteurs')  </h3>
-                        <p class="text-muted">@lang('secteur.description_secteurs')</p>
+
+                        <h3> @lang('move.moves')  </h3>
+                        <p class="text-muted">@lang('move.description_moves')</p>
                     </div>
 
                     <div id="header_add" class="header_action">
-                        <h3> @lang('secteur.add_secteur')  </h3>
-                        <p class="text-muted">@lang('secteur.detail_secteur_edit')</p>
+                        <h3> @lang('move.add_move')  </h3>
+                        <p class="text-muted">@lang('move.detail_move_edit')</p>
                     </div>
 
 
@@ -42,8 +44,8 @@
 @endsection
 
 @section('url_ajax')
-    <input id="index" type="hidden" value="{{ route('json.secteurs.index') }}">
-    <input id="store" type="hidden" value="{{ route('secteurs.store') }}">
+    <input id="index" type="hidden" value="{{ route('json.moves.index') }}">
+    <input id="store" type="hidden" value="{{ route('moves.store') }}">
 
     {{ csrf_field() }}
 
@@ -53,7 +55,7 @@
 
                 <div class="edit_card card">
                     <div class="label_elemen">
-                        <span class="edit" dir="rtl">{nom_secteur}</span>
+                        <span class="edit" dir="rtl">{nom_move}</span>
                     </div>
 
 
@@ -61,7 +63,7 @@
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="remove"
                            data-warning="@lang('main.etes_vous_sure')"
-                           data-text-warning="@lang('secteur.suppression_defenitife')"
+                           data-text-warning="@lang('move.suppression_defenitife')"
                            data-confirm-buttontext="@lang('main.confirmButtonText')"
                            data-cancel-buttonText="@lang('main.cancelButtonText')"
                            data-cancelled="@lang('main.cancelled')"
@@ -76,7 +78,7 @@
                 <div class="form-box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="{nom_secteur}" data-error="@lang('main.info_monquant')" data-reset="{nom_secteur}" required />
+                            <input type="text" class="form-control" id="nom_move" placeholder="@lang('secteur.secteur_nom')" value="{nom_move}" data-error="@lang('main.info_monquant')" data-reset="{nom_move}" required />
                         </div>
                     </form>
 
@@ -106,13 +108,13 @@
             <div class="container_element box">
                 <a href="javascript:void(0)" class="add">
                     <span class="fa fa-plus-circle"></span>
-                    <span class="text">@lang('secteur.add_secteur')</span>
+                    <span class="text">@lang('move.add_move')</span>
                 </a>
 
                 <div class="form-box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_secteur" placeholder="@lang('secteur.secteur_nom')" value="" data-error="@lang('main.info_monquant')" required />
+                            <input type="text" class="form-control" id="nom_move" placeholder="@lang('move.move_nom')" value="" data-error="@lang('main.info_monquant')" required />
                         </div>
                     </form>
 
@@ -136,5 +138,5 @@
 @endsection
 
 @section('footer')
-    <script src="/js/management_secteurs.js"></script>
+    <script src="/js/management_moves.js"></script>
 @endsection

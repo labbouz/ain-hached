@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 
+use App\StructureSyndicale;
 
-use App\Secteur;
-//use App\Convention;
-
-class SecteurController extends Controller
+class StructureSyndicaleController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +26,7 @@ class SecteurController extends Controller
      */
     public function index()
     {
-        return view('secteures.index');
+        return view('structures_syndicales.index');
     }
 
     /**
@@ -49,9 +47,9 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
+            'type_structure_syndicale' => 'required|unique:structures_syndicales,type_structure_syndicale|max:255',
+            'description_type' => 'alpha_dash'
         ]);
 
         if ($validator->fails()) {
@@ -65,12 +63,13 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteuradedd = new Secteur;
-        $secteuradedd->nom_secteur = $request->nom_secteur;
-        $secteuradedd->save();
+        $structureSyndicaleadedd = new StructureSyndicale;
+        $structureSyndicaleadedd->type_structure_syndicale = $request->type_structure_syndicale;
+        $structureSyndicaleadedd->description_type = $request->description_type;
+        $structureSyndicaleadedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_save_succes_secteur'),
+            'msg' => trans('syndicale.message_save_succes_structure_syndicale'),
         );
 
         return response()->json($response);
@@ -107,11 +106,11 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $secteurUpdated = Secteur::find($id);
+        $structureSyndicaleUpdated = StructureSyndicale::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
+            'type_structure_syndicale' => 'required|unique:structures_syndicales,type_structure_syndicale,'.$structureSyndicaleUpdated->id.'|max:255',
+            'description_type' => 'alpha_dash'
         ]);
 
         if ($validator->fails()) {
@@ -125,11 +124,11 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated->fill( $request->all() )->save();
+        $structureSyndicaleUpdated->fill( $request->all() )->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_update_succes_secteur'),
+            'msg' => trans('syndicale.message_update_succes_structure_syndicale'),
         );
 
         return response()->json($response);
@@ -143,11 +142,11 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        Secteur::find($id)->delete();
+        StructureSyndicale::find($id)->delete();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_delete_succes_secteur'),
+            'msg' => trans('syndicale.message_delete_succes_structure_syndicale'),
         );
 
         return response()->json($response);
@@ -157,11 +156,11 @@ class SecteurController extends Controller
     {
 
         //$secteures = Secteur::all();
-        $secteures = Secteur::orderBy('id', 'desc')->get();
+        $structures_syndicales = StructureSyndicale::orderBy('id', 'desc')->get();
 
         $reponse = [
             'status' => 'success',
-            'elements' => $secteures,
+            'elements' => $structures_syndicales,
         ];
 
         return response()->json($reponse);

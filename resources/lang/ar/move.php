@@ -15,8 +15,9 @@ return [
     'add_move' => 'إضافة تحرك جديد',
     'message_save_succes_move' => ' تم اضافة التحرك بنجاح',
     'detail_move_edit' => 'تفاصيل خاصة بالتحركات ',
+    'suppression_defenitife' =>'هل تريد حذف هذا التحرك نهائيا من النظام ؟',
     'message_delete_succes_move' => 'تم حذف التحرك بنجاح',
-    'message_update_succes_move' => 'تم التعديل بنجاح',
+    'message_update_succes_move' => 'تم تعديل التحرك بنجاح',
 
     'edit_move' => 'تعديل في إسم تحرك',
     'detail_move' => 'تعديل تحرك',

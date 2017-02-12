@@ -27,7 +27,12 @@ $(document).ready(function(){
                 var _container = $('#template_container').html();
 
                 $.each(data, function (index, data) {
-                    _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    if(data== null) {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), '');
+                    } else {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    }
+
                 });
 
                 $('#list_elements').append(_container);
@@ -83,6 +88,7 @@ $(document).ready(function(){
     }
 
     function addElement(url, data) {
+
         $.ajax({
             type: 'post',
             url: url,
@@ -127,7 +133,7 @@ $(document).ready(function(){
     }
 
     function updateElement(url, data_elemen, id_elemen) {
-
+        console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
         $.ajax({
@@ -145,8 +151,9 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_secteur);
-                    _selectorContainer.find( 'form' ).find( '#nom_secteur' ).attr('data-reset', data_elemen.nom_secteur);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.type_structure_syndicale);
+                    _selectorContainer.find( 'form' ).find( '#type_structure_syndicale' ).attr('data-reset', data_elemen.type_structure_syndicale);
+                    _selectorContainer.find( 'form' ).find( '#description_type' ).attr('data-reset', data_elemen.description_type);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -273,11 +280,16 @@ $(document).ready(function(){
         var _selectorContainer = $(this).closest( ".container_element" );
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-               // reset edit
+               // reset edit for input
                 _selectorContainer.find( 'form' ).find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
-                })
+                });
+                // reset edit for textarea
+                _selectorContainer.find( 'form' ).find('textarea').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
             });
         });
 
@@ -314,7 +326,8 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : $('#nom_secteur').val()
+                        type_structure_syndicale : $('#type_structure_syndicale').val(),
+                        description_type : $('#description_type').val()
                     };
 
                     addElement(_url_action, _dataRequestAction);
@@ -363,7 +376,8 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val(),
+                        type_structure_syndicale : form.find('#type_structure_syndicale').val(),
+                        description_type : form.find('#description_type').val(),
                         _method: "PATCH"
                     };
 

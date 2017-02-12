@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-hand-rock-o fa-lg" ></i>
+                <a href="{{ route('structure_syndicale.index') }}"><i class="fa fa-hand-rock-o fa-lg" ></i>
                     <span>@lang('main.structures_syndicales')</span>
                 </a>
             </div>
@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-map-signs fa-lg" ></i>
+                <a href="{{ route('moves.index') }}"><i class="fa fa-map-signs fa-lg" ></i>
                     <span>@lang('main.moves')</span>
                 </a>
             </div>

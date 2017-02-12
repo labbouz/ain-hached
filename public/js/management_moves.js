@@ -145,8 +145,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_secteur);
-                    _selectorContainer.find( 'form' ).find( '#nom_secteur' ).attr('data-reset', data_elemen.nom_secteur);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_move);
+                    _selectorContainer.find( 'form' ).find( '#nom_move' ).attr('data-reset', data_elemen.nom_move);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -245,7 +245,7 @@ $(document).ready(function(){
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
-               $(this).find('.cancel_edit').trigger( "click" );
+                $(this).find('.cancel_edit').trigger( "click" );
             }
         });
 
@@ -314,7 +314,7 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : $('#nom_secteur').val()
+                        nom_move : $('#nom_move').val()
                     };
 
                     addElement(_url_action, _dataRequestAction);
@@ -363,7 +363,7 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val(),
+                        nom_move : form.find('#nom_move').val(),
                         _method: "PATCH"
                     };
 

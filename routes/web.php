@@ -22,6 +22,10 @@ Route::get('/setting', 'HomeController@setting')->name('setting');
 
 Route::resource('users', 'UserController');
 Route::resource('secteurs', 'SecteurController');
+Route::resource('moves', 'MoveController');
+Route::resource('structure_syndicale', 'StructureSyndicaleController');
 
 Route::post('REST/users', 'UserController@getUsersJSON')->name('json.users.index');
-Route::post('REST/secteurs', 'SecteurController@getUsersJSON')->name('json.secteurs.index');
+Route::post('REST/secteurs', 'SecteurController@getElementsJSON')->name('json.secteurs.index');
+Route::post('REST/moves', 'MoveController@getElementsJSON')->name('json.moves.index');
+Route::post('REST/structure_syndicale', 'StructureSyndicaleController@getElementsJSON')->name('json.structure_syndicale.index');
