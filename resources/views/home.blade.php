@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/cpanel.css" rel="stylesheet">
+    <link href="{{ asset('css/pages/cpanel.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

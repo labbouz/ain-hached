@@ -11,18 +11,18 @@
     <title>{{ trans('main.nom_app') }}</title>
 
     <!-- Styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/sweetalert.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 @yield('header')
 
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php echo json_encode([
+        window.Laravel = '<?php echo json_encode([
             'csrfToken' => csrf_token(),
-        ]); ?>
+        ]); ?>';
     </script>
 </head>
 <body>
@@ -93,16 +93,16 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/jquery-1.12.4.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/sweetalert.min.js"></script>
+    <script src="{{ asset('js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>-
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
 
-    <script src="js/jquery-validation/jquery.validate.min.js"></script>
-    <script src="js/jquery-validation/additional-methods.min.js"></script>
-    <script src="js/jquery-validation/localization/messages_ar.min.js"></script>
+    <script src="{{ asset('js/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-validation/additional-methods.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-validation/localization/messages_ar.min.js') }}"></script>
 
-    <script src="/js/app.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     @yield('footer')
 </body>

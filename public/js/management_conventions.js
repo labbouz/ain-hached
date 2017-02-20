@@ -15,9 +15,11 @@ $(document).ready(function(){
     setLoading();
     getList(_url, _dataRequest);
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+    $('[data-toggle="tooltip"]').tooltip();
+
+    var setCountElement = function(_count) {
+        $('.count').text(_count);
+    };
 
     var loadElements = function(elements) {
 
@@ -31,7 +33,12 @@ $(document).ready(function(){
                 var _container = $('#template_container').html();
 
                 $.each(data, function (index, data) {
-                    _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    if(data== null) {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), '');
+                    } else {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    }
+
                 });
 
                 $('#list_elements').append(_container);
@@ -50,13 +57,19 @@ $(document).ready(function(){
     var displayElement = function() {
 
         var _delay = 800;
-        $('#list_elements > .container-card').each(function( index ) {
+        $('#list_elements > .container-card').each(function( ) {
             $(this).delay(_delay).show('fade', {}, 'fast');
+
+            $(this).find('select').each(function( ) {
+                var _valDefault = $(this).attr('data-reset');
+                $(this).find('option[value='+_valDefault+']').attr('selected','selected');
+             });
 
             _delay = _delay + 100;
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+         $('[data-toggle="tooltip"]').tooltip();
+
     };
 
 
@@ -69,7 +82,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 // success logic
-
+                console.log(data);
                 $('.header_action_active').hide('fade', {}, 500, function(){
                     $('#header_index').show('fade', {}, 800, function(){
                         $(this).addClass('header_action_active');
@@ -77,6 +90,9 @@ $(document).ready(function(){
                 });
 
                 if(data.status == 'success') {
+                    // update nomber element
+                    setCountElement(data.elements.length);
+
                     loadElements(data.elements);
                 } else {
                     console.log(data);
@@ -88,7 +104,8 @@ $(document).ready(function(){
         });
     }
 
-    function addElement(url, data) {
+    function addElement(url, data, _selectorContainer) {
+
         $.ajax({
             type: 'post',
             url: url,
@@ -104,6 +121,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    downModEdit();
+
                     $('#list_elements').html('');
                     getList(_url, _dataRequest);
                 } else {
@@ -115,7 +134,9 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    $('.cancel_add').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        $('.cancel_add').trigger( "click" );
+                    });
                 }
             },
             error: function(data){
@@ -127,13 +148,15 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                $('.cancel_add').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    $('.cancel_add').trigger( "click" );
+                });
             }
         });
     }
 
     function updateElement(url, data_elemen, id_elemen) {
-
+        //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
         $.ajax({
@@ -151,13 +174,15 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_secteur);
-                    _selectorContainer.find( 'form' ).find( '#nom_secteur' ).attr('data-reset', data_elemen.nom_secteur);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_convention);
+                    _selectorContainer.find( 'form' ).find( '#nom_convention' ).attr('data-reset', data_elemen.nom_convention);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                         });
                     });
+
+                    downModEdit();
 
                 } else {
                     //console.log(data);
@@ -168,7 +193,9 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    });
                 }
             },
             error: function(data){
@@ -180,7 +207,9 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                _selectorContainer.find('.cancel_edit').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                });
             }
         });
 
@@ -198,6 +227,10 @@ $(document).ready(function(){
             success: function(data) {
 
                 if(data.status == 'success') {
+                    var _count = parseInt($('.count').text());
+
+                    setCountElement(_count-1);
+
                     swal({
                         title: data.msg,
                         type: "success",
@@ -205,21 +238,16 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+
                     _selectorContainerCard.hide('fade', {}, 'fast', function(){
                         $(this).remove();
                     });
-                } else {
-                    //console.log(data);
-                    swal({
-                        title: data.msg,
-                        text: data.msg_text,
-                        type: "error",
-                        confirmButtonColor: "#4F5467"
-                    });
+
+
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -237,11 +265,22 @@ $(document).ready(function(){
         $('#header_loading').append(_container_loading).show();
     }
 
+    function setModEdit() {
+        $('#list_elements').addClass('bg_detail_active');
+    }
+
+    function downModEdit() {
+        $('#list_elements').removeClass('bg_detail_active');
+    }
+
     /*********** Actions *************/
 
     $(document).on('click', '.add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
         $(this).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
         });
@@ -253,6 +292,8 @@ $(document).ready(function(){
     $(document).on('click', '.edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
@@ -270,6 +311,7 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+        downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.add' ).show('fade', {}, 'fast', function(){
                 _selectorContainer.find( 'form' )[0].reset();
@@ -282,13 +324,25 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+        downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-               // reset edit
+               // reset edit for input
                 _selectorContainer.find( 'form' ).find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
-                })
+                });
+                // reset edit for textarea
+                _selectorContainer.find( 'form' ).find('textarea').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for select
+                _selectorContainer.find( 'form' ).find('select').each(function( ) {
+                    var _valDefault = $(this).attr('data-reset');
+                    $(this).val(_valDefault);
+                });
+
             });
         });
 
@@ -325,10 +379,11 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val()
+                        nom_convention : form.find('#nom_convention').val(),
+                        secteur_id : form.find('#secteur_id').val()
                     };
 
-                    addElement(_url_action, _dataRequestAction);
+                    addElement(_url_action, _dataRequestAction, _selectorContainer);
 
                 });
             });
@@ -359,9 +414,6 @@ $(document).ready(function(){
             }
         });
 
-
-
-
         if( form.valid() ) {
 
             _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
@@ -374,7 +426,8 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val(),
+                        nom_convention : form.find('#nom_convention').val(),
+                        secteur_id : form.find('#secteur_id').val(),
                         _method: "PATCH"
                     };
 

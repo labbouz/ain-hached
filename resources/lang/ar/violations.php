@@ -23,13 +23,17 @@ return [
 
     'description_violations' => 'جميع أنواع الإعتداءات المسجلة في النظام',
     'add_violation' => 'إضافة نوع إعتداء جديد',
-
+    'message_save_succes_violation' => ' تم اضافة نوع الإعتداء بنجاح',
+    'message_delete_succes_violation' => 'تم حذف نوع الإعتداء بنجاح',
+    'message_update_succes_violation' => 'تم تعديل نوع الإعتداء بنجاح',
+    'suppression_defenitife' =>'هل تريد حذف هذا الإعتداء نهائيا من النظام ؟',
     'type_violation'=>'تصنيف الإعتداءات',
     'gravite'=>'خطورة الإعتداء',
 
     'detail_violation_edit'=>'تفاصيل خاصة بالإعتداء',
     'nom_violation' => 'اسم نوع الإعتداء',
     'type_violation'=>'تصنيف الإعتداء',
+    'violation'=>'إعتداء',
 
     'description_violation' => 'وصف الإعتداء',
     'description_type_violation' => 'معلومات تصف الإعتداء ... لتوضح الإختيار لدى مستعملي النظام',

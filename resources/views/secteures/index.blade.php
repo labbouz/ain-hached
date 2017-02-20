@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/secteurs.css" rel="stylesheet">
+    <link href="{{ asset('css/pages/secteurs.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -12,7 +12,7 @@
                     <div id="header_loading" class="header_action header_action_active"></div>
 
                     <div id="header_index" class="header_action">
-                        <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                        <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.configuration')"></i></a>
                         <h3> @lang('secteur.secteurs')  </h3>
                         <p class="text-muted">@lang('secteur.description_secteurs')</p>
                     </div>
@@ -59,6 +59,15 @@
 
 
                     <div class="toolbar_box"  dir="rtl">
+                        <div id="indicat_element" class="indicat">
+                            <a href="{url_display_conventions}" data-toggle="tooltip" data-placement="top" title="{description_count_conventions}">
+                                <i class="fa fa-handshake-o"></i>
+                                {count_conventions}
+                            </a>
+
+                        </div>
+
+
                         <a href="javascript:void(0)" class="remove"
                            data-warning="@lang('main.etes_vous_sure')"
                            data-text-warning="@lang('secteur.suppression_defenitife')"
@@ -136,5 +145,5 @@
 @endsection
 
 @section('footer')
-    <script src="/js/management_secteurs.js"></script>
+    <script src="{{ asset('js/management_secteurs.js') }}"></script>
 @endsection

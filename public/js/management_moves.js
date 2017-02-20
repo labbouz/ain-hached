@@ -15,6 +15,10 @@ $(document).ready(function(){
     setLoading();
     getList(_url, _dataRequest);
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     var loadElements = function(elements) {
 
         var _container_form = $('#template_form_add').html();
@@ -314,7 +318,7 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_move : $('#nom_move').val()
+                        nom_move : form.find('#nom_move').val()
                     };
 
                     addElement(_url_action, _dataRequestAction);

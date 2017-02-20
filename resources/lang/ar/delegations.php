@@ -3,13 +3,25 @@
 return [
 
     'delegations' =>  'المعتمديات',
-    'description_delegations' => 'المعتمديّة في تونس هي قسم إداري يرجع بالنظر إلى الولاية وتنقسم إلى عمادات.',
+    'description_delegations' => 'المعتمديّة في تونس هي قسم إداري يرجع بالنظر إلى الولاية',
     'delegation' =>  'معتمدية',
+    'delegationss' =>  'معتمديات',
+    'n_delegations' =>  'عدد المعتمديات ',
     'la_delegation' =>  'المعتمدية',
+    'nom_delegation' =>  'اسم المعتمدية',
     'add_delegation' => 'إضافة معتمدية جديدة',
     'detail_delegation_edit' => 'تفاصيل خاصة بالمعتمدية',
     'detail_delegation' => 'تعديل في المعتمدية',
     'edit_delegation' => 'تعديل في معتمدية',
+
+    'message_save_succes_delegation' => ' تم اضافةالمعتمدية بنجاح',
+    'message_delete_succes_delegation' => 'تم حذف المعتمدية بنجاح',
+    'message_update_succes_delegation' => 'تم تعديل المعتمدية بنجاح',
+    'suppression_defenitife' =>'هل تريد حذف هذه المعتمدية نهائيا من النظام ؟',
+
+    'list_delegations_by_gouvernorat' => ' معتمديات ولاية ',
+    'description_delegations_by_gouvernorat' => 'جميع المعتمديات  المسجلة في النظام بولاية ',
+    'count_descriptions' => 'والتي تبلغ عددها',
 
     //'Ariana'
     'Ariana_1' => 'أريانة',

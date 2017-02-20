@@ -114,3 +114,32 @@
     color: #000000;
 }
 
+.indicat {
+    display: block;
+    float: left;
+    height: 42px;
+    padding: 5px 10px;
+}
+.container_element .edit_card .toolbar_box .indicat a {
+    float: left;
+    outline: none;
+    text-decoration: none;
+    line-height: 32px;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.container_element .edit_card .toolbar_box .indicat a i {
+    font-size: 18px;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 0;
+    float: left;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+}
+

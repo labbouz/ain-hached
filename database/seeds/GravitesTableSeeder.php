@@ -15,8 +15,8 @@ class GravitesTableSeeder extends Seeder
         DB::table('gravites')->truncate();
         //insert some dummy records
         DB::table('gravites')->insert(array(
-            array('nom_gravite'=>trans('violations.nom_gravite_1'), 'description_gravite'=>trans('violations.desc_gravite_1'),'class_color_gravite'=>'label-warning', 'created_at' => date('Y-m-d H:i:s')),
-            array('nom_gravite'=>trans('violations.nom_gravite_2'), 'description_gravite'=>trans('violations.desc_gravite_2'),'class_color_gravite'=>'label-danger', 'created_at' => date('Y-m-d H:i:s')),
+            array('nom_gravite'=>trans('violations.nom_gravite_1'), 'description_gravite'=>trans('violations.desc_gravite_1'),'class_color_gravite'=>'gravite-warning', 'created_at' => date('Y-m-d H:i:s')),
+            array('nom_gravite'=>trans('violations.nom_gravite_2'), 'description_gravite'=>trans('violations.desc_gravite_2'),'class_color_gravite'=>'gravite-danger', 'created_at' => date('Y-m-d H:i:s')),
 
         ));
     }

@@ -49,7 +49,7 @@ class StructureSyndicaleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'type_structure_syndicale' => 'required|unique:structures_syndicales,type_structure_syndicale|max:255',
-            'description_type' => 'alpha_dash'
+            'description_type' => 'string'
         ]);
 
         if ($validator->fails()) {
@@ -110,7 +110,7 @@ class StructureSyndicaleController extends Controller
 
         $validator = Validator::make($request->all(), [
             'type_structure_syndicale' => 'required|unique:structures_syndicales,type_structure_syndicale,'.$structureSyndicaleUpdated->id.'|max:255',
-            'description_type' => 'alpha_dash'
+            'description_type' => 'string'
         ]);
 
         if ($validator->fails()) {

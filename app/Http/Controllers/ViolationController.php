@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 
+use App\Violation;
+use App\TypeViolation;
+use App\Gravite;
 
-use App\Secteur;
-//use App\Convention;
-
-class SecteurController extends Controller
+class ViolationController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +28,10 @@ class SecteurController extends Controller
      */
     public function index()
     {
-        return view('secteures.index');
+        $types_violations = TypeViolation::orderBy('nom_type_violation', 'asc')->get();
+        $gravites = Gravite::orderBy('nom_gravite', 'asc')->get();
+
+        return view('violations.index', compact('types_violations','gravites'));
     }
 
     /**
@@ -49,9 +52,11 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
+            'nom_violation' => 'required|unique:violations,nom_violation|max:255',
+            'description_violation' => 'string',
+            'type_violation_id' => 'required|numeric',
+            'gravite_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -65,18 +70,15 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteuradedd = new Secteur;
-        $secteuradedd->nom_secteur = $request->nom_secteur;
-        $secteuradedd->save();
-
-        $secteuradedd->count_conventions = 0;
-        $secteuradedd->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-
-
-
+        $violation_adedd = new Violation;
+        $violation_adedd->nom_violation = $request->nom_violation;
+        $violation_adedd->description_violation = $request->description_violation;
+        $violation_adedd->type_violation_id = $request->type_violation_id;
+        $violation_adedd->gravite_id = $request->gravite_id;
+        $violation_adedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_save_succes_secteur')
+            'msg' => trans('violations.message_save_succes_violation'),
         );
 
         return response()->json($response);
@@ -113,11 +115,13 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $secteurUpdated = Secteur::find($id);
+        $violationUpdated = Violation::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
+            'nom_violation' => 'required|unique:violations,nom_violation,'.$violationUpdated->id.'|max:255',
+            'description_violation' => 'string',
+            'type_violation_id' => 'required|numeric',
+            'gravite_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -131,11 +135,11 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated->fill( $request->all() )->save();
+        $violationUpdated->fill( $request->all() )->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_update_succes_secteur'),
+            'msg' => trans('violations.message_update_succes_violation'),
         );
 
         return response()->json($response);
@@ -149,22 +153,12 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        $secteurRemoved = Secteur::find($id);
+        Violation::find($id)->delete();
 
-        if( $secteurRemoved->conventions->count() == 0 ) {
-            $secteurRemoved->delete();
-
-            $response = array(
-                'status' => 'success',
-                'msg' => trans('secteur.message_delete_succes_secteur'),
-            );
-        } else {
-            $response = array(
-                'status' => 'pb_database',
-                'msg' => trans('main.problem_delet'),
-                'msg_text' => trans('secteur.indication_1_problem_delet'),
-            );
-        }
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('violations.message_delete_succes_violation'),
+        );
 
         return response()->json($response);
     }
@@ -172,40 +166,14 @@ class SecteurController extends Controller
     public function getElementsJSON()
     {
 
-        //$secteures = Secteur::all();
-        $secteures = Secteur::orderBy('id', 'desc')->get();
-
-        foreach($secteures as $secteure){
-
-            $count_convention=0;
-            $text_list_convention='';
-            foreach($secteure->conventions as $convention) {
-                if($secteure->conventions->first() == $convention) {
-                    $text_list_convention .= $convention->nom_convention;
-                } else {
-                    $text_list_convention .= ' - ' . $convention->nom_convention;
-                }
-
-                $count_convention++;
-            }
-
-            $secteure->count_conventions = $count_convention;
-            if($count_convention == 0) {
-                $secteure->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-            } else {
-                $secteure->description_count_conventions = trans('secteur.la_conventions_sectorielles_conjointes') . ' ' . trans('secteur.pour_secteur') . ' ' . $secteure->nom_secteur . ' : ' . $text_list_convention;
-            }
-
-            $secteure->url_display_conventions = route('conventions.display',$secteure->id );
-
-        }
-
+        $violation = Violation::orderBy('id', 'desc')->get();
 
         $reponse = [
             'status' => 'success',
-            'elements' => $secteures,
+            'elements' => $violation,
         ];
 
         return response()->json($reponse);
     }
+
 }

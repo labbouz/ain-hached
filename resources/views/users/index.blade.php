@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/users.css" rel="stylesheet">
+    <link href="{{ asset('css/pages/users.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -120,5 +120,5 @@
 @endsection
 
 @section('footer')
-    <script src="/js/management.js"></script>
+    <script src="{{ asset('js/management.js') }}"></script>
 @endsection

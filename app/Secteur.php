@@ -14,7 +14,7 @@ class Secteur extends Model
 
     public function conventions()
     {
-        return $this->hasMany('\App\Convention');
+        return $this->hasMany('\App\Convention')->orderBy('id', 'desc');
     }
 
     /*

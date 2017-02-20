@@ -9,13 +9,13 @@
     position: absolute;
     z-index: 99;
     top: 0;
-    left:0;
+    right:0;
     width: 100%;
 }
 
 .container_element .form-box .form-cart {
     padding: 8px;
-    height: 176px;
+    height: auto;
     border: none;
 }
 .container_element .form-box .form-cart .form-group{
@@ -34,11 +34,17 @@
 
 }
 
+.container_element .form-box .form-cart input.error,
+.container_element .form-box .form-cart textarea.error,
+.container_element .form-box .form-cart select.error {
+    border-color: #F27474 !important;
+}
+
 .container-card .label_elemen {
     height: 56px;
     text-align: center;
     padding: 8px;
-    line-height: normal;
+    line-height: 21px;
 
 
 }
@@ -156,4 +162,64 @@
     z-index: 10;
     opacity: 1;
 }
+
+
+.indicat {
+    display: block;
+    float: left;
+    height: 42px;
+    padding: 5px 10px;
+}
+
+.indicat i {
+    display: none;
+    font-size: 18px;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    float: left;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+}
+
+.indicat .fa-gravite-warning {
+    background-color: #ff9600;
+}
+.indicat .fa-gravite-warning:before {
+    content: "\f06d";
+
+}
+
+.indicat .fa-gravite-danger {
+    background-color: #ff0000;
+}
+.indicat .fa-gravite-danger:before {
+    content: "\f06d";
+}
+
+.indicat .fa-violation-collectif {
+    background-color: #00a0ff;
+}
+.indicat .fa-violation-collectif:before {
+    content: "\f0c0";
+}
+
+.indicat .fa-violation-individuel {
+    background-color: #00c91c;
+}
+
+.indicat .fa-violation-individuel:before {
+    content: "\f007";
+}
+
+.type_violation_1 .fa-violation-individuel,
+.type_violation_2 .fa-violation-collectif,
+.gravite_1 .fa-gravite-warning ,
+.gravite_2 .fa-gravite-danger {
+    display: block;
+}
+
+
 

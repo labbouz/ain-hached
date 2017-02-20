@@ -15,6 +15,10 @@ $(document).ready(function(){
     setLoading();
     getList(_url, _dataRequest);
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
     var loadElements = function(elements) {
 
         var _container_form = $('#template_form_add').html();
@@ -87,7 +91,7 @@ $(document).ready(function(){
         });
     }
 
-    function addElement(url, data) {
+    function addElement(url, data, _selectorContainer) {
 
         $.ajax({
             type: 'post',
@@ -104,6 +108,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    downModEdit();
+
                     $('#list_elements').html('');
                     getList(_url, _dataRequest);
                 } else {
@@ -115,7 +121,11 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    $('.cancel_add').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        $('.cancel_add').trigger( "click" );
+                    });
+
+
                 }
             },
             error: function(data){
@@ -127,7 +137,9 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                $('.cancel_add').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    $('.cancel_add').trigger( "click" );
+                });
             }
         });
     }
@@ -160,6 +172,8 @@ $(document).ready(function(){
                         });
                     });
 
+                    downModEdit();
+
                 } else {
                     //console.log(data);
                     swal({
@@ -169,7 +183,11 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    });
+
+
                 }
             },
             error: function(data){
@@ -181,7 +199,9 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                _selectorContainer.find('.cancel_edit').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                });
             }
         });
 
@@ -233,11 +253,22 @@ $(document).ready(function(){
         $('#header_loading').append(_container_loading).show();
     }
 
+    function setModEdit() {
+        $('#list_elements').addClass('bg_detail_active');
+    }
+
+    function downModEdit() {
+        $('#list_elements').removeClass('bg_detail_active');
+    }
+
     /*********** Actions *************/
 
     $(document).on('click', '.add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
         $(this).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
         });
@@ -249,6 +280,8 @@ $(document).ready(function(){
     $(document).on('click', '.edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
@@ -266,6 +299,9 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        downModEdit();
+
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.add' ).show('fade', {}, 'fast', function(){
                 _selectorContainer.find( 'form' )[0].reset();
@@ -278,6 +314,9 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        downModEdit();
+
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                // reset edit for input
@@ -326,11 +365,11 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        type_structure_syndicale : $('#type_structure_syndicale').val(),
-                        description_type : $('#description_type').val()
+                        type_structure_syndicale : form.find('#type_structure_syndicale').val(),
+                        description_type : form.find('#description_type').val()
                     };
 
-                    addElement(_url_action, _dataRequestAction);
+                    addElement(_url_action, _dataRequestAction, _selectorContainer);
 
                 });
             });

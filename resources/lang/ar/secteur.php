@@ -26,6 +26,18 @@ return [
     'la_conventions_sectorielles_conjointes' => 'الاتفاقيات القطاعية المشتركة',
     'pour_secteur' => 'لقطاع',
     'conventions_sectorielles_conjointes' => 'اتفاقيات قطاعية مشتركة',
+    'not_exist_conventions_sectorielles_conjointes' => 'لا توجد اتفاقيات قطاعية مشتركة',
+
+    'add_convention' => 'إضافة اتفاقية  جديدة',
+    'nom_convention' =>  'اسم الاتفاقية',
+    'description_conventions_by_secteur' => 'جميع الاتفاقيات القطاعية المشتركة المسجلة في النظام لقطاع',
+    'count_descriptions' => 'والتي تبلغ عددها',
+    'conventionss' => 'اتفاقيات',
+    'message_save_succes_convention' => ' تم اضافةالاتفاقية بنجاح',
+    'message_delete_succes_convention' => 'تم حذف الاتفاقية بنجاح',
+    'message_update_succes_convention' => 'تم تعديل الاتفاقية بنجاح',
+    'suppression_defenitife_convention' =>'هل تريد حذف هذه الاتفاقية نهائيا من النظام ؟',
+    'indication_1_problem_delet' => 'يجب حذف جميع الأتفاقيات المتعلقة بهذا القطاع',
 
 
     'secteur_1' => 'المعاش و السياحة',

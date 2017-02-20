@@ -15,10 +15,6 @@ $(document).ready(function(){
     setLoading();
     getList(_url, _dataRequest);
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-
     var loadElements = function(elements) {
 
         var _container_form = $('#template_form_add').html();
@@ -31,7 +27,12 @@ $(document).ready(function(){
                 var _container = $('#template_container').html();
 
                 $.each(data, function (index, data) {
-                    _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    if(data== null) {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), '');
+                    } else {
+                        _container = _container.replace(new RegExp("{"+index+"}", 'g'), data);
+                    }
+
                 });
 
                 $('#list_elements').append(_container);
@@ -50,13 +51,20 @@ $(document).ready(function(){
     var displayElement = function() {
 
         var _delay = 800;
-        $('#list_elements > .container-card').each(function( index ) {
+        $('#list_elements > .container-card').each(function( ) {
             $(this).delay(_delay).show('fade', {}, 'fast');
+
+            $(this).find('select').each(function( ) {
+                var _valDefault = $(this).attr('data-reset');
+                $(this).find('option[value='+_valDefault+']').attr('selected','selected');
+             });
 
             _delay = _delay + 100;
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+
+            $('[data-toggle="tooltip"]').tooltip();
+
     };
 
 
@@ -88,7 +96,8 @@ $(document).ready(function(){
         });
     }
 
-    function addElement(url, data) {
+    function addElement(url, data, _selectorContainer) {
+
         $.ajax({
             type: 'post',
             url: url,
@@ -104,6 +113,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    downModEdit();
+
                     $('#list_elements').html('');
                     getList(_url, _dataRequest);
                 } else {
@@ -115,7 +126,9 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    $('.cancel_add').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        $('.cancel_add').trigger( "click" );
+                    });
                 }
             },
             error: function(data){
@@ -127,13 +140,15 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                $('.cancel_add').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    $('.cancel_add').trigger( "click" );
+                });
             }
         });
     }
 
     function updateElement(url, data_elemen, id_elemen) {
-
+        //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
         $.ajax({
@@ -151,13 +166,20 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_secteur);
-                    _selectorContainer.find( 'form' ).find( '#nom_secteur' ).attr('data-reset', data_elemen.nom_secteur);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_violation);
+                    _selectorContainer.find( 'form' ).find( '#nom_violation' ).attr('data-reset', data_elemen.nom_violation);
+                    _selectorContainer.find( 'form' ).find( '#description_violation' ).attr('data-reset', data_elemen.description_violation);
+                    _selectorContainer.find( 'form' ).find( '#type_violation_id' ).attr('data-reset', data_elemen.type_violation_id);
+                    _selectorContainer.find( 'form' ).find( '#gravite_id' ).attr('data-reset', data_elemen.gravite_id);
+
+                    _selectorContainer.find('#indicat_element').attr('class', 'indicat type_violation_'+data_elemen.type_violation_id+' gravite_'+data_elemen.gravite_id);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                         });
                     });
+
+                    downModEdit();
 
                 } else {
                     //console.log(data);
@@ -168,7 +190,9 @@ $(document).ready(function(){
                         confirmButtonColor: "#4F5467"
                     });
 
-                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_edit').trigger( "click" );
+                    });
                 }
             },
             error: function(data){
@@ -180,7 +204,9 @@ $(document).ready(function(){
                     showConfirmButton: false
                 });
 
-                _selectorContainer.find('.cancel_edit').trigger( "click" );
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_edit').trigger( "click" );
+                });
             }
         });
 
@@ -205,21 +231,16 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+
                     _selectorContainerCard.hide('fade', {}, 'fast', function(){
                         $(this).remove();
                     });
-                } else {
-                    //console.log(data);
-                    swal({
-                        title: data.msg,
-                        text: data.msg_text,
-                        type: "error",
-                        confirmButtonColor: "#4F5467"
-                    });
+
+
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -237,11 +258,22 @@ $(document).ready(function(){
         $('#header_loading').append(_container_loading).show();
     }
 
+    function setModEdit() {
+        $('#list_elements').addClass('bg_detail_active');
+    }
+
+    function downModEdit() {
+        $('#list_elements').removeClass('bg_detail_active');
+    }
+
     /*********** Actions *************/
 
     $(document).on('click', '.add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
         $(this).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.form-box' ).show('fade', {}, 'fast');
         });
@@ -253,6 +285,8 @@ $(document).ready(function(){
     $(document).on('click', '.edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
@@ -270,6 +304,7 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_add', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+        downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.add' ).show('fade', {}, 'fast', function(){
                 _selectorContainer.find( 'form' )[0].reset();
@@ -282,13 +317,25 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+        downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-               // reset edit
+               // reset edit for input
                 _selectorContainer.find( 'form' ).find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
-                })
+                });
+                // reset edit for textarea
+                _selectorContainer.find( 'form' ).find('textarea').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for select
+                _selectorContainer.find( 'form' ).find('select').each(function( ) {
+                    var _valDefault = $(this).attr('data-reset');
+                    $(this).val(_valDefault);
+                });
+
             });
         });
 
@@ -302,6 +349,16 @@ $(document).ready(function(){
         var form = _selectorContainer.find('form');
 
         form.validate({
+            rules: {
+                type_violation_id: {
+                    required: true,
+                    min: 1
+                },
+                gravite_id: {
+                    required: true,
+                    min: 1
+                }
+            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -325,10 +382,13 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val()
+                        nom_violation : form.find('#nom_violation').val(),
+                        description_violation : form.find('#description_violation').val(),
+                        type_violation_id : form.find('#type_violation_id').val(),
+                        gravite_id : form.find('#gravite_id').val()
                     };
 
-                    addElement(_url_action, _dataRequestAction);
+                    addElement(_url_action, _dataRequestAction, _selectorContainer);
 
                 });
             });
@@ -345,6 +405,16 @@ $(document).ready(function(){
         var form = _selectorContainer.find('form');
 
         form.validate({
+            rules: {
+                type_violation_id: {
+                    required: true,
+                    min: 1
+                },
+                gravite_id: {
+                    required: true,
+                    min: 1
+                }
+            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -359,9 +429,6 @@ $(document).ready(function(){
             }
         });
 
-
-
-
         if( form.valid() ) {
 
             _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
@@ -374,7 +441,10 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_secteur : form.find('#nom_secteur').val(),
+                        nom_violation : form.find('#nom_violation').val(),
+                        description_violation : form.find('#description_violation').val(),
+                        type_violation_id : form.find('#type_violation_id').val(),
+                        gravite_id : form.find('#gravite_id').val(),
                         _method: "PATCH"
                     };
 

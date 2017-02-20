@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/cpanel.css" rel="stylesheet">
+    <link href="{{ asset('css/pages/cpanel.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('home') }}"><i class="fa fa-university fa-lg" ></i>
+                <a href="{{ route('delegations.index') }}"><i class="fa fa-university fa-lg" ></i>
                     <span>@lang('main.delegations')</span>
                 </a>
             </div>
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-fire fa-lg" ></i>
+                <a href="{{ route('violations.index') }}"><i class="fa fa-fire fa-lg" ></i>
                     <span>@lang('violations.les_violations')</span>
                 </a>
             </div>

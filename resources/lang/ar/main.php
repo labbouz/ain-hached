@@ -74,6 +74,8 @@ return [
     'cancelButtonText' => 'لا، قم بالإلغاء',
     'cancelled' => 'تم الالغاء',
 
+    'problem_delet' => 'غير مسموح بالحذف',
+
 
 
 ];

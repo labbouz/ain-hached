@@ -8,10 +8,8 @@ class Gravite extends Model
 {
     protected $table = 'gravites';
 
-    /*
     public function violations()
     {
         return $this->hasMany('\App\Violation');
     }
-    */
 }

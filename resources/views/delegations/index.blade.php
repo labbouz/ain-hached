@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="{{ asset('css/pages/structures_syndicales.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pages/delegations.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -11,15 +11,12 @@
                 <div class="page-title">
                     <div id="header_loading" class="header_action header_action_active"></div>
 
-                    <div id="header_index" class="header_action">
-                        <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.configuration')"></i></a>
-                        <h3> @lang('syndicale.structures_syndicales')  </h3>
-                        <p class="text-muted">@lang('syndicale.description_structures_syndicales')</p>
-                    </div>
+                    <div id="header_index" class="header_action" dir="rtl">
+                        <a class="retour_setting" href="{{ route('delegations.index') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.delegations')"></i></a>
 
-                    <div id="header_add" class="header_action">
-                        <h3> @lang('syndicale.add_structure_syndicale')  </h3>
-                        <p class="text-muted">@lang('syndicale.detail_structure_syndicale_edit')</p>
+
+                        <h3> @lang('delegations.list_delegations_by_gouvernorat')  {{ $gouvernorat->nom_gouvernorat }} </h3>
+                        <p class="text-muted">@lang('delegations.description_delegations_by_gouvernorat') <strong>{{ $gouvernorat->nom_gouvernorat }}</strong>  @lang('delegations.count_descriptions') <strong>(<span class="count" >{{ $gouvernorat->delegations->count() }}</span>)</strong> @lang('delegations.delegationss').</p>
                     </div>
 
 
@@ -34,6 +31,7 @@
 @section('content')
     <div class="container">
         <div id="list_elements" class="row">
+            <div class="bg_detail"></div>
 
 
         </div>
@@ -42,8 +40,8 @@
 @endsection
 
 @section('url_ajax')
-    <input id="index" type="hidden" value="{{ route('json.structure_syndicale.index') }}">
-    <input id="store" type="hidden" value="{{ route('structure_syndicale.store') }}">
+    <input id="index" type="hidden" value="{{ route('json.delegations.index', $gouvernorat->id) }}">
+    <input id="store" type="hidden" value="{{ route('delegations.store') }}">
 
     {{ csrf_field() }}
 
@@ -53,7 +51,7 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit" dir="rtl">{type_structure_syndicale}</span>
+                        <span class="edit" dir="rtl">{nom_delegation}</span>
                     </div>
 
 
@@ -61,7 +59,7 @@
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="remove"
                            data-warning="@lang('main.etes_vous_sure')"
-                           data-text-warning="@lang('syndicale.suppression_defenitife')"
+                           data-text-warning="@lang('delegations.suppression_defenitife')"
                            data-confirm-buttontext="@lang('main.confirmButtonText')"
                            data-cancel-buttonText="@lang('main.cancelButtonText')"
                            data-cancelled="@lang('main.cancelled')"
@@ -76,11 +74,10 @@
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="type_structure_syndicale" placeholder="@lang('syndicale.type_structure_syndicale_nom')" value="{type_structure_syndicale}" data-error="@lang('main.info_monquant')" data-reset="{type_structure_syndicale}" required />
+                            <input type="text" class="form-control" id="nom_delegation" placeholder="@lang('delegations.nom_delegation')" value="{nom_delegation}" data-error="@lang('main.info_monquant')" data-reset="{nom_delegation}" required />
                         </div>
-                        <div class="form-group m-t-8">
-                            <textarea  class="form-control" id="description_type" placeholder="@lang('syndicale.description_type_structure_syndicale')" data-reset="{description_type}">{description_type}</textarea>
-                        </div>
+                        <input type="hidden" id="gouvernorat_id" value="{gouvernorat_id}" data-reset="{gouvernorat_id}" >
+
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
@@ -109,18 +106,17 @@
             <div class="container_element">
                 <a href="javascript:void(0)" class="box add">
                     <span class="fa fa-plus-circle"></span>
-                    <span class="text">@lang('syndicale.add_structure_syndicale')</span>
+                    <span class="text">@lang('delegations.add_delegation')</span>
                 </a>
 
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="type_structure_syndicale" placeholder="@lang('syndicale.type_structure_syndicale_nom')" value="" data-error="@lang('main.info_monquant')" required />
+                            <input type="text" class="form-control" id="nom_delegation" placeholder="@lang('delegations.nom_delegation')" value="" data-error="@lang('main.info_monquant')" required />
                         </div>
 
-                        <div class="form-group m-t-8">
-                            <textarea  class="form-control" id="description_type" placeholder="@lang('syndicale.description_type_structure_syndicale')"></textarea>
-                        </div>
+                        <input type="hidden" id="gouvernorat_id" value="{{ $gouvernorat->id }}">
+
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
@@ -143,5 +139,5 @@
 @endsection
 
 @section('footer')
-    <script src="{{ asset('js/management_structures_syndicales.js') }}"></script>
+    <script src="{{ asset('js/management_delegations.js') }}"></script>
 @endsection

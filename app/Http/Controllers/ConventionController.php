@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Validator;
+
 use Illuminate\Http\Request;
 
-
+use App\Convention;
 use App\Secteur;
-//use App\Convention;
 
-class SecteurController extends Controller
+class ConventionController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +28,19 @@ class SecteurController extends Controller
      */
     public function index()
     {
-        return view('secteures.index');
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function display($id_secteur)
+    {
+        $secteur = Secteur::find($id_secteur);
+
+        return view('conventions.index', compact('secteur'));
     }
 
     /**
@@ -49,9 +61,9 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
+            'nom_convention' => 'required|unique:conventions,nom_convention|max:255',
+            'secteur_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -64,19 +76,14 @@ class SecteurController extends Controller
             return $response ;
         }
 
-        // save secteur
-        $secteuradedd = new Secteur;
-        $secteuradedd->nom_secteur = $request->nom_secteur;
-        $secteuradedd->save();
-
-        $secteuradedd->count_conventions = 0;
-        $secteuradedd->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-
-
-
+        // save delegation
+        $convention_adedd = new Convention;
+        $convention_adedd->nom_convention = $request->nom_convention;
+        $convention_adedd->secteur_id = $request->secteur_id;
+        $convention_adedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_save_succes_secteur')
+            'msg' => trans('secteur.message_save_succes_convention'),
         );
 
         return response()->json($response);
@@ -113,11 +120,11 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $secteurUpdated = Secteur::find($id);
+        $conventionUpdated = Convention::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
+            'nom_convention' => 'required|unique:conventions,nom_convention,'.$conventionUpdated->id.'|max:255',
+            'secteur_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -131,11 +138,11 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated->fill( $request->all() )->save();
+        $conventionUpdated->fill( $request->all() )->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_update_succes_secteur'),
+            'msg' => trans('secteur.message_update_succes_convention'),
         );
 
         return response()->json($response);
@@ -149,61 +156,26 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        $secteurRemoved = Secteur::find($id);
+        Convention::find($id)->delete();
 
-        if( $secteurRemoved->conventions->count() == 0 ) {
-            $secteurRemoved->delete();
-
-            $response = array(
-                'status' => 'success',
-                'msg' => trans('secteur.message_delete_succes_secteur'),
-            );
-        } else {
-            $response = array(
-                'status' => 'pb_database',
-                'msg' => trans('main.problem_delet'),
-                'msg_text' => trans('secteur.indication_1_problem_delet'),
-            );
-        }
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('secteur.message_delete_succes_convention'),
+        );
 
         return response()->json($response);
     }
 
-    public function getElementsJSON()
+    public function getElementsJSON($id_secteur)
     {
 
-        //$secteures = Secteur::all();
-        $secteures = Secteur::orderBy('id', 'desc')->get();
+        $secteur = Secteur::find($id_secteur);
 
-        foreach($secteures as $secteure){
-
-            $count_convention=0;
-            $text_list_convention='';
-            foreach($secteure->conventions as $convention) {
-                if($secteure->conventions->first() == $convention) {
-                    $text_list_convention .= $convention->nom_convention;
-                } else {
-                    $text_list_convention .= ' - ' . $convention->nom_convention;
-                }
-
-                $count_convention++;
-            }
-
-            $secteure->count_conventions = $count_convention;
-            if($count_convention == 0) {
-                $secteure->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-            } else {
-                $secteure->description_count_conventions = trans('secteur.la_conventions_sectorielles_conjointes') . ' ' . trans('secteur.pour_secteur') . ' ' . $secteure->nom_secteur . ' : ' . $text_list_convention;
-            }
-
-            $secteure->url_display_conventions = route('conventions.display',$secteure->id );
-
-        }
-
+        $conventions = $secteur->conventions;
 
         $reponse = [
             'status' => 'success',
-            'elements' => $secteures,
+            'elements' => $conventions,
         ];
 
         return response()->json($reponse);

@@ -36,19 +36,6 @@ return [
 
     'suppression_defenitife' =>'هل تريد حذف هذا الهيكل النقابي نهائيا من النظام ؟',
 
-    /*
-
-
-    'description_moves' => 'قائمة التحركات المسجلة في النظام',
-    'add_move' => 'إضافة تحرك جديد',
-    'message_save_succes_move' => ' تم اضافة التحرك بنجاح',
-
-    'message_delete_succes_move' => 'تم حذف التحرك بنجاح',
-    'message_update_succes_move' => 'تم التعديل بنجاح',
-
-    'edit_move' => 'تعديل في إسم تحرك',
-    'detail_move' => 'تعديل تحرك',
-*/
 
 
 ];

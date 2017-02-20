@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="/css/pages/moves.css" rel="stylesheet">
+    <link href="{{ asset('css/pages/moves.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-title')
@@ -13,7 +13,7 @@
 
                     <div id="header_index" class="header_action">
 
-                        <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                        <a class="retour_setting" href="{{ route('setting') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.configuration')"></i></a>
 
                         <h3> @lang('move.moves')  </h3>
                         <p class="text-muted">@lang('move.description_moves')</p>
@@ -138,5 +138,5 @@
 @endsection
 
 @section('footer')
-    <script src="/js/management_moves.js"></script>
+    <script src="{{ asset('js/management_moves.js') }}"></script>
 @endsection

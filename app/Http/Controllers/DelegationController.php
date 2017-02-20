@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 
+use DB;
 
-use App\Secteur;
-//use App\Convention;
+use App\Delegation;
+use App\Gouvernorat;
 
-class SecteurController extends Controller
+class DelegationController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +29,21 @@ class SecteurController extends Controller
      */
     public function index()
     {
-        return view('secteures.index');
+        $gouvernorats = Gouvernorat::orderBy('nom_gouvernorat', 'asc')->get();
+
+        return view('gouvernorats.delegations', compact('gouvernorats'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function display($id_gouvernorat)
+    {
+        $gouvernorat = Gouvernorat::find($id_gouvernorat);
+
+        return view('delegations.index', compact('gouvernorat'));
     }
 
     /**
@@ -49,9 +64,9 @@ class SecteurController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur|max:255',
+            'nom_delegation' => 'required|unique:delegations,nom_delegation|max:255',
+            'gouvernorat_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -64,19 +79,14 @@ class SecteurController extends Controller
             return $response ;
         }
 
-        // save secteur
-        $secteuradedd = new Secteur;
-        $secteuradedd->nom_secteur = $request->nom_secteur;
-        $secteuradedd->save();
-
-        $secteuradedd->count_conventions = 0;
-        $secteuradedd->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-
-
-
+        // save delegation
+        $delegation_adedd = new Delegation;
+        $delegation_adedd->nom_delegation = $request->nom_delegation;
+        $delegation_adedd->gouvernorat_id = $request->gouvernorat_id;
+        $delegation_adedd->save();
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_save_succes_secteur')
+            'msg' => trans('delegations.message_save_succes_delegation'),
         );
 
         return response()->json($response);
@@ -113,11 +123,11 @@ class SecteurController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $secteurUpdated = Secteur::find($id);
+        $delegationUpdated = Delegation::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_secteur' => 'required|unique:secteurs,nom_secteur,'.$secteurUpdated->id.'|max:255',
+            'nom_delegation' => 'required|unique:delegations,nom_delegation,'.$delegationUpdated->id.'|max:255',
+            'gouvernorat_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -131,11 +141,11 @@ class SecteurController extends Controller
         }
 
         // save secteur
-        $secteurUpdated->fill( $request->all() )->save();
+        $delegationUpdated->fill( $request->all() )->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => trans('secteur.message_update_succes_secteur'),
+            'msg' => trans('delegations.message_update_succes_delegation'),
         );
 
         return response()->json($response);
@@ -149,61 +159,26 @@ class SecteurController extends Controller
      */
     public function destroy($id)
     {
-        $secteurRemoved = Secteur::find($id);
+        Delegation::find($id)->delete();
 
-        if( $secteurRemoved->conventions->count() == 0 ) {
-            $secteurRemoved->delete();
-
-            $response = array(
-                'status' => 'success',
-                'msg' => trans('secteur.message_delete_succes_secteur'),
-            );
-        } else {
-            $response = array(
-                'status' => 'pb_database',
-                'msg' => trans('main.problem_delet'),
-                'msg_text' => trans('secteur.indication_1_problem_delet'),
-            );
-        }
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('delegations.message_delete_succes_delegation'),
+        );
 
         return response()->json($response);
     }
 
-    public function getElementsJSON()
+    public function getElementsJSON($id_gouvernorat)
     {
 
-        //$secteures = Secteur::all();
-        $secteures = Secteur::orderBy('id', 'desc')->get();
+        $gouvernorat = Gouvernorat::find($id_gouvernorat);
 
-        foreach($secteures as $secteure){
-
-            $count_convention=0;
-            $text_list_convention='';
-            foreach($secteure->conventions as $convention) {
-                if($secteure->conventions->first() == $convention) {
-                    $text_list_convention .= $convention->nom_convention;
-                } else {
-                    $text_list_convention .= ' - ' . $convention->nom_convention;
-                }
-
-                $count_convention++;
-            }
-
-            $secteure->count_conventions = $count_convention;
-            if($count_convention == 0) {
-                $secteure->description_count_conventions = trans('secteur.not_exist_conventions_sectorielles_conjointes');
-            } else {
-                $secteure->description_count_conventions = trans('secteur.la_conventions_sectorielles_conjointes') . ' ' . trans('secteur.pour_secteur') . ' ' . $secteure->nom_secteur . ' : ' . $text_list_convention;
-            }
-
-            $secteure->url_display_conventions = route('conventions.display',$secteure->id );
-
-        }
-
+        $delegations = $gouvernorat->delegations;
 
         $reponse = [
             'status' => 'success',
-            'elements' => $secteures,
+            'elements' => $delegations,
         ];
 
         return response()->json($reponse);
