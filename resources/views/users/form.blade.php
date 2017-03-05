@@ -33,7 +33,21 @@
 @section('content')
     <div class="container">
         <div class="row tool_bar_action">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-action">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-action">
+                <a href="javascript:void(0)" class="add box">
+                    <span class="fa fa-user-plus"></span>
+                    <span class="text">@lang('main.add_user')</span>
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-action">
+                <a href="javascript:void(0)" class="add box">
+                    <span class="fa fa-user-plus"></span>
+                    <span class="text">@lang('main.add_user')</span>
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-action">
                 <a href="javascript:void(0)" class="add box">
                     <span class="fa fa-user-plus"></span>
                     <span class="text">@lang('main.add_user')</span>

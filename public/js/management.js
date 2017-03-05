@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 
-
+/*
     var _url = $('#api').find('#index').val();
     var _csrf_token = $('#api').find('input[name="_token"]').val();
 
@@ -10,7 +10,7 @@ $(document).ready(function(){
         _token : _csrf_token
     };
 
-    /************* Initialisation ***/
+
     getList(_url, _dataRequest);
 
     var loadElements = function(elements) {
@@ -101,7 +101,6 @@ $(document).ready(function(){
         $('#header_loading').append(_container_loading).show();
     }
 
-    /*********** Actions *************/
 
     $(document).on('click', '.add', function(){
 
@@ -137,7 +136,7 @@ $(document).ready(function(){
 
 
 
-
+*/
 
 
 });

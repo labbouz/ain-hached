@@ -37,6 +37,10 @@
     cursor: pointer;
 }
 
+.container-card .container_display_user .label_elemen span {
+    cursor: inherit;
+}
+
 .container_element .edit_card .toolbar_box,
 .container_element .form-box .toolbar_box {
     display: block;
@@ -69,6 +73,10 @@
 
 .container_element .edit_card .toolbar_box {
     text-align: right;
+}
+
+.container-card .container_display_user .edit_card .toolbar_box {
+    text-align: center;
 }
 
 .container_element .edit_card .toolbar_box a,

@@ -11,7 +11,7 @@ return [
 
     'name_user' => 'اسم المستخدم',
     'email' => 'البريد الإلكتروني',
-    'droits' => 'الصلاحيات',
+
     'users' => 'المستخدمون',
     'info_list_users' => 'قائمة مستعملي النظام',
     'details_user' => 'تفاصيل الحساب',
@@ -58,7 +58,7 @@ return [
 
     'desc_role_admin' => 'لديه جميع الصلاحيات',
     'desc_role_observateur' => 'لديه الصلاحية المتعلقة بالجهة',
-    'desc_role_observateur_regional' => 'لديه الصلاحية المتعلقة بالجهة وصلاحية إدارة الراصدون التابعين في نفس الجهة',
+    'desc_role_observateur_regional' => 'لديه الصلاحية المتعلقة بالجهة وصلاحية إدارة الراصدون التابعين في نفس الولاية',
     'desc_role_observateur_secteur' => 'لديه الصلاحية المتعلقة بالقطاع',
 
     'desc_role_observateur_regional_specif' => 'لديه الصلاحيات المتعلقة بملفات جهة ',
@@ -72,6 +72,31 @@ return [
 
     'observateur_pour' => 'راصد بجهة',
     'observateur_secteur_pour' => 'راصد بقطاع',
+
+    'droits' => 'الصلاحيات',
+    'description_list_droits' => 'قائمة بجميع أنواع الصلاحيات المسجلة في النظام',
+
+    'nb_observateurs' => 'عدد الراصدين',
+    'list_observateurs' => 'قائمة الراصدين',
+
+    'list_type_administrator' => 'قائمة المشرفون العامون',
+    'list_type_observateur_regional' => ' قائمة الولايات التي تخص الراصدين الجهويين',
+    'list_type_observateur'  => 'قائمة الولايات التي تخص الراصدين',
+    'list_type_observateur_secteur' => 'قائمة  القطاعات التي تخص الراصدين القطاعيين',
+
+    'list_users_roles_admins' => 'المشرفين العامين',
+    'desc_list_users_roes' => 'جميع مستخدمي النظام الذين يندرجون تحت صلاحيات',
+    'count_users' => 'البالغ عددهم',
+    'observateur' => 'راصد',
+
+    'add_' => 'إضافة',
+    'email_error' => 'الرجاء إدخال البريد الالكتروني الصحيح',
+
+    'message_save_succes_user' => ' تم اضافةالمستخدم بنجاح',
+    'message_delete_succes_user' => 'تم حذف المستخدم بنجاح',
+    'message_update_succes_user' => 'تم تعديل المستخدم بنجاح',
+    'suppression_defenitife_user' => 'هل تريد حذف هذا المستخدم نهائيا من النظام ؟',
+    'indication_1_problem_delet' => 'يجب حذف جميع الروابط المتعلقة بهذا المستخدم',
 
 
 ];

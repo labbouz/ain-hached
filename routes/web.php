@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/setting', 'HomeController@setting')->name('setting');
 
 Route::resource('users', 'UserController');
+Route::get('/roles/display/{id_role}', 'UserController@displayRole')->name('roles.display');
+Route::get('/roles/display/{id_role}/users/{id_inicateur}', 'UserController@display')->name('users.display');
 Route::resource('secteurs', 'SecteurController');
 Route::resource('conventions', 'ConventionController');
 Route::get('/conventions/display/{id_secteur}', 'ConventionController@display')->name('conventions.display');
@@ -30,7 +32,7 @@ Route::resource('violations', 'ViolationController');
 Route::resource('delegations', 'DelegationController');
 Route::get('/delegations/display/{id_gouvernorat}', 'DelegationController@display')->name('delegations.display');
 
-Route::post('REST/users', 'UserController@getUsersJSON')->name('json.users.index');
+Route::post('REST/users/{id_role}/{id_inicateur?}', 'UserController@getElementsJSON')->name('json.users.index');
 Route::post('REST/secteurs', 'SecteurController@getElementsJSON')->name('json.secteurs.index');
 Route::post('REST/moves', 'MoveController@getElementsJSON')->name('json.moves.index');
 Route::post('REST/structure_syndicale', 'StructureSyndicaleController@getElementsJSON')->name('json.structure_syndicale.index');

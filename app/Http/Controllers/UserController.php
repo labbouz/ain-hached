@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+
 use Illuminate\Http\Request;
 
 use App\User;
-
-// use Debugbar;
+use App\Role;
+use App\Role_user;
+use App\Gouvernorat;
+use App\Secteur;
 
 class UserController extends Controller
 {
@@ -29,7 +33,89 @@ class UserController extends Controller
     public function index()
     {
 
-        return view('users.index', compact('users'));
+        $roles = Role::orderBy('id', 'asc')->get();
+
+        return view('roles.users', compact('roles'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function displayRole($id_role)
+    {
+        $role = Role::find($id_role);
+
+        switch ($role->slug) {
+            case "administrator":
+                return view('users.admin', compact('role'));
+                break;
+
+            case "observateur_regional":
+                $titre_label = trans('users.list_type_observateur_regional');
+                $gouvernorats = Gouvernorat::orderBy('nom_gouvernorat', 'asc')->get();
+                foreach($gouvernorats as $gouvernorat){
+                    $gouvernorat->users_roles = Role_user::where('gouvernorat_id', $gouvernorat->id)
+                        ->where('role_id', $role->id)
+                        ->orderBy('id', 'desc')
+                        ->get();
+                }
+                return view('gouvernorats.users', compact('role','titre_label','gouvernorats'));
+                break;
+
+            case "observateur":
+                $titre_label = trans('users.list_type_observateur');
+                $gouvernorats = Gouvernorat::orderBy('nom_gouvernorat', 'asc')->get();
+                foreach($gouvernorats as $gouvernorat){
+                    $gouvernorat->users_roles = Role_user::where('gouvernorat_id', $gouvernorat->id)
+                        ->where('role_id', $role->id)
+                        ->orderBy('id', 'desc')
+                        ->get();
+                }
+                return view('gouvernorats.users', compact('role','titre_label','gouvernorats'));
+                break;
+
+            case "observateur_secteur":
+                $titre_label = trans('users.list_type_observateur_secteur');
+                $secteures = Secteur::orderBy('id', 'desc')->get();
+                foreach($secteures as $secteure){
+                    $secteure->users_roles = Role_user::where('secteur_id', $secteure->id)
+                        ->where('role_id', $role->id)
+                        ->orderBy('id', 'desc')
+                        ->get();
+                }
+
+                return view('secteures.users', compact('role','titre_label','secteures'));
+                break;
+        }
+
+    }
+
+    public function display($id_role, $id_inicateur)
+    {
+        $role = Role::find($id_role);
+
+        switch ($role->slug) {
+            case "administrator":
+                return view('users.admin', compact('role'));
+                break;
+
+            case "observateur_regional":
+                $gouvernorat = Gouvernorat::find($id_inicateur);
+                return view('users.o_region', compact('role','gouvernorat'));
+                break;
+
+            case "observateur":
+                $gouvernorat = Gouvernorat::find($id_inicateur);
+                return view('users.o', compact('role','gouvernorat'));
+                break;
+
+            case "observateur_secteur":
+                $secteur = Secteur::find($id_inicateur);
+                return view('users.o_sect', compact('role','secteur'));
+                break;
+        }
     }
 
     /**
@@ -50,7 +136,46 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'role_id' => 'required|exists:roles,id|numeric',
+            'gouvernorat_id' => 'required|numeric',
+            'secteur_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save delegation
+        $user_addedd = new User;
+        $user_addedd->name = $request->name;
+        $user_addedd->email = $request->email;
+        $user_addedd->password = bcrypt('ccxccb01');
+        $user_addedd->save();
+
+        $roleuser_addedd = new Role_user;
+        $roleuser_addedd->role_id = $request->role_id;
+        $roleuser_addedd->user_id =  $user_addedd->id;
+        $roleuser_addedd->gouvernorat_id = $request->gouvernorat_id;
+        $roleuser_addedd->secteur_id = $request->secteur_id;
+        $roleuser_addedd->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_save_succes_user'),
+        );
+
+        return response()->json($response);
+
     }
 
     /**
@@ -84,7 +209,34 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $roleuserUpdated = Role_user::find($id);
+
+        $userUpdated = $roleuserUpdated->user;
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,'.$userUpdated->id.'|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save secteur
+        $userUpdated->fill( $request->all() )->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_update_succes_user'),
+        );
+
+        return response()->json($response);
     }
 
     /**
@@ -95,7 +247,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $roleuserRemoved = Role_user::find($id);
+
+        $userRemoved = $roleuserRemoved->user;
+
+        $roleuserRemoved->delete();
+        $userRemoved->delete();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_delete_succes_user'),
+        );
+
+        return response()->json($response);
     }
 
 
@@ -103,20 +267,24 @@ class UserController extends Controller
      * Ajax list
      */
 
-    public function getUsersJSON()
+    public function getElementsJSON($id_role, $id_inicateur=null)
     {
 
-        $users = User::all();
+        $role = Role::find($id_role);
+
+        $users = $role->users;
+
+        foreach($users as $user){
+            $user->name = $user->user->name;
+            $user->email = $user->user->email;
+        }
 
         $reponse = [
             'status' => 'success',
             'elements' => $users,
         ];
-/*
-        Debugbar::addMessage('message type error', 'error');
-        Debugbar::addMessage('message type warning', 'warning');
-        Debugbar::addMessage('message type test', 'info');
-*/
+
         return response()->json($reponse);
     }
+
 }
