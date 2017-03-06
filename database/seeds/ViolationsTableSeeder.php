@@ -11,6 +11,9 @@ class ViolationsTableSeeder extends Seeder
      */
     public function run()
     {
+        //disable foreign key check for this connection before running seeders
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         //delete gravites table records
         DB::table('violations')->truncate();
 
@@ -34,5 +37,9 @@ class ViolationsTableSeeder extends Seeder
             $index_gravite++;
         }
         DB::table('violations')->insert( $violations['massives'] );
+
+        // supposed to only apply to a single connection and reset it's self
+        // but I like to explicitly undo what I've done for clarity
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

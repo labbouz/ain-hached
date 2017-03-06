@@ -11,6 +11,9 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        //disable foreign key check for this connection before running seeders
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         //delete roles table records
         DB::table('roles')->truncate();
         //insert some dummy records
@@ -22,6 +25,10 @@ class RolesTableSeeder extends Seeder
             array('name'=>trans('users.role_observateur'), 'slug'=>'observateur', 'description'=>trans('users.desc_role_observateur'), 'class_color'=>'role_observateur', 'created_at' => date('Y-m-d H:i:s')),
 
         ));
+
+        // supposed to only apply to a single connection and reset it's self
+        // but I like to explicitly undo what I've done for clarity
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
 }
