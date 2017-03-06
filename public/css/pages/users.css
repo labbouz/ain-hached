@@ -4,7 +4,8 @@
     position: relative;
 }
 
-.container_element .form-box {
+.container_element .form-box,
+.container_element .form-box-pass {
     display: none;
     position: absolute;
     z-index: 99;
@@ -13,21 +14,25 @@
     width: 100%;
 }
 
-.container_element .form-box .form-cart {
+.container_element .form-box .form-cart,
+.container_element .form-box-pass .form-cart{
     padding: 8px;
     height: auto;
     border: none;
 }
-.container_element .form-box .form-cart .form-group{
+.container_element .form-box .form-cart .form-group,
+.container_element .form-box-pass .form-cart .form-group{
     margin-bottom: 0;
 }
 
-.container_element .form-box .form-cart input[type=text] {
+.container_element .form-box .form-cart input[type=text],
+.container_element .form-box-pass .form-cart input[type=text]{
     font-size: 15px;
 
 }
 
-.container_element .form-box .form-cart textarea {
+.container_element .form-box .form-cart textarea,
+.container_element .form-box-pass .form-cart textarea{
     font-size: 15px;
     height: 112px;
     resize: none;
@@ -36,7 +41,10 @@
 
 .container_element .form-box .form-cart input.error,
 .container_element .form-box .form-cart textarea.error,
-.container_element .form-box .form-cart select.error {
+.container_element .form-box .form-cart select.error,
+.container_element .form-box-pass .form-cart input.error,
+.container_element .form-box-pass .form-cart textarea.error,
+.container_element .form-box-pass .form-cart select.error {
     border-color: #F27474 !important;
 }
 
@@ -71,8 +79,11 @@
     /*border: 1px solid #d0d5d6;*/
 }
 
+
+
 .container_element .edit_card .toolbar_box,
-.container_element .form-box .toolbar_box {
+.container_element .form-box .toolbar_box,
+.container_element .form-box-pass .toolbar_box {
     display: block;
     float: left;
     height: 42px;
@@ -81,7 +92,8 @@
     text-align: center;
 }
 .container_element .edit_card .toolbar_box a,
-.container_element .form-box .toolbar_box a {
+.container_element .form-box .toolbar_box a,
+.container_element .form-box-pass .toolbar_box a {
     outline: none;
     text-decoration: none;
     line-height: 42px;
@@ -92,13 +104,16 @@
 }
 
 .container_element .edit_card .toolbar_box a i,
-.container_element .form-box .toolbar_box a i {
+.container_element .form-box .toolbar_box a i,
+.container_element .form-box-pass .toolbar_box a i {
     font-size: 20px;
     line-height: 42px;
 }
 
 .container_element .form-box .toolbar_box a:hover,
-.container_element .form-box .toolbar_box a:focus {
+.container_element .form-box .toolbar_box a:focus,
+.container_element .form-box-pass .toolbar_box a:hover,
+.container_element .form-box-pass .toolbar_box a:focus{
 }
 
 .container_element .edit_card .toolbar_box {

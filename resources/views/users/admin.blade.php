@@ -123,6 +123,23 @@
                     </div>
                 </div>
 
+                <div class="form-box-pass box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="@lang('users.password')" value="" required />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="password" class="form-control" name="password_confirm" id="password-confirm" placeholder="@lang('users.confirm_password')" value="" required />
+                        </div>
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_changepass"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="changepass_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
                 <div class="loader box"><i class='fa fa-spinner fa-spin'></i></div>
 
             </div>

@@ -162,6 +162,8 @@ $(document).ready(function(){
         //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
+        var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
+
         $.ajax({
             type: 'PATCH',
             url: url,
@@ -177,10 +179,10 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.prnom + ' ' + data_elemen.nom);
-                    _selectorContainer.find( 'form' ).find( '#prnom' ).attr('data-reset', data_elemen.prnom);
-                    _selectorContainer.find( 'form' ).find( '#nom' ).attr('data-reset', data_elemen.nom);
-                    _selectorContainer.find( 'form' ).find( '#email' ).attr('data-reset', data_elemen.email);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.info' ).text(data_elemen.prnom + ' ' + data_elemen.nom);
+                    _form.find( '#prnom' ).attr('data-reset', data_elemen.prnom);
+                    _form.find( '#nom' ).attr('data-reset', data_elemen.nom);
+                    _form.find( '#email' ).attr('data-reset', data_elemen.email);
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                         });
@@ -213,6 +215,66 @@ $(document).ready(function(){
 
                 _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                     _selectorContainer.find('.cancel_edit').trigger( "click" );
+                });
+            }
+        });
+
+    }
+
+    function updateElementPass(url, data_elemen, id_elemen) {
+        //console.log(data_elemen);
+        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
+
+        var _form = _selectorContainer.find( '.form-box-pass' ).find( 'form' );
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _form[0].reset();
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                    downModEdit();
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_changepass').trigger( "click" );
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_changepass').trigger( "click" );
                 });
             }
         });
@@ -327,21 +389,23 @@ $(document).ready(function(){
     $(document).on('click', '.cancel_edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
+        var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
+
         downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                // reset edit for input
-                _selectorContainer.find( 'form' ).find('input').each(function(){
+                _form.find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
                 });
                 // reset edit for textarea
-                _selectorContainer.find( 'form' ).find('textarea').each(function(){
+                _form.find('textarea').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
                 });
                 // reset edit for select
-                _selectorContainer.find( 'form' ).find('select').each(function( ) {
+                _form.find('select').each(function( ) {
                     var _valDefault = $(this).attr('data-reset');
                     $(this).val(_valDefault);
                 });
@@ -415,7 +479,7 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find('form');
+        var form = _selectorContainer.find( '.form-box' ).find('form');
 
         form.validate({
             errorPlacement: function(error, element) {
@@ -498,12 +562,105 @@ $(document).ready(function(){
                     swal({
                         title: _selectoRemove.attr('data-cancelled'),
                         type: "error",
-                        confirmButtonColor: "#4F5467"
+                        timer: 2000,
+                        showConfirmButton: false
+
                     });
 
-                    $('.sweet-overlay').trigger( "click" );
                 }
             });
     });
+
+    $(document).on('click', '.changepass', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
+        $( ".container-card" ).each(function() {
+            if( $(this).find('.form-box-pass').is(':visible') ) {
+                $(this).find('.cancel_edit').trigger( "click" );
+            }
+        });
+
+        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-pass' ).show('fade', {}, 'fast');
+        });
+
+
+    });
+
+    $(document).on('click', '.cancel_changepass', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        var _form = _selectorContainer.find( '.form-box-pass' ).find( 'form' );
+
+        downModEdit();
+        _selectorContainer.find( '.form-box-pass' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                // reset edit for input
+                _form[0].reset();
+            });
+        });
+
+
+    });
+
+    $(document).on('click', '.changepass_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find( '.form-box' ).find('form');
+
+        form.validate({
+            rules : {
+                password : {
+                    minlength : 5
+                },
+                password_confirm : {
+                    minlength : 5,
+                    equalTo : "#password"
+                }
+            },
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box-pass' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _idElement = form.attr('data-id');
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/' + _idElement;
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        password : form.find('#password').val(),
+                        password_confirmation : form.find('#password-confirm').val(),
+                        _method: "PATCH"
+                    };
+
+                    updateElementPass(_url_action, _dataRequestAction, _idElement);
+
+                });
+            });
+
+        }
+
+    });
+
 
 });
