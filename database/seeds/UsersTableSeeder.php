@@ -20,7 +20,9 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->truncate();
 
         DB::table('users')->insert([
-            'name' => 'root',
+            'nom' => 'الأول',
+            'prnom' => 'المشرف',
+            'name' => 'المشرف الأول',
             'email' => 'root@ain-hached.tn',
             'password' => bcrypt('ccxccb01'),
             'created_at' => date('Y-m-d H:i:s')

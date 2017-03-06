@@ -55,7 +55,10 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit" dir="rtl">{name}</span>
+                        <span class="edit info" dir="rtl">{name}</span>
+                        <span class="profile">
+                            <img data-origin="{{ Request::root() }}/{avatar}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive">
+                        </span>
                     </div>
 
 
@@ -67,8 +70,32 @@
                            data-confirm-buttontext="@lang('main.confirmButtonText')"
                            data-cancel-buttonText="@lang('main.cancelButtonText')"
                            data-cancelled="@lang('main.cancelled')"
+
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="@lang('users.remove_user')"
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                        <a href="javascript:void(0)" class="edit"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="@lang('users.update_user')"
+                        ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                        <a href="javascript:void(0)" class="changepass"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="@lang('users.changepass_user')"><i class="fa fa-lock" aria-hidden="true"></i></a>
+
+                        <a href="javascript:void(0)" class="infosstem"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="@lang('users.update_info_user')"><i class="fa fa-info" aria-hidden="true"></i></a>
+
+                        <a href="javascript:void(0)" class="avatar"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="@lang('users.changeavatar_user')"><i class="fa fa-camera" aria-hidden="true"></i></a>
                     </div>
 
 
@@ -78,11 +105,14 @@
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="@lang('users.name_user')" value="{name}" data-error="@lang('main.info_monquant')" data-reset="{name}" required />
+                            <input type="text" class="form-control" name="prnom" id="prnom" placeholder="@lang('users.prenom')" value="{prnom}" data-reset="{prnom}" required />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom" id="nom" placeholder="@lang('users.nom')" value="{nom}" data-reset="{nom}" required />
                         </div>
 
                         <div class="form-group m-t-8">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="{email}" data-error="@lang('users.email_error')" data-reset="{email}" required />
+                            <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="{email}" data-reset="{email}" required />
                         </div>
                     </form>
 
@@ -118,11 +148,21 @@
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="@lang('users.name_user')" value="" data-error="@lang('main.info_monquant')" required />
+                            <input type="text" class="form-control" name="prnom" id="prnom" placeholder="@lang('users.prenom')" value="" required />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom" id="nom" placeholder="@lang('users.nom')" value="" required />
                         </div>
 
                         <div class="form-group m-t-8">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="" data-error="@lang('users.email_error')" required />
+                            <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="" required />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="@lang('users.password')" value="" required />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="password" class="form-control" name="password_confirm" id="password-confirm" placeholder="@lang('users.confirm_password')" value="" required />
                         </div>
 
                         <input type="hidden" id="role_id" value="{{ $role->id }}">
@@ -146,6 +186,8 @@
 
         </div>
     </div>
+
+
 
 
 @endsection

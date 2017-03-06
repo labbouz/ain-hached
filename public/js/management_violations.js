@@ -231,6 +231,7 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    $(document).trigger( "click" );
 
                     _selectorContainerCard.hide('fade', {}, 'fast', function(){
                         $(this).remove();

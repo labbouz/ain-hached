@@ -29,7 +29,7 @@ return [
 
     'general_account_aettings' => 'إعدادات الحساب العامة',
     'Information_system' =>'معلومات ستظهر في النظام',
-    'nom' => 'اللقب العائلي',
+    'nom' => 'اللقب',
     'prenom' => 'الأسم',
     'genre' => 'الجنس',
     'genre_m' => 'ذكر',
@@ -97,6 +97,12 @@ return [
     'message_update_succes_user' => 'تم تعديل المستخدم بنجاح',
     'suppression_defenitife_user' => 'هل تريد حذف هذا المستخدم نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'يجب حذف جميع الروابط المتعلقة بهذا المستخدم',
+
+    'remove_user' => 'حذف المستخدم',
+    'update_user' => 'تعديل المعلومات الرئيسية للمستخدم',
+    'changepass_user' => 'تغيير كلمة المرور',
+    'update_info_user' => 'تعديل المعلومات التي ستظهر في النظام',
+    'changeavatar_user' => 'تغيير الصورة الرمزية',
 
 
 ];

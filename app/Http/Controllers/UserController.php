@@ -138,8 +138,10 @@ class UserController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'prnom' => 'required|max:255',
+            'nom' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
             'role_id' => 'required|exists:roles,id|numeric',
             'gouvernorat_id' => 'required|numeric',
             'secteur_id' => 'required|numeric'
@@ -157,9 +159,11 @@ class UserController extends Controller
 
         // save delegation
         $user_addedd = new User;
-        $user_addedd->name = $request->name;
+        $user_addedd->prnom = $request->prnom;
+        $user_addedd->nom = $request->nom;
+        $user_addedd->name = $request->prnom . ' ' . $request->nom;
         $user_addedd->email = $request->email;
-        $user_addedd->password = bcrypt('ccxccb01');
+        $user_addedd->password = bcrypt($request->password);
         $user_addedd->save();
 
         $roleuser_addedd = new Role_user;
@@ -214,7 +218,8 @@ class UserController extends Controller
         $userUpdated = $roleuserUpdated->user;
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'prnom' => 'required|max:255',
+            'nom' => 'required|max:255',
             'email' => 'required|email|unique:users,email,'.$userUpdated->id.'|max:255'
         ]);
 
@@ -229,7 +234,9 @@ class UserController extends Controller
         }
 
         // save secteur
-        $userUpdated->fill( $request->all() )->save();
+        $userUpdated->fill( $request->all() );
+        $userUpdated->name = $request->prnom . ' ' . $request->nom;
+        $userUpdated->save();
 
         $response = array(
             'status' => 'success',
@@ -276,7 +283,13 @@ class UserController extends Controller
 
         foreach($users as $user){
             $user->name = $user->user->name;
+            $user->nom = $user->user->nom;
+            $user->prnom = $user->user->prnom;
             $user->email = $user->user->email;
+            $user->avatar = $user->user->avatar;
+            if($user->avatar  == null) {
+                $user->avatar = 'images/avatars/anonyme.jpg';
+            }
         }
 
         $reponse = [

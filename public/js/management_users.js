@@ -65,6 +65,9 @@ $(document).ready(function(){
                 $(this).find('option[value='+_valDefault+']').attr('selected','selected');
              });
 
+            var _image_avatar = $(this).find('img').attr('data-origin');
+            $(this).find('img').attr('src', _image_avatar);
+
             _delay = _delay + 100;
         });
 
@@ -126,7 +129,7 @@ $(document).ready(function(){
                     $('#list_elements').html('');
                     getList(_url, _dataRequest);
                 } else {
-                    //console.log(data);
+                    console.log(data);
                     swal({
                         title: data.msg,
                         text: data.msg_text,
@@ -174,8 +177,9 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.name);
-                    _selectorContainer.find( 'form' ).find( '#name' ).attr('data-reset', data_elemen.name);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.prnom + ' ' + data_elemen.nom);
+                    _selectorContainer.find( 'form' ).find( '#prnom' ).attr('data-reset', data_elemen.prnom);
+                    _selectorContainer.find( 'form' ).find( '#nom' ).attr('data-reset', data_elemen.nom);
                     _selectorContainer.find( 'form' ).find( '#email' ).attr('data-reset', data_elemen.email);
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -237,7 +241,6 @@ $(document).ready(function(){
                         timer: 2000,
                         showConfirmButton: false
                     });
-
 
                     _selectorContainerCard.hide('fade', {}, 'fast', function(){
                         $(this).remove();
@@ -356,6 +359,15 @@ $(document).ready(function(){
         var form = _selectorContainer.find('form');
 
         form.validate({
+            rules : {
+                password : {
+                    minlength : 5
+                },
+                password_confirm : {
+                    minlength : 5,
+                    equalTo : "#password"
+                }
+            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -379,11 +391,14 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        name : form.find('#name').val(),
+                        prnom : form.find('#prnom').val(),
+                        nom : form.find('#nom').val(),
                         email : form.find('#email').val(),
                         role_id : form.find('#role_id').val(),
                         secteur_id : form.find('#secteur_id').val(),
-                        gouvernorat_id : form.find('#gouvernorat_id').val()
+                        gouvernorat_id : form.find('#gouvernorat_id').val(),
+                        password : form.find('#password').val(),
+                        password_confirmation : form.find('#password-confirm').val()
                     };
 
                     addElement(_url_action, _dataRequestAction, _selectorContainer);
@@ -429,7 +444,8 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        name : form.find('#name').val(),
+                        prnom : form.find('#prnom').val(),
+                        nom : form.find('#nom').val(),
                         email : form.find('#email').val(),
                         _method: "PATCH"
                     };
@@ -484,6 +500,8 @@ $(document).ready(function(){
                         type: "error",
                         confirmButtonColor: "#4F5467"
                     });
+
+                    $('.sweet-overlay').trigger( "click" );
                 }
             });
     });
