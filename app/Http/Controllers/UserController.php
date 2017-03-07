@@ -312,6 +312,13 @@ class UserController extends Controller
             $user->prnom = $user->user->prnom;
             $user->email = $user->user->email;
             $user->avatar = $user->user->avatar;
+
+            if( $user->user->isOnline() ) {
+                $user->online = 'on';
+            } else {
+                $user->online = 'off';
+            }
+
             if($user->avatar  == null) {
                 $user->avatar = 'images/avatars/anonyme.jpg';
             }

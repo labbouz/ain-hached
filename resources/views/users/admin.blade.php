@@ -96,6 +96,8 @@
                            data-toggle="tooltip"
                            data-placement="top"
                            title="@lang('users.changeavatar_user')"><i class="fa fa-camera" aria-hidden="true"></i></a>
+
+                        <a href="javascript:void(0)">{online}</a>
                     </div>
 
 
