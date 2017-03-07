@@ -6,6 +6,7 @@ use Validator;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\User;
 use App\Role;
 use App\Role_user;
@@ -14,16 +15,6 @@ use App\Secteur;
 
 class UserController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -241,6 +232,40 @@ class UserController extends Controller
         $response = array(
             'status' => 'success',
             'msg' => trans('users.message_update_succes_user'),
+        );
+
+        return response()->json($response);
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $roleuserUpdated = Role_user::find($id);
+
+        $userUpdated = $roleuserUpdated->user;
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save secteur
+        $userUpdated->fill( $request->all() );
+        $userUpdated->password = bcrypt($request->password);
+        $userUpdated->logout = true;
+        $userUpdated->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_passwordchange_succes_user'),
         );
 
         return response()->json($response);

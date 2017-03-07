@@ -126,10 +126,10 @@
                 <div class="form-box-pass box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="@lang('users.password')" value="" required />
+                            <input type="password" class="form-control" name="password" id="password-{id}" placeholder="@lang('users.password')" value="" required />
                         </div>
                         <div class="form-group m-t-8">
-                            <input type="password" class="form-control" name="password_confirm" id="password-confirm" placeholder="@lang('users.confirm_password')" value="" required />
+                            <input type="password" class="form-control" name="password_confirm" id="password-confirm-{id}" placeholder="@lang('users.confirm_password')" value="" required />
                         </div>
                     </form>
 

@@ -227,13 +227,15 @@ $(document).ready(function(){
 
         var _form = _selectorContainer.find( '.form-box-pass' ).find( 'form' );
 
+        //console.log(data_elemen);
+
         $.ajax({
             type: 'PATCH',
             url: url,
             data: data_elemen,
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 if(data.status == 'success') {
                     swal({
                         title: data.msg,
@@ -610,7 +612,9 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find( '.form-box' ).find('form');
+        var form = _selectorContainer.find( '.form-box-pass' ).find('form');
+
+        var _idElement = form.attr('data-id');
 
         form.validate({
             rules : {
@@ -619,7 +623,7 @@ $(document).ready(function(){
                 },
                 password_confirm : {
                     minlength : 5,
-                    equalTo : "#password"
+                    equalTo : "#password-" + _idElement
                 }
             },
             errorPlacement: function(error, element) {
@@ -641,15 +645,15 @@ $(document).ready(function(){
             _selectorContainer.find( '.form-box-pass' ).hide('fade', {}, 'fast', function(){
                 _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
 
-                    var _idElement = form.attr('data-id');
+
 
                     var _url_action = $('#api').find('#store').val();
-                    _url_action = _url_action + '/' + _idElement;
+                    _url_action = _url_action + '/pass/' + _idElement;
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        password : form.find('#password').val(),
-                        password_confirmation : form.find('#password-confirm').val(),
+                        password : form.find('#password-'+ _idElement).val(),
+                        password_confirmation : form.find('#password-confirm-'+ _idElement).val(),
                         _method: "PATCH"
                     };
 

@@ -95,6 +95,7 @@ return [
     'message_save_succes_user' => ' تم اضافةالمستخدم بنجاح',
     'message_delete_succes_user' => 'تم حذف المستخدم بنجاح',
     'message_update_succes_user' => 'تم تعديل المستخدم بنجاح',
+    'message_passwordchange_succes_user' => 'تم تغيير كلمة المرور بنجاح',
     'suppression_defenitife_user' => 'هل تريد حذف هذا المستخدم نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'يجب حذف جميع الروابط المتعلقة بهذا المستخدم',
 
