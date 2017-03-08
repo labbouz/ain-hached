@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 
 use Illuminate\Support\Facades\Auth;
-use App\User;
 
 class CheckAcive
 {
@@ -16,7 +15,7 @@ class CheckAcive
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
         $user = Auth::user();
 
@@ -24,14 +23,10 @@ class CheckAcive
 
             if($user->active == false ) {
                 Auth::logout();
+                return redirect('home');
             }
 
         }
-
-
-
-
-
 
         return $next($request);
     }

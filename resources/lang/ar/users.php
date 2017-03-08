@@ -95,6 +95,7 @@ return [
     'message_save_succes_user' => ' تم اضافةالمستخدم بنجاح',
     'message_delete_succes_user' => 'تم حذف المستخدم بنجاح',
     'message_update_succes_user' => 'تم تعديل المستخدم بنجاح',
+    'message_update_succes_avatar' => 'تم تغيير الصورة الرمزية بنجاح',
     'message_passwordchange_succes_user' => 'تم تغيير كلمة المرور بنجاح',
     'suppression_defenitife_user' => 'هل تريد حذف هذا المستخدم نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'يجب حذف جميع الروابط المتعلقة بهذا المستخدم',
@@ -104,6 +105,12 @@ return [
     'changepass_user' => 'تغيير كلمة المرور',
     'update_info_user' => 'تعديل المعلومات التي ستظهر في النظام',
     'changeavatar_user' => 'تغيير الصورة الرمزية',
+    'avatar_user' => 'الصورة الرمزية',
+
+    'loged_user_online_on' => 'متواجد في النظام حاليا',
+    'loged_user_online_off' => 'غير متواجد في النظام حاليا',
+    'user_active' => 'مستخدم نشط',
+    'user_inactive' => 'مستخدم غير نشط',
 
 
 ];

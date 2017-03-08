@@ -22,7 +22,7 @@ class AlterUsersTable extends Migration
             $table->string('email2')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('logout')->default(false);
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(false);
         });
     }
 

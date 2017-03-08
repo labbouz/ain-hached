@@ -12,6 +12,8 @@ use App\Role;
 use App\Role_user;
 use App\Gouvernorat;
 use App\Secteur;
+use App\StructureSyndicale;
+
 
 class UserController extends Controller
 {
@@ -40,7 +42,8 @@ class UserController extends Controller
 
         switch ($role->slug) {
             case "administrator":
-                return view('users.admin', compact('role'));
+                $structures_syndicales = StructureSyndicale::orderBy('type_structure_syndicale', 'asc')->get();
+                return view('users.admin', compact('role','structures_syndicales'));
                 break;
 
             case "observateur_regional":
@@ -132,6 +135,7 @@ class UserController extends Controller
             'prnom' => 'required|max:255',
             'nom' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'active' => 'required|boolean',
             'password' => 'required|min:6|confirmed',
             'role_id' => 'required|exists:roles,id|numeric',
             'gouvernorat_id' => 'required|numeric',
@@ -154,6 +158,7 @@ class UserController extends Controller
         $user_addedd->nom = $request->nom;
         $user_addedd->name = $request->prnom . ' ' . $request->nom;
         $user_addedd->email = $request->email;
+        $user_addedd->active = $request->active;
         $user_addedd->password = bcrypt($request->password);
         $user_addedd->save();
 
@@ -211,7 +216,8 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'prnom' => 'required|max:255',
             'nom' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$userUpdated->id.'|max:255'
+            'email' => 'required|email|unique:users,email,'.$userUpdated->id.'|max:255',
+            'active' => 'required|boolean'
         ]);
 
         if ($validator->fails()) {
@@ -227,6 +233,11 @@ class UserController extends Controller
         // save secteur
         $userUpdated->fill( $request->all() );
         $userUpdated->name = $request->prnom . ' ' . $request->nom;
+        if($request->active == 1) {
+            $userUpdated->active = true;
+        } else {
+            $userUpdated->active = false;
+        }
         $userUpdated->save();
 
         $response = array(
@@ -271,6 +282,85 @@ class UserController extends Controller
         return response()->json($response);
     }
 
+    public function updateInfoSystem(Request $request, $id)
+    {
+        $roleuserUpdated = Role_user::find($id);
+
+        $userUpdated = $roleuserUpdated->user;
+
+        $validator = Validator::make($request->all(), [
+            'societe' => 'max:255',
+            'structure_syndicale_id' => 'required|numeric',
+            'phone_number' => 'numeric|min:8',
+            'email2' => 'email|max:255'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save secteur
+        $userUpdated->fill( $request->all() )->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_update_succes_user'),
+        );
+
+        return response()->json($response);
+    }
+
+    public function updateAvatar(Request $request, $id)
+    {
+
+        $roleuserUpdated = Role_user::find($id);
+
+        $userUpdated = $roleuserUpdated->user;
+
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
+
+        $response = array(
+            'status' => 'success',
+            'msg' =>  public_path('images/avatars'),
+        );
+
+        $request->avatar->move(public_path('images/avatars'), $imageName);
+
+        // save secteur
+        $userUpdated->fill( $request->all() );
+        $userUpdated->avatar = $imageName;
+        $userUpdated->save();
+
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('users.message_update_succes_avatar'),
+        );
+
+
+        return response()->json($response);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -311,16 +401,26 @@ class UserController extends Controller
             $user->nom = $user->user->nom;
             $user->prnom = $user->user->prnom;
             $user->email = $user->user->email;
+            $user->societe = $user->user->societe;
+            $user->structure_syndicale_id = $user->user->structure_syndicale_id;
+            $user->phone_number = $user->user->phone_number;
+            $user->email2 = $user->user->email2;
             $user->avatar = $user->user->avatar;
+            $user->active = $user->user->active;
 
             if( $user->user->isOnline() ) {
                 $user->online = 'on';
+                $user->text_online = trans('users.loged_user_online_on');
             } else {
                 $user->online = 'off';
+                $user->text_online = trans('users.loged_user_online_off');
             }
 
             if($user->avatar  == null) {
                 $user->avatar = 'images/avatars/anonyme.jpg';
+            } else {
+                $nom_image = $user->avatar;
+                $user->avatar = 'images/avatars/' . $nom_image;
             }
         }
 

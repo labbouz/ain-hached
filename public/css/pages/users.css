@@ -5,7 +5,9 @@
 }
 
 .container_element .form-box,
-.container_element .form-box-pass {
+.container_element .form-box-pass,
+.container_element .form-box-infosstem,
+.container_element .form-box-avatar {
     display: none;
     position: absolute;
     z-index: 99;
@@ -15,24 +17,32 @@
 }
 
 .container_element .form-box .form-cart,
-.container_element .form-box-pass .form-cart{
+.container_element .form-box-pass .form-cart,
+.container_element .form-box-infosstem .form-cart,
+.container_element .form-box-avatar .form-cart {
     padding: 8px;
     height: auto;
     border: none;
 }
 .container_element .form-box .form-cart .form-group,
-.container_element .form-box-pass .form-cart .form-group{
+.container_element .form-box-pass .form-cart .form-group,
+.container_element .form-box-infosstem .form-cart .form-group,
+.container_element .form-box-avatar .form-cart .form-group {
     margin-bottom: 0;
 }
 
 .container_element .form-box .form-cart input[type=text],
-.container_element .form-box-pass .form-cart input[type=text]{
+.container_element .form-box-pass .form-cart input[type=text],
+.container_element .form-box-infosstem .form-cart input[type=text],
+.container_element .form-box-avatar .form-cart input[type=text] {
     font-size: 15px;
 
 }
 
 .container_element .form-box .form-cart textarea,
-.container_element .form-box-pass .form-cart textarea{
+.container_element .form-box-pass .form-cart textarea,
+.container_element .form-box-infosstem .form-cart textarea,
+.container_element .form-box-avatar .form-cart textarea {
     font-size: 15px;
     height: 112px;
     resize: none;
@@ -44,7 +54,13 @@
 .container_element .form-box .form-cart select.error,
 .container_element .form-box-pass .form-cart input.error,
 .container_element .form-box-pass .form-cart textarea.error,
-.container_element .form-box-pass .form-cart select.error {
+.container_element .form-box-pass .form-cart select.error,
+.container_element .form-box-infosstem .form-cart input.error,
+.container_element .form-box-infosstem .form-cart textarea.error,
+.container_element .form-box-infosstem .form-cart select.error,
+.container_element .form-box-avatar .form-cart input.error,
+.container_element .form-box-avatar .form-cart textarea.error,
+.container_element .form-box-avatar .form-cart select.error {
     border-color: #F27474 !important;
 }
 
@@ -83,7 +99,9 @@
 
 .container_element .edit_card .toolbar_box,
 .container_element .form-box .toolbar_box,
-.container_element .form-box-pass .toolbar_box {
+.container_element .form-box-pass .toolbar_box,
+.container_element .form-box-infosstem .toolbar_box,
+.container_element .form-box-avatar .toolbar_box {
     display: block;
     float: left;
     height: 42px;
@@ -93,7 +111,9 @@
 }
 .container_element .edit_card .toolbar_box a,
 .container_element .form-box .toolbar_box a,
-.container_element .form-box-pass .toolbar_box a {
+.container_element .form-box-pass .toolbar_box a,
+.container_element .form-box-infosstem .toolbar_box a,
+.container_element .form-box-avatar .toolbar_box a {
     outline: none;
     text-decoration: none;
     line-height: 42px;
@@ -105,7 +125,9 @@
 
 .container_element .edit_card .toolbar_box a i,
 .container_element .form-box .toolbar_box a i,
-.container_element .form-box-pass .toolbar_box a i {
+.container_element .form-box-pass .toolbar_box a i,
+.container_element .form-box-infosstem .toolbar_box a i,
+.container_element .form-box-avatar .toolbar_box a i {
     font-size: 20px;
     line-height: 42px;
 }
@@ -113,7 +135,11 @@
 .container_element .form-box .toolbar_box a:hover,
 .container_element .form-box .toolbar_box a:focus,
 .container_element .form-box-pass .toolbar_box a:hover,
-.container_element .form-box-pass .toolbar_box a:focus{
+.container_element .form-box-pass .toolbar_box a:focus,
+.container_element .form-box-infosstem .toolbar_box a:hover,
+.container_element .form-box-infosstem .toolbar_box a:focus,
+.container_element .form-box-avatar .toolbar_box a:hover,
+.container_element .form-box-avatar .toolbar_box a:focus {
 }
 
 .container_element .edit_card .toolbar_box {
@@ -251,5 +277,41 @@
     display: block;
 }
 
+.container_element .edit_card .toolbar_box a.connected {
+    float: left;
+    margin: 0 10px;
+}
+
+.container_element .edit_card .toolbar_box a.on {
+    color: #46ff5b;
+}
+.container_element .edit_card .toolbar_box a.off {
+    color: #ff3b3b;
+}
+
+.container-card .label_elemen span.status_active {
+    position: absolute;
+    top:10px;
+    left:50px;
+    width: 20px;
+    height: 20px;
+    cursor: inherit;
+}
+
+.container-card .label_elemen span.status_active i {
+    display: none;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+
+.container-card .label_elemen span.user_0 i.fa-times {
+    display: block !important;
+    color: #ff0000;
+}
+.container-card .label_elemen span.user_1 i.fa-check {
+    display: block !important;
+    color: #00c91c;
+}
 
 

@@ -170,7 +170,7 @@ $(document).ready(function(){
             data: data_elemen,
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 if(data.status == 'success') {
                     swal({
                         title: data.msg,
@@ -180,9 +180,12 @@ $(document).ready(function(){
                     });
 
                     _selectorContainer.find( '.label_elemen' ).find( 'span.info' ).text(data_elemen.prnom + ' ' + data_elemen.nom);
+                    _selectorContainer.find( '.status_active' ).attr('class','status_active user_'+data_elemen.active);
+
                     _form.find( '#prnom' ).attr('data-reset', data_elemen.prnom);
                     _form.find( '#nom' ).attr('data-reset', data_elemen.nom);
                     _form.find( '#email' ).attr('data-reset', data_elemen.email);
+                    _form.find( '#active' ).attr('data-reset', data_elemen.active);
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                         });
@@ -281,6 +284,195 @@ $(document).ready(function(){
             }
         });
 
+    }
+
+    function updateElementInfoSys(url, data_elemen, id_elemen) {
+        //console.log(data_elemen);
+        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
+
+        var _form = _selectorContainer.find( '.form-box-infosstem' ).find( 'form' );
+
+        //console.log(data_elemen);
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+                //console.log(data);
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _form.find( '#societe' ).attr('data-reset', data_elemen.societe);
+                    _form.find( '#structure_syndicale_id' ).attr('data-reset', data_elemen.structure_syndicale_id);
+                    _form.find( '#phone_number' ).attr('data-reset', data_elemen.phone_number);
+                    _form.find( '#email2' ).attr('data-reset', data_elemen.email2);
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                    downModEdit();
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_infosstem').trigger( "click" );
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_infosstem').trigger( "click" );
+                });
+            }
+        });
+
+    }
+
+    function updateElementAvatar(url, data_elemen, id_elemen) {
+        //console.log(data_elemen);
+        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
+
+        var _form = _selectorContainer.find( '.form-box-avatar' ).find( 'form' );
+
+        //console.log(data_elemen);
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data_elemen,
+            async: false,
+            cache: false,
+            dataType: 'json',
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (data) {
+                console.log( data );
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _form[0].reset();
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                    downModEdit();
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
+                });
+            }
+        });
+        /*
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            processData: false,  // tell jQuery not to process the data
+            contentType: "multipart/form-data; avatar="+data_elemen.avatar,  // tell jQuery not to set contentType
+            success: function(data) {
+                //console.log(data);
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _form[0].reset();
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                    downModEdit();
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
+                });
+            }
+        });
+        */
     }
 
     function removeElement(url, data_elemen, id_elemen) {
@@ -388,7 +580,7 @@ $(document).ready(function(){
 
     });
 
-    $(document).on('click', '.cancel_edit', function(){
+    $(document).on('click', '.cancel_edit', function() {
 
         var _selectorContainer = $(this).closest( ".container_element" );
         var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
@@ -460,6 +652,7 @@ $(document).ready(function(){
                         prnom : form.find('#prnom').val(),
                         nom : form.find('#nom').val(),
                         email : form.find('#email').val(),
+                        active : form.find('#active').val(),
                         role_id : form.find('#role_id').val(),
                         secteur_id : form.find('#secteur_id').val(),
                         gouvernorat_id : form.find('#gouvernorat_id').val(),
@@ -475,7 +668,6 @@ $(document).ready(function(){
         }
 
     });
-
 
     $(document).on('click', '.update_element', function(){
 
@@ -513,6 +705,7 @@ $(document).ready(function(){
                         prnom : form.find('#prnom').val(),
                         nom : form.find('#nom').val(),
                         email : form.find('#email').val(),
+                        active : form.find('#active').val(),
                         _method: "PATCH"
                     };
 
@@ -581,7 +774,7 @@ $(document).ready(function(){
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box-pass').is(':visible') ) {
-                $(this).find('.cancel_edit').trigger( "click" );
+                $(this).find('.cancel_changepass').trigger( "click" );
             }
         });
 
@@ -666,5 +859,191 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click', '.infosstem', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
+        $( ".container-card" ).each(function() {
+            if( $(this).find('.form-box-infosstem').is(':visible') ) {
+                $(this).find('.cancel_infosstem').trigger( "click" );
+            }
+        });
+
+        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-infosstem' ).show('fade', {}, 'fast');
+        });
+
+
+    });
+
+    $(document).on('click', '.cancel_infosstem', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        var _form = _selectorContainer.find( '.form-box-infosstem' ).find( 'form' );
+
+        downModEdit();
+        _selectorContainer.find( '.form-box-infosstem' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                // reset edit for input
+                _form.find('input').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for textarea
+                _form.find('textarea').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for select
+                _form.find('select').each(function( ) {
+                    var _valDefault = $(this).attr('data-reset');
+                    $(this).val(_valDefault);
+                });
+
+            });
+        });
+
+    });
+
+    $(document).on('click', '.update_infosstem_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find( '.form-box-infosstem' ).find('form');
+
+        var _idElement = form.attr('data-id');
+
+        form.validate({
+            rules: {
+                phone_number : {
+                    required: false,
+                    minlength : 8,
+                    number: true
+                }
+            },
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box-infosstem' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/infosys/' + _idElement;
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        societe : form.find('#societe').val(),
+                        structure_syndicale_id : form.find('#structure_syndicale_id').val(),
+                        phone_number : form.find('#phone_number').val(),
+                        email2 : form.find('#email2').val(),
+                        _method: "PATCH"
+                    };
+
+                    updateElementInfoSys(_url_action, _dataRequestAction, _idElement);
+
+                });
+            });
+
+        }
+
+    });
+
+    $(document).on('click', '.change_avatar', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
+        $( ".container-card" ).each(function() {
+            if( $(this).find('.form-box-avatar').is(':visible') ) {
+                $(this).find('.cancel_change_avatar').trigger( "click" );
+            }
+        });
+
+        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-avatar' ).show('fade', {}, 'fast');
+        });
+
+
+    });
+
+    $(document).on('click', '.cancel_change_avatar', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        var _form = _selectorContainer.find( '.form-box-avatar' ).find( 'form' );
+
+        downModEdit();
+        _selectorContainer.find( '.form-box-avatar' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                // reset edit for input
+                _form[0].reset();
+
+            });
+        });
+
+    });
+
+    $(document).on('click', '.update_avatar_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find( '.form-box-avatar' ).find('form');
+
+        var _idElement = form.attr('data-id');
+
+        form.validate({
+            rules: {
+                avatar: {
+                    required: true,
+                    extension: "jpg|png|gif"
+                }
+            },
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box-avatar' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/avatar/' + _idElement;
+
+                    var _dataRequestAction = new FormData(form[0]);
+
+                    updateElementAvatar(_url_action, _dataRequestAction, _idElement);
+
+                });
+            });
+
+        }
+
+    });
 
 });

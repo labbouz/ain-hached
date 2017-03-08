@@ -52,8 +52,6 @@
                         <span class="edit" dir="rtl">{nom_violation}</span>
                     </div>
 
-
-
                     <div class="toolbar_box"  dir="rtl">
                         <div id="indicat_element" class="indicat type_violation_{type_violation_id} gravite_{gravite_id}">
                             @foreach ($types_violations as $type_violation)

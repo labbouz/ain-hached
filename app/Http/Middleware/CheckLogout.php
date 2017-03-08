@@ -31,11 +31,12 @@ class CheckLogout
 
             if( $date_curent <= $date_logout  ) {
 
-                $userUpdatedFlag->logout=false;
-                $userUpdatedFlag->save();
-
                 if( $user->logout == true ) {
+                    $userUpdatedFlag->logout=false;
+                    $userUpdatedFlag->save();
+
                     Auth::logout();
+                    return redirect('home');
                 }
 
             } else {

@@ -55,6 +55,10 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
+                        <span class="status_active user_{active}">
+                            <i class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_active')"></i>
+                            <i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_inactive')"></i>
+                        </span>
                         <span class="edit info" dir="rtl">{name}</span>
                         <span class="profile">
                             <img data-origin="{{ Request::root() }}/{avatar}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive">
@@ -92,12 +96,16 @@
                            data-placement="top"
                            title="@lang('users.update_info_user')"><i class="fa fa-info" aria-hidden="true"></i></a>
 
-                        <a href="javascript:void(0)" class="avatar"
+                        <a href="javascript:void(0)" class="avatar change_avatar"
                            data-toggle="tooltip"
                            data-placement="top"
                            title="@lang('users.changeavatar_user')"><i class="fa fa-camera" aria-hidden="true"></i></a>
 
-                        <a href="javascript:void(0)">{online}</a>
+                        <a href="javascript:void(0)" class="connected {online}"
+                           data-toggle="tooltip"
+                           data-placement="right"
+                           title="{text_online}"
+                        ><i class="fa fa-circle" aria-hidden="true"></i></a>
                     </div>
 
 
@@ -116,6 +124,14 @@
                         <div class="form-group m-t-8">
                             <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="{email}" data-reset="{email}" required />
                         </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="active" name="active" class="form-control" data-reset="{active}">
+                                <option value="1">@lang('users.user_active')</option>
+                                <option value="0">@lang('users.user_inactive')</option>
+                            </select>
+                        </div>
+
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
@@ -138,6 +154,50 @@
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="cancel_changepass"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
                         <a href="javascript:void(0)" class="changepass_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+                <div class="form-box-infosstem box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="societe" id="societe" placeholder="@lang('users.societe')" value="{societe}" data-reset="{societe}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control" data-reset="{structure_syndicale_id}">
+                                <option value="0">@lang('main.selectionnez')  @lang('users.structure_syndicale')</option>
+                                @foreach ($structures_syndicales as $structure_syndicale)
+                                    <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('users.telephone')" value="{phone_number}" data-reset="{phone_number}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="email" class="form-control" name="email2" id="email2" placeholder="@lang('users.email2')" value="{email2}" data-reset="{email2}" />
+                        </div>
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_infosstem"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_infosstem_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+                <div class="form-box-avatar box">
+                    <form method="post" autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}"  enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('PATCH') }}
+                        <div class="form-group">
+                            <input type="file" class="form-control" name="avatar" id="avatar" placeholder="@lang('users.avatar_user')" required />
+                        </div>
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_change_avatar"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_avatar_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
                     </div>
                 </div>
@@ -175,6 +235,13 @@
 
                         <div class="form-group m-t-8">
                             <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="" required />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="active" name="active" class="form-control" data-reset="{active}">
+                                <option value="1">@lang('users.user_active')</option>
+                                <option value="0">@lang('users.user_inactive')</option>
+                            </select>
                         </div>
 
                         <div class="form-group m-t-8">
