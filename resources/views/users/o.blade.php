@@ -12,7 +12,11 @@
                     <div id="header_loading" class="header_action header_action_active"></div>
 
                     <div id="header_index" class="header_action" dir="rtl">
-                        <a class="retour_setting" href="{{ route('roles.display', $role->id) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.users')"></i></a>
+                        @if(Auth::user()->isAdmin())
+                            <a class="retour_setting" href="{{ route('roles.display', $role->id) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.users')"></i></a>
+                        @else
+                            <a class="retour_setting" href="{{ route('home') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.dashboard')"></i></a>
+                        @endif
 
 
                         <h3> @lang('users.list_users_roles_observateur') {{ $gouvernorat->nom_gouvernorat }}   </h3>
@@ -41,10 +45,11 @@
 
 @section('url_ajax')
 
-    {{--
-    <input id="index" type="hidden" value="{{ route('json.users.index', ['id_role' => $role->id] ) }}">
-    --}}
-    <input id="index" type="hidden" value="{{ route('json.users.index', ['id_role' => $role->id, 'id_inicateur' => $gouvernorat->id] ) }}">
+    @if(Auth::user()->isObservateurRegional())
+        <input id="index" type="hidden" value="{{ route('json.observateurs.index') }}">
+    @else
+        <input id="index" type="hidden" value="{{ route('json.users.index', ['id_role' => $role->id, 'id_inicateur' => $gouvernorat->id] ) }}">
+    @endif
     <input id="store" type="hidden" value="{{ route('users.store') }}">
 
     {{ csrf_field() }}
@@ -125,12 +130,17 @@
                             <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="{email}" data-reset="{email}" required />
                         </div>
 
-                        <div class="form-group m-t-8">
-                            <select id="active" name="active" class="form-control" data-reset="{active}">
-                                <option value="1">@lang('users.user_active')</option>
-                                <option value="0">@lang('users.user_inactive')</option>
-                            </select>
-                        </div>
+
+                        @if(Auth::user()->isAdmin())
+                            <div class="form-group m-t-8">
+                                <select id="active" name="active" class="form-control" data-reset="{active}">
+                                    <option value="1">@lang('users.user_active')</option>
+                                    <option value="0">@lang('users.user_inactive')</option>
+                                </select>
+                            </div>
+                        @else
+                            <input type="hidden" id="active" name="active" value="{active}" data-reset="{active}">
+                        @endif
 
                     </form>
 
@@ -237,12 +247,16 @@
                             <input type="email" class="form-control" name="email" id="email" placeholder="@lang('users.email')" value="" required />
                         </div>
 
+                        @if(Auth::user()->isAdmin())
                         <div class="form-group m-t-8">
-                            <select id="active" name="active" class="form-control" data-reset="{active}">
+                            <select id="active" name="active" class="form-control">
                                 <option value="1">@lang('users.user_active')</option>
                                 <option value="0">@lang('users.user_inactive')</option>
                             </select>
                         </div>
+                        @else
+                            <input type="hidden" id="active" name="active" value="1">
+                        @endif
 
                         <div class="form-group m-t-8">
                             <input type="password" class="form-control" name="password" id="password" placeholder="@lang('users.password')" value="" required />

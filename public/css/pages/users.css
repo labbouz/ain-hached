@@ -304,5 +304,15 @@
     line-height: 20px;
 }
 
+.container-card .label_elemen span.user_1 .fa-check {
+    display: block;
+    color: #1daf00;
+}
+
+.container-card .label_elemen span.user_0 .fa-times {
+    display: block;
+    color: #d90000;
+}
+
 
 

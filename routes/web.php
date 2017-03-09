@@ -40,6 +40,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
 
 
     Route::post('REST/users/{id_role}/{id_inicateur?}', 'UserController@getElementsJSON')->name('json.users.index');
+    Route::post('REST/observateurs/', 'UserController@getElementsJSONviaRegion')->name('json.observateurs.index');
     Route::post('REST/secteurs', 'SecteurController@getElementsJSON')->name('json.secteurs.index');
     Route::post('REST/moves', 'MoveController@getElementsJSON')->name('json.moves.index');
     Route::post('REST/structure_syndicale', 'StructureSyndicaleController@getElementsJSON')->name('json.structure_syndicale.index');

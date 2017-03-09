@@ -36,10 +36,26 @@ class User extends Authenticatable
         return $this->hasOne('\App\Role_user');
     }
 
-
-
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);
+    }
+
+    public function isAdmin()
+    {
+        if($this->roleuser->role->slug == "administrator") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isObservateurRegional()
+    {
+        if($this->roleuser->role->slug == "observateur_regional") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

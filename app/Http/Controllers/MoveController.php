@@ -143,7 +143,7 @@ class MoveController extends Controller
     public function getElementsJSON()
     {
 
-        //$secteures = Secteur::all();
+        //$move = Move::all();
         $move = Move::orderBy('id', 'desc')->get();
 
         $reponse = [

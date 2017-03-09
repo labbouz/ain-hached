@@ -29,9 +29,25 @@ class UserController extends Controller
     public function index()
     {
 
-        $roles = Role::orderBy('id', 'asc')->get();
+        if(Auth::user()->isAdmin()) {
+            // acces Admin
+            $roles = Role::orderBy('id', 'asc')->get();
+            return view('roles.users', compact('roles'));
 
-        return view('roles.users', compact('roles'));
+        } else {
+            // acces Observateur Regional
+            $role = Role::where('slug', 'observateur')->first();
+
+            $id_gouvernorat = Auth::user()->roleuser->gouvernorat_id;
+            $gouvernorat = Gouvernorat::find($id_gouvernorat);
+            $structures_syndicales = StructureSyndicale::orderBy('type_structure_syndicale', 'asc')->get();
+            return view('users.o', compact('role','gouvernorat','structures_syndicales'));
+
+        }
+
+
+
+
     }
 
     /**
@@ -163,7 +179,12 @@ class UserController extends Controller
         $user_addedd->nom = $request->nom;
         $user_addedd->name = $request->prnom . ' ' . $request->nom;
         $user_addedd->email = $request->email;
-        $user_addedd->active = $request->active;
+        if(Auth::user()->isAdmin()) {
+            $user_addedd->active = $request->active;
+        } else {
+            $user_addedd->active = false;
+        }
+
         $user_addedd->password = bcrypt($request->password);
         $user_addedd->save();
 
@@ -217,6 +238,7 @@ class UserController extends Controller
         $roleuserUpdated = Role_user::find($id);
 
         $userUpdated = $roleuserUpdated->user;
+        $oldActive = $userUpdated->active;
 
         $validator = Validator::make($request->all(), [
             'prnom' => 'required|max:255',
@@ -238,11 +260,19 @@ class UserController extends Controller
         // save secteur
         $userUpdated->fill( $request->all() );
         $userUpdated->name = $request->prnom . ' ' . $request->nom;
-        if($request->active == 1) {
-            $userUpdated->active = true;
+
+
+        if(Auth::user()->isAdmin()) {
+            if($request->active == 1) {
+                $userUpdated->active = true;
+            } else {
+                $userUpdated->active = false;
+            }
         } else {
-            $userUpdated->active = false;
+            $userUpdated->active = $oldActive;
         }
+
+
         $userUpdated->save();
 
         $response = array(
@@ -424,6 +454,54 @@ class UserController extends Controller
         if($role->slug != 'administrator') {
             $role->setIndicateur($id_inicateur);
         }
+
+        $users = $role->deepusers;
+
+        foreach($users as $user){
+            $user->name = $user->user->name;
+            $user->nom = $user->user->nom;
+            $user->prnom = $user->user->prnom;
+            $user->email = $user->user->email;
+            $user->societe = $user->user->societe;
+            $user->structure_syndicale_id = $user->user->structure_syndicale_id;
+            $user->phone_number = $user->user->phone_number;
+            $user->email2 = $user->user->email2;
+            $user->avatar = $user->user->avatar;
+            $user->active = $user->user->active;
+
+            if( $user->user->isOnline() ) {
+                $user->online = 'on';
+                $user->text_online = trans('users.loged_user_online_on');
+            } else {
+                $user->online = 'off';
+                $user->text_online = trans('users.loged_user_online_off');
+            }
+
+            if($user->avatar  == null) {
+                $user->avatar = 'images/avatars/anonyme.jpg';
+            } else {
+                $nom_image = $user->avatar;
+                $user->avatar = 'images/avatars/' . $nom_image;
+            }
+        }
+
+        $reponse = [
+            'status' => 'success',
+            'elements' => $users,
+        ];
+
+        return response()->json($reponse);
+    }
+
+    public function getElementsJSONviaRegion()
+    {
+
+        $role = Role::where('slug', 'observateur')->first();
+
+        // get gouvernorat_id même gouvernorat observateur generale
+        $id_inicateur = Auth::user()->roleuser->gouvernorat_id;
+
+        $role->setIndicateur($id_inicateur);
 
         $users = $role->deepusers;
 

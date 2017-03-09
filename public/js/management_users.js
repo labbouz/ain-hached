@@ -98,7 +98,12 @@ $(document).ready(function(){
 
                     loadElements(data.elements);
                 } else {
-                    console.log(data);
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
                 }
             },
             error: function(data){
@@ -129,7 +134,7 @@ $(document).ready(function(){
                     $('#list_elements').html('');
                     getList(_url, _dataRequest);
                 } else {
-                    console.log(data);
+                    //console.log(data);
                     swal({
                         title: data.msg,
                         text: data.msg_text,

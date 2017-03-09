@@ -12,11 +12,13 @@
                     <span>@lang('main.dashboard')</span>
                 </a>
             </div>
+            @if( Auth::user()->isAdmin() OR Auth::user()->isObservateurRegional() )
             <div class="col-md-2 icon">
                 <a href="{{ route('users.index') }}"><i class="fa fa-users fa-lg" aria-hidden="true" ></i>
                     <span>@lang('main.users')</span>
                 </a>
             </div>
+            @endif
             <div class="col-md-2 icon">
                 <a href="{{ route('home') }}"><i class="fa fa-archive fa-lg" ></i>
                     <span>@lang('main.files')</span>
@@ -47,11 +49,14 @@
                     <span>@lang('main.mesages')</span>
                 </a>
             </div>
+            @if(Auth::user()->isAdmin())
             <div class="col-md-2 icon">
                 <a href="{{ route('setting') }}"><i class="fa fa-cogs fa-lg" ></i>
-                    <span>@lang('main.configuration')</span>
+                    <span>@lang('main.configuration') </span>
                 </a>
             </div>
+            @endif
+
             <div class="col-md-2 icon">
                 <a href="{{ route('logout') }}"onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg" ></i>
