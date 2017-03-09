@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\CheckAcive::class,
             \App\Http\Middleware\CheckLogout::class,
             \App\Http\Middleware\LogLastUserActivity::class,
+            \App\Http\Middleware\CheckAuthorisation::class,
         ],
 
         'api' => [
@@ -54,6 +55,6 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class
     ];
 }

@@ -22,5 +22,9 @@ class HomeController extends Controller
         return view('setting');
     }
 
+    public function notacces()
+    {
+        return view('notacces');
+    }
 
 }

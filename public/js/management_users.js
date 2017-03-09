@@ -433,6 +433,8 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
 
+                //console.log(data);
+
                 if(data.status == 'success') {
                     var _count = parseInt($('.count').text());
 
@@ -450,6 +452,12 @@ $(document).ready(function(){
                     });
 
 
+                } else {
+                    swal({
+                        title: data.msg,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
                 }
             },
             error: function(data){

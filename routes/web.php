@@ -21,6 +21,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/setting', 'HomeController@setting')->name('setting');
+    Route::get('/notacces', 'HomeController@notacces')->name('notacces');
     Route::resource('users', 'UserController');
     Route::match(['put', 'patch'], '/users/infosys/{user}','UserController@updateInfoSystem')->name('users.infosys');
     Route::match(['put', 'patch'], '/users/pass/{user}','UserController@updatePassword')->name('users.chnagepass');
