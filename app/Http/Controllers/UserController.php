@@ -14,6 +14,9 @@ use App\Gouvernorat;
 use App\Secteur;
 use App\StructureSyndicale;
 
+use Image;
+use File;
+
 
 class UserController extends Controller
 {
@@ -90,24 +93,26 @@ class UserController extends Controller
     {
         $role = Role::find($id_role);
 
+        $structures_syndicales = StructureSyndicale::orderBy('type_structure_syndicale', 'asc')->get();
+
         switch ($role->slug) {
             case "administrator":
-                return view('users.admin', compact('role'));
+                return view('users.admin', compact('role','structures_syndicales'));
                 break;
 
             case "observateur_regional":
                 $gouvernorat = Gouvernorat::find($id_inicateur);
-                return view('users.o_region', compact('role','gouvernorat'));
+                return view('users.o_region', compact('role','gouvernorat','structures_syndicales'));
                 break;
 
             case "observateur":
                 $gouvernorat = Gouvernorat::find($id_inicateur);
-                return view('users.o', compact('role','gouvernorat'));
+                return view('users.o', compact('role','gouvernorat','structures_syndicales'));
                 break;
 
             case "observateur_secteur":
                 $secteur = Secteur::find($id_inicateur);
-                return view('users.o_sect', compact('role','secteur'));
+                return view('users.o_sect', compact('role','secteur','structures_syndicales'));
                 break;
         }
     }
@@ -338,13 +343,21 @@ class UserController extends Controller
         }
 
         $imageName = time().'.'.$request->avatar->getClientOriginalExtension();
+        $path = public_path('images/avatars/' . $imageName);
+        Image::make($request->avatar->getRealPath())->resize(290, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->crop(290, 290, 0, 0)->save($path);
 
-        $response = array(
-            'status' => 'success',
-            'msg' =>  public_path('images/avatars'),
-        );
+        // delete old Avatar
+        if($userUpdated->avatar != null) {
+            $old_image_path = public_path('images/avatars/' . $userUpdated->avatar);
 
-        $request->avatar->move(public_path('images/avatars'), $imageName);
+            if (File::exists($old_image_path)) {
+                //File::delete($image_path);
+                unlink($old_image_path);
+            }
+        }
+
 
         // save secteur
         $userUpdated->fill( $request->all() );
@@ -355,6 +368,7 @@ class UserController extends Controller
         $response = array(
             'status' => 'success',
             'msg' => trans('users.message_update_succes_avatar'),
+            'avatar' => asset('/images/avatars/' .  $userUpdated->avatar)
         );
 
 
@@ -374,6 +388,17 @@ class UserController extends Controller
         $userRemoved = $roleuserRemoved->user;
 
         $roleuserRemoved->delete();
+
+        // delete Avatar
+        if($userRemoved->avatar != null) {
+            $old_image_path = public_path('images/avatars/' . $userRemoved->avatar);
+
+            if (File::exists($old_image_path)) {
+                //File::delete($image_path);
+                unlink($old_image_path);
+            }
+        }
+
         $userRemoved->delete();
 
         $response = array(
@@ -392,9 +417,15 @@ class UserController extends Controller
     public function getElementsJSON($id_role, $id_inicateur=null)
     {
 
-        $role = Role::find($id_role);
 
-        $users = $role->users;
+        $role = Role::find($id_role); // for admin
+
+
+        if($role->slug != 'administrator') {
+            $role->setIndicateur($id_inicateur);
+        }
+
+        $users = $role->deepusers;
 
         foreach($users as $user){
             $user->name = $user->user->name;

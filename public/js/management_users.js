@@ -357,6 +357,7 @@ $(document).ready(function(){
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
         var _form = _selectorContainer.find( '.form-box-avatar' ).find( 'form' );
+        var _avatar = _selectorContainer.find( '.profile' ).find( 'img' );
 
         //console.log(data_elemen);
 
@@ -380,6 +381,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    _avatar.attr('src',data.avatar);
+                    _avatar.attr('data-origin',data.avatar);
                     _form[0].reset();
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
@@ -417,62 +420,6 @@ $(document).ready(function(){
                 });
             }
         });
-        /*
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: data_elemen,
-            dataType: 'json',
-            processData: false,  // tell jQuery not to process the data
-            contentType: "multipart/form-data; avatar="+data_elemen.avatar,  // tell jQuery not to set contentType
-            success: function(data) {
-                //console.log(data);
-                if(data.status == 'success') {
-                    swal({
-                        title: data.msg,
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-
-                    _form[0].reset();
-
-                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-                        });
-                    });
-
-                    downModEdit();
-
-                } else {
-                    //console.log(data);
-                    swal({
-                        title: data.msg,
-                        text: data.msg_text,
-                        type: "error",
-                        confirmButtonColor: "#4F5467"
-                    });
-
-                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                        _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
-                    });
-                }
-            },
-            error: function(data){
-                console.log(data);
-                swal({
-                    title: data.responseText,
-                    type: "error",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-
-                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                    _selectorContainer.find('.cancel_change_avatar').trigger( "click" );
-                });
-            }
-        });
-        */
     }
 
     function removeElement(url, data_elemen, id_elemen) {

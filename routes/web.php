@@ -24,9 +24,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('users', 'UserController');
     Route::match(['put', 'patch'], '/users/infosys/{user}','UserController@updateInfoSystem')->name('users.infosys');
     Route::match(['put', 'patch'], '/users/pass/{user}','UserController@updatePassword')->name('users.chnagepass');
-
-    Route::match(['put', 'patch'], '/users/avatar/{user}','UserController@updateAvatar')->name('users.postavatar'); //'post',
-
+    Route::match(['put', 'patch'], '/users/avatar/{user}','UserController@updateAvatar')->name('users.postavatar');
     Route::get('/roles/display/{id_role}', 'UserController@displayRole')->name('roles.display');
     Route::get('/roles/display/{id_role}/users/{id_inicateur}', 'UserController@display')->name('users.display');
 

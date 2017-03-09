@@ -60,7 +60,7 @@
                             <i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_inactive')"></i>
                         </span>
                         <span class="edit info" dir="rtl">{name}</span>
-                        <span class="profile">
+                        <span class="profile change_avatar">
                             <img data-origin="{{ Request::root() }}/{avatar}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive">
                         </span>
                     </div>

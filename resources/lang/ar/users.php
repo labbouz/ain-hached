@@ -86,7 +86,7 @@ return [
 
     'list_users_roles_admins' => 'المشرفين العامين',
     'desc_list_users_roes' => 'جميع مستخدمي النظام الذين يندرجون تحت صلاحيات',
-    'count_users' => 'البالغ عددهم',
+    'count_users' => ' والبالغ عددهم',
     'observateur' => 'راصد',
 
     'add_' => 'إضافة',
@@ -111,6 +111,12 @@ return [
     'loged_user_online_off' => 'غير متواجد في النظام حاليا',
     'user_active' => 'مستخدم نشط',
     'user_inactive' => 'مستخدم غير نشط',
+
+    'list_users_roles_observateur_regionels' => 'الراصدين الجهويين بولاية',
+    'list_users_roles_observateur_sectoriels' => 'الراصدين القطاعيين بقطاع',
+    'list_users_roles_observateur' => 'الراصدين بولاية',
+    'pour_gouvernorat' => 'بولاية',
+    'pour_secteur' => 'بقطاع',
 
 
 ];

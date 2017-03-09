@@ -37,20 +37,28 @@
                             </div>
                             <div class="toolbar_box"  dir="rtl">
 
-                                <a href="{{ route('users.display', ['id_role' => $role->id, 'id_inicateur' => $gouvernorat->id] ) }}">
-                                    @lang('users.nb_observateurs')  : {{ $gouvernorat->users_roles->count() }} <i class="fa fa-users" aria-hidden="true" @if($gouvernorat->users_roles->count() > 0 ) data-toggle="tooltip" data-placement="top" title="
-                                @foreach ($gouvernorat->users_roles as $roleuser)
+                                @if($gouvernorat->users_roles->count() > 0 )
+                                    <a href="{{ route('users.display', ['id_role' => $role->id, 'id_inicateur' => $gouvernorat->id] ) }}">@lang('users.nb_observateurs')  : {{ $gouvernorat->users_roles->count() }}
 
-                                    @if($gouvernorat->users_roles->first() == $roleuser)
+                                        <i class="fa fa-users" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="
+                                    @foreach ($gouvernorat->users_roles as $roleuser)
+
+                                        @if($gouvernorat->users_roles->first() == $roleuser)
                                         {{ $roleuser->user->name }}
-                                    @else
-                                            - {{ $roleuser->user->name }}
-                                    @endif
+                                        @else
+                                                - {{ $roleuser->user->name }}
+                                        @endif
 
-                                    @endforeach
-                             @endif
-                                            "></i>
-                                </a>
+                                     @endforeach
+                                    "></i>
+
+                                    </a>
+                                @else
+                                    <a href="{{ route('users.display', ['id_role' => $role->id, 'id_inicateur' => $gouvernorat->id] ) }}">@lang('users.nb_observateurs')  : {{ $gouvernorat->users_roles->count() }}
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+
                             </div>
                         </div>
 
