@@ -35,6 +35,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('moves', 'MoveController');
     Route::resource('structure_syndicale', 'StructureSyndicaleController');
     Route::resource('violations', 'ViolationController');
+    Route::resource('type_societe', 'TypeSocieteController');
     Route::resource('delegations', 'DelegationController');
     Route::get('/delegations/display/{id_gouvernorat}', 'DelegationController@display')->name('delegations.display');
 
@@ -48,7 +49,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::post('REST/gouvernorats', 'GouvernoratController@getElementsJSON')->name('json.gouvernorats.index');
     Route::post('REST/delegations/{id_gouvernorat}', 'DelegationController@getElementsJSON')->name('json.delegations.index');
     Route::post('REST/conventions/{id_secteur}', 'ConventionController@getElementsJSON')->name('json.conventions.index');
-
+    Route::post('REST/type_societe', 'TypeSocieteController@getElementsJSON')->name('json.type_societe.index');
 });
 
 

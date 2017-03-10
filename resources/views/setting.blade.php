@@ -37,6 +37,11 @@
                     <span>@lang('main.moves')</span>
                 </a>
             </div>
+            <div class="col-md-2 icon">
+                <a href="{{ route('type_societe.index') }}"><i class="fa fa-list fa-lg" ></i>
+                    <span>@lang('societe.types_societes')</span>
+                </a>
+            </div>
 
         </div>
     </div>

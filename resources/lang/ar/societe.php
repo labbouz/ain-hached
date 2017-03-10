@@ -29,5 +29,15 @@ return [
     'existe' => 'نعم',
     'not_existe' => 'لا',
 
+    'types_societes' => 'تصنيف المؤسسات',
+    'description_types_societes' =>  'قائمة بتصنيف جميع  المؤسسات المسجلة في النظام',
+    'add_type_societe' => 'إضافة تصنيف جديد',
+    'type_societe_nom' => 'إسم التصنيف',
+
+    'message_save_succes_type_societe' => ' تم اضافة التصنيف بنجاح',
+    'message_delete_succes_type_societe' => 'تم حذف التصنيف بنجاح',
+    'message_update_succes_type_societe' => 'تم تعديل التصنيف بنجاح',
+    'suppression_defenitife' =>'هل تريد حذف هذا التصنيف نهائيا من النظام ؟',
+
 
 ];

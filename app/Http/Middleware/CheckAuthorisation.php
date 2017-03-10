@@ -111,6 +111,13 @@ class CheckAuthorisation
             'moves.update',
             'json.moves.index');
 
+        $type_societe_acces = array('type_societe.store',
+            'type_societe.index',
+            'type_societe.create',
+            'type_societe.update',
+            'type_societe.destroy',
+            'json.type_societe.index');
+
         $users_acces = array('roles.display',
             'users.display',
             'users.store',
@@ -142,6 +149,7 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $type_societe_acces,
             $users_acces_observateur_regional);
 
         $tableau_acces['observateur_secteur'] = array_merge(
@@ -152,6 +160,7 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $type_societe_acces,
             $users_acces);
 
         $tableau_acces['observateur'] = array_merge(
@@ -162,6 +171,7 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $type_societe_acces,
             $users_acces);
 
         return in_array($route_name, $tableau_acces[$this->role_slug]);
