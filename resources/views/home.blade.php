@@ -30,7 +30,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-building-o fa-lg" ></i>
+                <a href="{{ route('societes.index') }}"><i class="fa fa-building-o fa-lg" ></i>
                     <span>@lang('main.syndicats')</span>
                 </a>
             </div>

@@ -10,12 +10,8 @@ class TypeSociete extends Model
 
     protected $fillable = ['nom_type_societe'];
 
-    /*
-     *
     public function societes()
     {
         return $this->hasMany('\App\Societe');
     }
-     *
-     */
 }

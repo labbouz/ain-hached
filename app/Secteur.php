@@ -17,12 +17,10 @@ class Secteur extends Model
         return $this->hasMany('\App\Convention')->orderBy('id', 'desc');
     }
 
-    /*
     public function societes()
     {
         return $this->hasMany('\App\Societe');
     }
-    */
 
 
 }

@@ -39,6 +39,8 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('delegations', 'DelegationController');
     Route::get('/delegations/display/{id_gouvernorat}', 'DelegationController@display')->name('delegations.display');
 
+    Route::resource('societes', 'SocieteController');
+
 
     Route::post('REST/users/{id_role}/{id_inicateur?}', 'UserController@getElementsJSON')->name('json.users.index');
     Route::post('REST/observateurs/', 'UserController@getElementsJSONviaRegion')->name('json.observateurs.index');
@@ -50,6 +52,12 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::post('REST/delegations/{id_gouvernorat}', 'DelegationController@getElementsJSON')->name('json.delegations.index');
     Route::post('REST/conventions/{id_secteur}', 'ConventionController@getElementsJSON')->name('json.conventions.index');
     Route::post('REST/type_societe', 'TypeSocieteController@getElementsJSON')->name('json.type_societe.index');
+
+    /*
+    Route::post('REST/societes/{id_secteur}/{id_gouvernorat}/{id_delegation}', 'SocieteController@getElementsJSON')->name('json.admin.societes.index');
+    Route::post('REST/societes/{id_secteur}/{id_delegation}', 'SocieteController@getElementsJSONviaRegion')->name('json.region.societes.index');
+    Route::post('REST/societes/{id_gouvernorat}/{id_delegation}', 'SocieteController@getElementsJSONviaSecteur')->name('json.secteur.societes.index');
+    */
 });
 
 
