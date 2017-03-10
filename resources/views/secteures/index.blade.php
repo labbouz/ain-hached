@@ -65,6 +65,11 @@
                                 {count_conventions}
                             </a>
 
+                            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="{description_count_users}">
+                                <i class="fa fa-users"></i>
+                                {count_users}
+                            </a>
+
                         </div>
 
 

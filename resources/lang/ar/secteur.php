@@ -27,6 +27,7 @@ return [
     'pour_secteur' => 'لقطاع',
     'conventions_sectorielles_conjointes' => 'اتفاقيات قطاعية مشتركة',
     'not_exist_conventions_sectorielles_conjointes' => 'لا توجد اتفاقيات قطاعية مشتركة',
+    'not_exist_users' => 'لايوجد راصد لهذا القطاع',
 
     'add_convention' => 'إضافة اتفاقية  جديدة',
     'nom_convention' =>  'اسم الاتفاقية',
@@ -38,6 +39,7 @@ return [
     'message_update_succes_convention' => 'تم تعديل الاتفاقية بنجاح',
     'suppression_defenitife_convention' =>'هل تريد حذف هذه الاتفاقية نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'يجب حذف جميع الأتفاقيات المتعلقة بهذا القطاع',
+    'indication_2_problem_delet' => 'يجب حذف جميع الراصديين القطاعيين بهذا القطاع',
 
 
     'secteur_1' => 'المعاش و السياحة',

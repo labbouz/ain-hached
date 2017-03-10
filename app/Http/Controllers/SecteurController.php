@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 
 use App\Secteur;
+use App\Role_user;
 //use App\Convention;
 
 class SecteurController extends Controller
@@ -143,12 +144,28 @@ class SecteurController extends Controller
         $secteurRemoved = Secteur::find($id);
 
         if( $secteurRemoved->conventions->count() == 0 ) {
-            $secteurRemoved->delete();
 
-            $response = array(
-                'status' => 'success',
-                'msg' => trans('secteur.message_delete_succes_secteur'),
-            );
+
+            $uesers_secteur = Role_user::where('secteur_id', $secteurRemoved->id)
+                ->orderBy('id', 'desc')
+                ->get();
+
+            if( $uesers_secteur->count() == 0 ) {
+
+                $secteurRemoved->delete();
+                $response = array(
+                    'status' => 'success',
+                    'msg' => trans('secteur.message_delete_succes_secteur'),
+                );
+
+            } else {
+                $response = array(
+                    'status' => 'pb_database',
+                    'msg' => trans('main.problem_delet'),
+                    'msg_text' => trans('secteur.indication_2_problem_delet'),
+                );
+            }
+
         } else {
             $response = array(
                 'status' => 'pb_database',
@@ -186,6 +203,31 @@ class SecteurController extends Controller
             } else {
                 $secteure->description_count_conventions = trans('secteur.la_conventions_sectorielles_conjointes') . ' ' . trans('secteur.pour_secteur') . ' ' . $secteure->nom_secteur . ' : ' . $text_list_convention;
             }
+
+            /************************/
+            $uesers_secteur = Role_user::where('secteur_id', $secteure->id)
+                ->orderBy('id', 'desc')
+                ->get();
+
+            $count_users=0;
+            $text_list_users='';
+            foreach($uesers_secteur as $roleuser) {
+                if($count_users == 0) {
+                    $text_list_users .= $roleuser->user->name;
+                } else {
+                    $text_list_users .= ' - ' . $roleuser->user->name;
+                }
+                $count_users++;
+            }
+            $secteure->count_users = $count_users;
+            if($count_users == 0) {
+                $secteure->description_count_users = trans('secteur.not_exist_users');
+            } else {
+                $secteure->description_count_users = $text_list_users;
+            }
+            /***************************/
+
+
 
             $secteure->url_display_conventions = route('conventions.display',$secteure->id );
 
