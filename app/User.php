@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if($this->roleuser->role->slug == "administrator") {
+        if($this->getRole() == "administrator") {
             return true;
         } else {
             return false;
@@ -52,10 +52,15 @@ class User extends Authenticatable
 
     public function isObservateurRegional()
     {
-        if($this->roleuser->role->slug == "observateur_regional") {
+        if($this->getRole() == "observateur_regional") {
             return true;
         } else {
             return false;
         }
+    }
+
+    public function getRole()
+    {
+        return $this->roleuser->role->slug;
     }
 }

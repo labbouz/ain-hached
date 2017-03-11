@@ -53,6 +53,10 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::post('REST/conventions/{id_secteur}', 'ConventionController@getElementsJSON')->name('json.conventions.index');
     Route::post('REST/type_societe', 'TypeSocieteController@getElementsJSON')->name('json.type_societe.index');
 
+
+    Route::get('/societes/secteur/{id_secteur}', 'SocieteController@showRegionByAdmin')->name('societes_secteur.admin');
+    Route::get('/societes/secteur/{id_secteur}/gouvernorat/{id_gouvernorat}', 'SocieteController@showDelegationByAdmin')->name('societes_region.admin');
+
     /*
     Route::post('REST/societes/{id_secteur}/{id_gouvernorat}/{id_delegation}', 'SocieteController@getElementsJSON')->name('json.admin.societes.index');
     Route::post('REST/societes/{id_secteur}/{id_delegation}', 'SocieteController@getElementsJSONviaRegion')->name('json.region.societes.index');
