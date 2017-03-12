@@ -137,7 +137,8 @@ class CheckAuthorisation
             'json.users.index');
 
         $societes_acces = array('societes_secteur.admin',
-            'societes_region.admin');
+            'societes_region.admin',
+            'societes.display.admin');
 
 
         /*********************** Roles ***********************/

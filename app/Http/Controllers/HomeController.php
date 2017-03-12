@@ -27,4 +27,9 @@ class HomeController extends Controller
         return view('notacces');
     }
 
+    public function error()
+    {
+        return view('errors');
+    }
+
 }

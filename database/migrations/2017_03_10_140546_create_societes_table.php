@@ -26,9 +26,9 @@ class CreateSocietesTable extends Migration
             $table->foreign('secteur_id')->references('id')->on('secteurs');
             $table->boolean('accord_de_fondation')->default(false);
             $table->boolean('convention_cadre_commun')->default(true);
-            $table->integer('convention_id')->unsigned();
-            $table->integer('nombre_travailleurs_cdi');
-            $table->integer('nombre_travailleurs_cdd');
+            $table->integer('convention_id')->unsigned()->default(0);
+            $table->integer('nombre_travailleurs_cdi')->default(0);
+            $table->integer('nombre_travailleurs_cdd')->default(0);
             $table->timestamps();
         });
     }
