@@ -51,7 +51,7 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit" dir="rtl">{nom_convention}</span>
+                        <span class="edit" dir="rtl">{nom_societe}</span>
                     </div>
 
 
@@ -74,18 +74,18 @@
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_convention" placeholder="@lang('secteur.nom_convention')" value="{nom_convention}" data-error="@lang('main.info_monquant')" data-reset="{nom_convention}" required />
+                            <input type="text" class="form-control" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="{nom_societe}" data-error="@lang('main.info_monquant')" data-reset="{nom_societe}" required />
                         </div>
 
                         <div class="form-group m-t-8">
-                            <select id="accord_de_fondation" name="accord_de_fondation" class="form-control">
+                            <select id="accord_de_fondation" name="accord_de_fondation" class="form-control" data-reset="{accord_de_fondation}">
                                 <option value="1">@lang('societe.accord_de_fondation_1')</option>
                                 <option value="0" selected>@lang('societe.accord_de_fondation_0')</option>
                             </select>
                         </div>
 
                         <div class="form-group m-t-8">
-                            <select id="convention_cadre_commun" name="convention_cadre_commun" class="form-control" data-reset="{active}">
+                            <select id="convention_cadre_commun" name="convention_cadre_commun" class="form-control" data-reset="{convention_cadre_commun}">
                                 <option value="1" selected>@lang('societe.convention_cadre_commun_1')</option>
                                 <option value="0">@lang('societe.convention_cadre_commun_0')</option>
                             </select>
@@ -145,7 +145,7 @@
 
                         <div class="form-group m-t-8">
                             <label>@lang('societe.date_cration_societe')</label>
-                            <input dir="ltr" type="text" class="form-control" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="" />
+                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="" />
                         </div>
 
                         <input type="hidden" id="delegation_id" value="{{ $delegation->id }}">
@@ -156,6 +156,7 @@
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
                         <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
 
                     </div>
                 </div>

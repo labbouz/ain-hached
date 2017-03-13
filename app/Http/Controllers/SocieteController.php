@@ -79,6 +79,11 @@ class SocieteController extends Controller
             return $response ;
         }
 
+        // Controle date if empty
+        if($request->date_cration_societe == '') {
+            $request->date_cration_societe = null;
+        }
+
         // save delegation
         $societe_adedd = new Societe;
         $societe_adedd->nom_societe = $request->nom_societe;
@@ -139,6 +144,10 @@ class SocieteController extends Controller
 
         if(!$gouvernorat || !$secteur) {
             return redirect('error');
+        }
+
+        foreach ($gouvernorat->delegations as $delegation) {
+            
         }
 
         return view('delegations.societes', compact('secteur','gouvernorat'));

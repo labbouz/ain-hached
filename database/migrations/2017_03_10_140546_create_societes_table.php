@@ -17,7 +17,7 @@ class CreateSocietesTable extends Migration
             $table->increments('id');
             $table->string('nom_societe');
             $table->string('nom_marque');
-            $table->date('date_cration_societe');
+            $table->date('date_cration_societe')->nullable();
             $table->integer('type_societe_id')->unsigned();
             $table->foreign('type_societe_id')->references('id')->on('types_societes');
             $table->integer('delegation_id')->unsigned();

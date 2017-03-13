@@ -63,12 +63,12 @@ $(document).ready(function(){
             $(this).find('select').each(function( ) {
                 var _valDefault = $(this).attr('data-reset');
                 $(this).find('option[value='+_valDefault+']').attr('selected','selected');
-             });
+            });
 
             _delay = _delay + 100;
         });
 
-         $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
     };
 
@@ -82,12 +82,13 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 // success logic
-                console.log(data);
+                //console.log(data);
                 $('.header_action_active').hide('fade', {}, 500, function(){
                     $('#header_index').show('fade', {}, 800, function(){
                         $(this).addClass('header_action_active');
                     });
                 });
+
 
                 if(data.status == 'success') {
                     // update nomber element
@@ -97,6 +98,7 @@ $(document).ready(function(){
                 } else {
                     console.log(data);
                 }
+
             },
             error: function(data){
                 console.log(data);
@@ -296,7 +298,7 @@ $(document).ready(function(){
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
-               $(this).find('.cancel_edit').trigger( "click" );
+                $(this).find('.cancel_edit').trigger( "click" );
             }
         });
 
@@ -326,7 +328,7 @@ $(document).ready(function(){
         downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-               // reset edit for input
+                // reset edit for input
                 _selectorContainer.find( 'form' ).find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
@@ -354,11 +356,27 @@ $(document).ready(function(){
 
         var form = _selectorContainer.find('form');
 
+        $.validator.addMethod(
+            "myDateFormat",
+            function(value, element) {
+                // yyyy-mm-dd
+                var re = /^\d{4}-\d{1,2}-\d{1,2}$/;
+
+                // valid if optional and empty OR if it passes the regex test
+                return (this.optional(element) && value=="") || re.test(value);
+            }
+        );
+
+
         form.validate({
             rules: {
                 type_societe_id: {
                     required: true,
                     min: 1
+                },
+                date_cration_societe: {
+                    required: false,
+                    date: true
                 }
             },
             errorPlacement: function(error, element) {
