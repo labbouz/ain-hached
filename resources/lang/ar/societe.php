@@ -62,6 +62,14 @@ return [
 
 
     'message_save_succes_societe' => ' تم اضافة المؤسسة النقابية بنجاح',
+    'message_delete_succes_societe' => 'تم حذف المؤسسة النقابية بنجاح',
+    'message_update_succes_societe' => 'تم تعديل المؤسسة النقابية بنجاح',
+    'suppression_defenitife_societe' =>'هل تريد حذف هذه المؤسسة النقابية نهائيا من النظام ؟',
+    'indication_1_problem_delet' => 'يجب حذف جميع الملفات المتعلقة بهذه المؤسسة النقابية',
+
+    'societe_convention' => 'تعديل الاتفاقيات التي تخص هذه المؤسسة',
+    'societe_main' => 'تعديل المعلومات الرئسية لهذه المؤسسة',
+    '' => '',
     '' => '',
     '' => '',
     '' => '',

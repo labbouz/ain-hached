@@ -61,7 +61,7 @@ class SocieteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nom_societe' => 'required|unique:societes,nom_societe|max:255',
+            'nom_societe' => 'required|max:255|unique:societes,nom_societe,NULL,id,delegation_id,'.$request->delegation_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
             'date_cration_societe' => 'date|date_format:Y-m-d',
@@ -146,9 +146,12 @@ class SocieteController extends Controller
             return redirect('error');
         }
 
+        $nb_societes = 0;
         foreach ($gouvernorat->delegations as $delegation) {
-            
+            $delegation->setSecteur($secteur->id);
+            $nb_societes += $delegation->societesViaSecteur->count();
         }
+        $gouvernorat->nb_societes = $nb_societes;
 
         return view('delegations.societes', compact('secteur','gouvernorat'));
     }
@@ -192,7 +195,44 @@ class SocieteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $societeUpdated = Societe::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'nom_societe' => 'required|max:255|unique:societes,nom_societe,'.$societeUpdated->id.',id,delegation_id,'.$societeUpdated->delegation_id,
+            'nom_marque' => 'max:255',
+            'type_societe_id' => 'required|numeric',
+            'date_cration_societe' => 'date|date_format:Y-m-d'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // Controle date if empty
+        if($request->date_cration_societe == '') {
+            $request->date_cration_societe = null;
+        }
+
+        // save secteur
+        $societeUpdated->nom_societe = $request->nom_societe;
+        $societeUpdated->nom_marque = $request->nom_marque;
+        $societeUpdated->type_societe_id = $request->type_societe_id;
+        $societeUpdated->date_cration_societe = $request->date_cration_societe;
+
+        $societeUpdated->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('societe.message_update_succes_societe'),
+        );
+
+        return response()->json($response);
     }
 
     /**
@@ -203,7 +243,14 @@ class SocieteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Societe::find($id)->delete();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('societe.message_delete_succes_societe'),
+        );
+
+        return response()->json($response);
     }
 
     public function getElementsJSONviaRegion($id_secteur, $id_delegation)

@@ -30,6 +30,6 @@ class Delegation extends Model
 
     public function societesViaSecteur()
     {
-        return $this->hasMany('\App\Societe')->where('secteur_id', '=', $this->croisement_secteur);
+        return $this->hasMany('\App\Societe')->where('secteur_id', '=', $this->croisement_secteur)->orderBy('id', 'desc');
     }
 }

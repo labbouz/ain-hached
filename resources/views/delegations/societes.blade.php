@@ -11,7 +11,7 @@
                 <div class="page-title">
                     <div id="header_index" dir="rtl">
                         <a class="retour_setting" href="{{ route('societes_secteur.admin', ['id_secteur' => $secteur->id] ) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
-                        <h3> @lang('societe.classment_societees_selon_delecgation') {{ $gouvernorat->nom_gouvernorat }} @lang('societe.pour_secteur') {{ $secteur->nom_secteur }} @lang('societe.nnb_societe')  ( {{ $secteur->societes->count() }} )  dddd</h3>
+                        <h3> @lang('societe.classment_societees_selon_delecgation') {{ $gouvernorat->nom_gouvernorat }} @lang('societe.pour_secteur') {{ $secteur->nom_secteur }} @lang('societe.nnb_societe')  ( {{ $gouvernorat->nb_societes }} )</h3>
                         <p class="text-muted">@lang('societe.desc_classment_societees_selon_delecgation')</p>
                     </div>
 

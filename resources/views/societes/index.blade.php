@@ -51,7 +51,8 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit" dir="rtl">{nom_societe}</span>
+                        <span class="edit nom_marque" dir="rtl">{nom_marque}</span>
+                        <span class="edit nom_societe" dir="rtl">{nom_societe}</span>
                     </div>
 
 
@@ -59,12 +60,15 @@
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="remove"
                            data-warning="@lang('main.etes_vous_sure')"
-                           data-text-warning="@lang('secteur.suppression_defenitife_convention')"
+                           data-text-warning="@lang('societe.suppression_defenitife_societe')"
                            data-confirm-buttontext="@lang('main.confirmButtonText')"
                            data-cancel-buttonText="@lang('main.cancelButtonText')"
                            data-cancelled="@lang('main.cancelled')"
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_main')"></i></a>
+                        <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_convention')"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
+
+
                     </div>
 
 
@@ -74,8 +78,38 @@
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="{nom_societe}" data-error="@lang('main.info_monquant')" data-reset="{nom_societe}" required />
+                            <input type="text" class="form-control" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="{nom_societe}" data-reset="{nom_societe}" required />
                         </div>
+
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom_marque" id="nom_marque" placeholder="@lang('societe.nom_marque')" value="{nom_marque}" data-reset="{nom_marque}" />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="type_societe_id" name="type_societe_id" class="form-control" data-reset="{type_societe_id}">
+                                <option value="">@lang('main.selectionnez')  @lang('societe.type_societe')</option>
+                                @foreach ($types_societes as $type_societe)
+                                    <option value="{{ $type_societe->id }}">{{ $type_societe->nom_type_societe }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.date_cration_societe')</label>
+                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="{date_cration_societe}" data-reset="{date_cration_societe}" />
+                        </div>
+
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_edit"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+                <div class="form-box-conventions box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
 
                         <div class="form-group m-t-8">
                             <select id="accord_de_fondation" name="accord_de_fondation" class="form-control" data-reset="{accord_de_fondation}">
@@ -91,13 +125,22 @@
                             </select>
                         </div>
 
-                        <input type="hidden" id="secteur_id" value="{secteur_id}" data-reset="{secteur_id}">
+                        <div class="form-group m-t-8">
+                            <label>@lang('main.selectionnez')  @lang('societe.convention')</label>
+                            <select id="convention_id" name="convention_id" class="form-control" data-reset="{convention_id}">
+                                <option value="0">-- -- -- -- -- -- -- -- -- -- -- -- -- --</option>
+                                @foreach ($secteur->conventions as $convention)
+                                    <option value="{{ $convention->id }}">{{ $convention->nom_convention }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
 
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)" class="cancel_edit"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
-                        <a href="javascript:void(0)" class="update_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+                        <a href="javascript:void(0)" class="cancel_edit_conventions"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_conventions_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
                     </div>
                 </div>

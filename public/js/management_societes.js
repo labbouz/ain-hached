@@ -161,6 +161,8 @@ $(document).ready(function(){
         //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
+        var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
+
         $.ajax({
             type: 'PATCH',
             url: url,
@@ -176,8 +178,12 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_convention);
-                    _selectorContainer.find( 'form' ).find( '#nom_convention' ).attr('data-reset', data_elemen.nom_convention);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).text(data_elemen.nom_societe);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).text(data_elemen.nom_marque);
+                    _form.find( '#nom_societe' ).attr('data-reset', data_elemen.nom_societe);
+                    _form.find( '#nom_marque' ).attr('data-reset', data_elemen.nom_marque);
+                    _form.find( '#type_societe_id' ).attr('data-reset', data_elemen.type_societe_id);
+                    _form.find( '#date_cration_societe' ).attr('data-reset', data_elemen.date_cration_societe);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -201,7 +207,7 @@ $(document).ready(function(){
                 }
             },
             error: function(data){
-                //console.log(data);
+                console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -246,6 +252,12 @@ $(document).ready(function(){
                     });
 
 
+                } else {
+                    swal({
+                        title: data.msg,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
                 }
             },
             error: function(data){
@@ -350,23 +362,22 @@ $(document).ready(function(){
 
     });
 
+    $.validator.addMethod(
+        "myDateFormat",
+        function(value, element) {
+            // yyyy-mm-dd
+            var re = /^\d{4}-\d{1,2}-\d{1,2}$/;
+
+            // valid if optional and empty OR if it passes the regex test
+            return (this.optional(element) && value=="") || re.test(value);
+        }
+    );
+
     $(document).on('click', '.save_element', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
         var form = _selectorContainer.find('form');
-
-        $.validator.addMethod(
-            "myDateFormat",
-            function(value, element) {
-                // yyyy-mm-dd
-                var re = /^\d{4}-\d{1,2}-\d{1,2}$/;
-
-                // valid if optional and empty OR if it passes the regex test
-                return (this.optional(element) && value=="") || re.test(value);
-            }
-        );
-
 
         form.validate({
             rules: {
@@ -424,9 +435,19 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find('form');
+        var form = _selectorContainer.find( '.form-box' ).find('form');
 
         form.validate({
+            rules: {
+                type_societe_id: {
+                    required: true,
+                    min: 1
+                },
+                date_cration_societe: {
+                    required: false,
+                    date: true
+                }
+            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -453,8 +474,10 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_convention : form.find('#nom_convention').val(),
-                        secteur_id : form.find('#secteur_id').val(),
+                        nom_societe : form.find('#nom_societe').val(),
+                        nom_marque : form.find('#nom_marque').val(),
+                        type_societe_id : form.find('#type_societe_id').val(),
+                        date_cration_societe : form.find('#date_cration_societe').val(),
                         _method: "PATCH"
                     };
 
@@ -510,6 +533,114 @@ $(document).ready(function(){
                     });
                 }
             });
+    });
+
+    $(document).on('click', '.edit_conventions', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        setModEdit();
+
+        $( ".container-card" ).each(function() {
+            if( $(this).find('.form-box-conventions').is(':visible') ) {
+                $(this).find('.cancel_edit_conventions').trigger( "click" );
+            }
+        });
+
+        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-conventions' ).show('fade', {}, 'fast');
+        });
+
+
+    });
+
+    $(document).on('click', '.cancel_edit_conventions', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
+
+        downModEdit();
+        _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                // reset edit for input
+                _form.find('input').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for textarea
+                _form.find('textarea').each(function(){
+                    var recap =$(this).attr('data-reset');
+                    $(this).val(recap);
+                });
+                // reset edit for select
+                _form.find('select').each(function( ) {
+                    var _valDefault = $(this).attr('data-reset');
+                    $(this).val(_valDefault);
+                });
+
+            });
+        });
+
+
+    });
+
+    $(document).on('click', '.update_conventions_element', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find( '.form-box' ).find('form');
+
+        form.validate({
+            rules: {
+                type_societe_id: {
+                    required: true,
+                    min: 1
+                },
+                date_cration_societe: {
+                    required: false,
+                    date: true
+                }
+            },
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _idElement = form.attr('data-id');
+
+                    var _url_action = $('#api').find('#store').val();
+                    _url_action = _url_action + '/' + _idElement;
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        nom_societe : form.find('#nom_societe').val(),
+                        nom_marque : form.find('#nom_marque').val(),
+                        type_societe_id : form.find('#type_societe_id').val(),
+                        date_cration_societe : form.find('#date_cration_societe').val(),
+                        _method: "PATCH"
+                    };
+
+                    updateElement(_url_action, _dataRequestAction, _idElement);
+
+                });
+            });
+
+        }
+
     });
 
 });
