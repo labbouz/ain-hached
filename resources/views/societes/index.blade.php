@@ -126,14 +126,27 @@
                         </div>
 
                         <div class="form-group m-t-8">
-                            <label>@lang('main.selectionnez')  @lang('societe.convention')</label>
+                            <label>@lang('societe.convention')</label>
                             <select id="convention_id" name="convention_id" class="form-control" data-reset="{convention_id}">
-                                <option value="0">-- -- -- -- -- -- -- -- -- -- -- -- -- --</option>
+                                <option value="0"> @lang('societe.pas_de_convontion')   </option>
                                 @foreach ($secteur->conventions as $convention)
                                     <option value="{{ $convention->id }}">{{ $convention->nom_convention }}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.nombre_travailleurs_cdi')</label>
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdi" id="nombre_travailleurs_cdi" placeholder="@lang('societe.nombre_travailleurs_cdi')" value="{nombre_travailleurs_cdi}" data-reset="{nombre_travailleurs_cdi}" />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.nombre_travailleurs_no_cdi')</label>
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdd" id="nombre_travailleurs_cdd" placeholder="@lang('societe.nombre_travailleurs_no_cdi')" value="{nombre_travailleurs_cdd}" data-reset="{nombre_travailleurs_cdd}" />
+                        </div>
+
+
+
 
 
                     </form>

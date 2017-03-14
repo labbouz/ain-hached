@@ -41,7 +41,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::get('/delegations/display/{id_gouvernorat}', 'DelegationController@display')->name('delegations.display');
 
     Route::resource('societes', 'SocieteController');
-
+    Route::match(['put', 'patch'], '/societes/convention/{societe}','SocieteController@updateConvention')->name('societes.chnageconvention');
 
     Route::post('REST/users/{id_role}/{id_inicateur?}', 'UserController@getElementsJSON')->name('json.users.index');
     Route::post('REST/observateurs/', 'UserController@getElementsJSONviaRegion')->name('json.observateurs.index');

@@ -29,7 +29,7 @@ class CreateSocietesTable extends Migration
             $table->integer('convention_id')->unsigned()->default(0);
             $table->integer('nombre_travailleurs_cdi')->default(0);
             $table->integer('nombre_travailleurs_cdd')->default(0);
-            $table->unique(['nom_societe', 'delegation_id']);
+            $table->unique(['nom_societe', 'delegation_id', 'secteur_id']);
             $table->timestamps();
         });
     }

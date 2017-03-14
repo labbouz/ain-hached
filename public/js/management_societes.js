@@ -223,6 +223,71 @@ $(document).ready(function(){
 
     }
 
+    function updateConvontionElement(url, data_elemen, id_elemen) {
+        //console.log(data_elemen);
+        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
+
+        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    _form.find( '#accord_de_fondation' ).attr('data-reset', data_elemen.accord_de_fondation);
+                    _form.find( '#convention_cadre_commun' ).attr('data-reset', data_elemen.convention_cadre_commun);
+                    _form.find( '#convention_id' ).attr('data-reset', data_elemen.convention_id);
+                    _form.find( '#nombre_travailleurs_cdi' ).attr('data-reset', data_elemen.nombre_travailleurs_cdi);
+                    _form.find( '#nombre_travailleurs_cdd' ).attr('data-reset', data_elemen.nombre_travailleurs_cdd);
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
+                        });
+                    });
+
+                    downModEdit();
+
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
+                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                        _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
+                    _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
+                });
+            }
+        });
+
+    }
+
     function removeElement(url, data_elemen, id_elemen) {
 
         var _selectorContainerCard = $("#id_"+id_elemen);
@@ -588,17 +653,19 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find( '.form-box' ).find('form');
+        var form = _selectorContainer.find( '.form-box-conventions' ).find('form');
 
         form.validate({
             rules: {
-                type_societe_id: {
+                nombre_travailleurs_cdi: {
                     required: true,
-                    min: 1
+                    number: true,
+                    min: 0
                 },
-                date_cration_societe: {
-                    required: false,
-                    date: true
+                nombre_travailleurs_cdd: {
+                    required: true,
+                    number: true,
+                    min: 0
                 }
             },
             errorPlacement: function(error, element) {
@@ -617,24 +684,25 @@ $(document).ready(function(){
 
         if( form.valid() ) {
 
-            _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
                 _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
 
                     var _idElement = form.attr('data-id');
 
                     var _url_action = $('#api').find('#store').val();
-                    _url_action = _url_action + '/' + _idElement;
+                    _url_action = _url_action + '/convention/' + _idElement;
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_societe : form.find('#nom_societe').val(),
-                        nom_marque : form.find('#nom_marque').val(),
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        date_cration_societe : form.find('#date_cration_societe').val(),
+                        accord_de_fondation : form.find('#accord_de_fondation').val(),
+                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
+                        convention_id : form.find('#convention_id').val(),
+                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
+                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val(),
                         _method: "PATCH"
                     };
 
-                    updateElement(_url_action, _dataRequestAction, _idElement);
+                    updateConvontionElement(_url_action, _dataRequestAction, _idElement);
 
                 });
             });

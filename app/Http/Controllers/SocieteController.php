@@ -61,7 +61,7 @@ class SocieteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nom_societe' => 'required|max:255|unique:societes,nom_societe,NULL,id,delegation_id,'.$request->delegation_id,
+            'nom_societe' => 'required|max:255|unique:societes,nom_societe,NULL,id,delegation_id,'.$request->delegation_id.',secteur_id,'.$request->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
             'date_cration_societe' => 'date|date_format:Y-m-d',
@@ -198,7 +198,7 @@ class SocieteController extends Controller
         $societeUpdated = Societe::find($id);
 
         $validator = Validator::make($request->all(), [
-            'nom_societe' => 'required|max:255|unique:societes,nom_societe,'.$societeUpdated->id.',id,delegation_id,'.$societeUpdated->delegation_id,
+            'nom_societe' => 'required|max:255|unique:societes,nom_societe,'.$societeUpdated->id.',id,delegation_id,'.$societeUpdated->delegation_id.',secteur_id,'.$societeUpdated->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
             'date_cration_societe' => 'date|date_format:Y-m-d'
@@ -234,6 +234,41 @@ class SocieteController extends Controller
 
         return response()->json($response);
     }
+
+    public function updateConvention(Request $request, $id)
+    {
+        $societeUpdated = Societe::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'accord_de_fondation' => 'required|numeric',
+            'convention_cadre_commun' => 'required|numeric',
+            'convention_id' => 'required|numeric',
+            'nombre_travailleurs_cdi' => 'required|numeric',
+            'nombre_travailleurs_cdd' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // save secteur
+        $societeUpdated->fill( $request->all() )->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('societe.message_update_succes_societe'),
+        );
+
+        return response()->json($response);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
