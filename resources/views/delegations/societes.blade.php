@@ -57,15 +57,15 @@
                             <div class="toolbar_box"  dir="rtl">
                                 <?php $delegation->setSecteur($secteur->id); ?>
                                 @if(Auth::user()->isAdmin())
-                                        <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                        <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">{{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes') : {{ $delegation->societesViaSecteur->count() }}"></i></a>
                                 @endif
 
                                 @if( Auth::user()->isObservateurRegional() OR Auth::user()->isObservateur() )
-                                        <a href="{{ route('societes_regional.display', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                        <a href="{{ route('societes_regional.display', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">{{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes') : {{ $delegation->societesViaSecteur->count() }}" ></i></a>
                                 @endif
 
                                 @if(Auth::user()->isObservateurSectorial())
-                                        <a href="{{ route('societes_sectorial.display', ['id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                        <a href="{{ route('societes_sectorial.display', ['id_delegation' => $delegation->id] ) }}">{{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes') : {{ $delegation->societesViaSecteur->count() }}"></i></a>
                                 @endif
 
 

@@ -37,7 +37,7 @@
                             </div>
                             <div class="toolbar_box"  dir="rtl">
 
-                                <a href="{{ route('societes_region.admin', ['id_secteur' => $secteur->id, 'id_gouvernorat' => $gouvernorat->id] ) }}">@lang('societe.nb_societes')  : {{ $gouvernorat->nb_societes }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                <a href="{{ route('societes_region.admin', ['id_secteur' => $secteur->id, 'id_gouvernorat' => $gouvernorat->id] ) }}">{{ $gouvernorat->nb_societes }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $gouvernorat->nb_societes }}" ></i></a>
                             </div>
                         </div>
 

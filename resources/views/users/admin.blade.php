@@ -220,7 +220,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-action">
             <div class="container_element">
                 <a href="javascript:void(0)" class="box add">
-                    <span class="fa fa-plus-circle"></span>
+                    <span class="fa fa-user-plus"></span>
                     <span class="text">@lang('users.add_') {{ $role->name }}</span>
                 </a>
 

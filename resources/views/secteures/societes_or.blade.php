@@ -37,7 +37,7 @@
                                 <a href="{{ route('societes_secteur.observateur_region', ['id_secteur' => $secteure->id] ) }}" class="display_objet" dir="rtl">{{ $secteure->nom_secteur }}</a>
                             </div>
                             <div class="toolbar_box"  dir="rtl">
-                                <a href="{{ route('societes_secteur.observateur_region', ['id_secteur' => $secteure->id] ) }}">@lang('societe.nb_societes')  : {{ $secteure->nb_societes }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                <a href="{{ route('societes_secteur.observateur_region', ['id_secteur' => $secteure->id] ) }}"> {{ $secteure->nb_societes }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $secteure->nb_societes }}"></i></a>
                             </div>
                         </div>
 
