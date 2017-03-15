@@ -12,8 +12,18 @@
                     <div id="header_loading" class="header_action header_action_active"></div>
 
                     <div id="header_index" class="header_action" dir="rtl">
-                        <a class="retour_setting" href="{{ route('societes_region.admin', ['id_secteur' => $secteur->id, 'id_gouvernorat' => $delegation->gouvernorat->id]) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
 
+                        @if(Auth::user()->isAdmin())
+                            <a class="retour_setting" href="{{ route('societes_region.admin', ['id_secteur' => $secteur->id, 'id_gouvernorat' => $delegation->gouvernorat->id]) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @endif
+
+                        @if( Auth::user()->isObservateurRegional() OR Auth::user()->isObservateur() )
+                            <a class="retour_setting" href="{{ route('societes_secteur.observateur_region', ['id_secteur' => $secteur->id]) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @endif
+
+                        @if( Auth::user()->isObservateurSectorial() )
+                            <a class="retour_setting" href="{{ route('societes_regional.observateur_secteur', ['id_gouvernorat' => $delegation->gouvernorat->id]) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @endif
 
                         <h3> @lang('societe.list_societees_pour_secteur') {{ $secteur->nom_secteur }} @lang('societe.list_societees_pour_delegation') {{ $delegation->nom_delegation }} @lang('societe.list_societees_pour_gouvernorat') {{ $delegation->gouvernorat->nom_gouvernorat }}  </h3>
                         <p class="text-muted">@lang('societe.description_list_societees_pour_secteur') <strong>{{ $secteur->nom_secteur }}</strong> @lang('societe.list_societees_pour_delegation') <strong>{{ $delegation->nom_delegation }}</strong> @lang('societe.list_societees_pour_gouvernorat') <strong>{{ $delegation->gouvernorat->nom_gouvernorat }}</strong> @lang('societe.nnb_societe') <strong>(<span class="count" >{{ $delegation->societesViaSecteur->count() }}</span>)</strong> .</p>

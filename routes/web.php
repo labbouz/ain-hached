@@ -58,6 +58,13 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::get('/societes/secteur/{id_secteur}', 'SocieteController@showRegionByAdmin')->name('societes_secteur.admin');
     Route::get('/societes/secteur/{id_secteur}/gouvernorat/{id_gouvernorat}', 'SocieteController@showDelegationByAdmin')->name('societes_region.admin');
     Route::get('/societes/secteur/{id_secteur}/delegation/{id_delegation}', 'SocieteController@showSocietesByAdmin')->name('societes.display.admin');
+
+    Route::get('/societes/secteur-regional/{id_secteur}', 'SocieteController@showDelegationRegional')->name('societes_secteur.observateur_region');
+    Route::get('/societes/secteur-regional/{id_secteur}/{id_delegation}', 'SocieteController@showSocietesByObservateurRegional')->name('societes_regional.display');
+
+    Route::get('/societes/region-sectorial/{id_gouvernorat}', 'SocieteController@showDelegationSectorial')->name('societes_regional.observateur_secteur');
+    Route::get('/societes/region-sectorial/delegation/{id_delegation}', 'SocieteController@showSocietesByObservateurSectorial')->name('societes_sectorial.display');
+
     Route::post('REST/societes/{id_secteur}/{id_delegation}', 'SocieteController@getElementsJSONviaRegion')->name('json.region.societes.index');
 
 });

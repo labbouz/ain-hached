@@ -136,14 +136,23 @@ class CheckAuthorisation
             'users.destroy',
             'json.users.index');
 
-        $societes_acces = array('societes_secteur.admin',
+        $societes_admin_acces = array('societes_secteur.admin',
             'societes_region.admin',
             'societes.display.admin');
+
+        $observateur_region_acces = array('societes_secteur.observateur_region',
+            'societes_regional.display');
+
+        $observateur_secteur_acces = array('societes_regional.observateur_secteur',
+            'societes_sectorial.display');
 
 
         /*********************** Roles ***********************/
 
-        $tableau_acces['administrator'] = [];
+        $tableau_acces['administrator'] = array_merge(
+            $observateur_region_acces,
+            $observateur_secteur_acces
+        );
 
         $tableau_acces['observateur_regional'] = array_merge(
             $admin_acces,
@@ -154,7 +163,8 @@ class CheckAuthorisation
             $secteurs_acces,
             $moves_acces,
             $type_societe_acces,
-            $societes_acces,
+            $societes_admin_acces,
+            $observateur_secteur_acces,
             $users_acces_observateur_regional);
 
         $tableau_acces['observateur_secteur'] = array_merge(
@@ -166,7 +176,8 @@ class CheckAuthorisation
             $secteurs_acces,
             $moves_acces,
             $type_societe_acces,
-            $societes_acces,
+            $societes_admin_acces,
+            $observateur_region_acces,
             $users_acces);
 
         $tableau_acces['observateur'] = array_merge(
@@ -178,7 +189,8 @@ class CheckAuthorisation
             $secteurs_acces,
             $moves_acces,
             $type_societe_acces,
-            $societes_acces,
+            $societes_admin_acces,
+            $observateur_secteur_acces,
             $users_acces);
 
         return in_array($route_name, $tableau_acces[$this->role_slug]);

@@ -59,6 +59,24 @@ class User extends Authenticatable
         }
     }
 
+    public function isObservateur()
+    {
+        if($this->getRole() == "observateur") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isObservateurSectorial()
+    {
+        if($this->getRole() == "observateur_secteur") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getRole()
     {
         return $this->roleuser->role->slug;

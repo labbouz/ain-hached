@@ -10,7 +10,14 @@
             <div class="col-lg-12 col-md-12 col-sm12 col-xs-12">
                 <div class="page-title">
                     <div id="header_index" dir="rtl">
-                        <a class="retour_setting" href="{{ route('societes_secteur.admin', ['id_secteur' => $secteur->id] ) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @if(Auth::user()->isAdmin())
+                            <a class="retour_setting" href="{{ route('societes_secteur.admin', ['id_secteur' => $secteur->id] ) }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @endif
+
+                        @if( Auth::user()->isObservateurRegional() OR Auth::user()->isObservateur() OR Auth::user()->isObservateurSectorial() )
+                            <a class="retour_setting" href="{{ route('societes.index') }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.syndicats')"></i></a>
+                        @endif
+
                         <h3> @lang('societe.classment_societees_selon_delecgation') {{ $gouvernorat->nom_gouvernorat }} @lang('societe.pour_secteur') {{ $secteur->nom_secteur }} @lang('societe.nnb_societe')  ( {{ $gouvernorat->nb_societes }} )</h3>
                         <p class="text-muted">@lang('societe.desc_classment_societees_selon_delecgation')</p>
                     </div>
@@ -31,11 +38,37 @@
 
                         <div class="edit_card card box">
                             <div class="label_elemen">
-                                <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}" class="display_objet" dir="rtl">{{ $delegation->nom_delegation }}</a>
+
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}" class="display_objet" dir="rtl">{{ $delegation->nom_delegation }}</a>
+                                @endif
+
+                                @if( Auth::user()->isObservateurRegional() OR Auth::user()->isObservateur() )
+                                        <a href="{{ route('societes_regional.display', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}" class="display_objet" dir="rtl">{{ $delegation->nom_delegation }}</a>
+                                @endif
+
+                                @if(Auth::user()->isObservateurSectorial())
+                                    <a href="{{ route('societes_sectorial.display', ['id_delegation' => $delegation->id] ) }}" class="display_objet" dir="rtl">{{ $delegation->nom_delegation }}</a>
+                                @endif
+
+
+
                             </div>
                             <div class="toolbar_box"  dir="rtl">
                                 <?php $delegation->setSecteur($secteur->id); ?>
-                                <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                @if(Auth::user()->isAdmin())
+                                        <a href="{{ route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                @endif
+
+                                @if( Auth::user()->isObservateurRegional() OR Auth::user()->isObservateur() )
+                                        <a href="{{ route('societes_regional.display', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                @endif
+
+                                @if(Auth::user()->isObservateurSectorial())
+                                        <a href="{{ route('societes_sectorial.display', ['id_delegation' => $delegation->id] ) }}">@lang('societe.nb_societes')  : {{ $delegation->societesViaSecteur->count() }} <i class="fa fa-building-o" aria-hidden="true" ></i></a>
+                                @endif
+
+
                             </div>
                         </div>
 

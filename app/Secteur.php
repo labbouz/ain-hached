@@ -11,7 +11,6 @@ class Secteur extends Model
 
     protected $fillable = ['nom_secteur'];
 
-
     public function conventions()
     {
         return $this->hasMany('\App\Convention')->orderBy('id', 'desc');
@@ -21,6 +20,8 @@ class Secteur extends Model
     {
         return $this->hasMany('\App\Societe');
     }
+
+
 
 
 }
