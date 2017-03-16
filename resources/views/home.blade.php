@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('home') }}"><i class="fa fa-archive fa-lg" ></i>
+                <a href="{{ route('dashboard.dossiers') }}"><i class="fa fa-archive fa-lg" ></i>
                     <span>@lang('main.files')</span>
                 </a>
             </div>

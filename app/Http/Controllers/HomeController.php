@@ -22,6 +22,11 @@ class HomeController extends Controller
         return view('setting');
     }
 
+    public function dashboardDossiers()
+    {
+        return view('dashboard.dossiers');
+    }
+
     public function notacces()
     {
         return view('notacces');

@@ -2,6 +2,21 @@
 
 return [
 
+    'add_file' => 'إضافة ملف جديد',
+    'files_non_lus' => 'ملفات حديثة',
+    'files_important' => 'ملفات مهمة',
+    'files_region' => 'ملفات الجهة',
+    'files_show' => 'عرض الملفات',
+    'myfiles' => 'ملفاتي',
+
+    'description_add_file' => 'إنشاء ملف جديد عبر تحديد المؤسسة النقابية',
+    'description_dashboard' => 'العودة إلى لوحة التحكم ',
+    'description_files_non_lus' => 'الملفات التي لم تتجاوز مدة شهر منذ تاريخ إنشائها',
+    'description_files_important' => 'الملفات التي تحتوي على الانتهاكات الخطيرة جدا',
+    'description_myfiles' => 'الملفات التي قد قمت بإضافتها في النظام',
+    'description_files_show' => '  عرض جميع الملفات التي تندرج تحت صلاحياتي',
+
+
     'dossiers' => ' الملفات',
     'description_dossiers' => 'الملفات المدرجة في النظام',
      'societe' => 'أسم المؤسسة',
