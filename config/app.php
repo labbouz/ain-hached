@@ -170,9 +170,6 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
-        //Laravel Activitylog
-        Spatie\Activitylog\ActivitylogServiceProvider::class,
-
         //
 
         /*
