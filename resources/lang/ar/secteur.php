@@ -39,7 +39,7 @@ return [
     'message_update_succes_convention' => 'تم تعديل الاتفاقية بنجاح',
     'suppression_defenitife_convention' =>'هل تريد حذف هذه الاتفاقية نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'يجب حذف جميع الأتفاقيات المتعلقة بهذا القطاع',
-    'indication_2_problem_delet' => 'يجب حذف جميع الراصديين القطاعيين بهذا القطاع',
+    'indication_2_problem_delet' => 'يجب حذف جميع الراصديين القطاعيين بهذا القطاع والمؤسسات النقابية التي تنتمي إلى هذا القطاع',
 
 
     'secteur_1' => 'المعاش و السياحة',

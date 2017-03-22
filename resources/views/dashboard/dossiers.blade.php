@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="col-md-3 icon">
-                <a href="{{ route('dossier.add') }}"><i class="fa fa-plus-circle fa-lg" data-toggle="tooltip" data-placement="top" title="@lang('dossier.description_add_file')" ></i>
+                <a href="{{ route('dossier.create') }}"><i class="fa fa-plus-circle fa-lg" data-toggle="tooltip" data-placement="top" title="@lang('dossier.description_add_file')" ></i>
                     <span>@lang('dossier.add_file')</span>
                 </a>
             </div>

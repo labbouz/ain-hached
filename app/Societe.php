@@ -52,10 +52,9 @@ class Societe extends Model
 
     }
 
+    */
     public function dossiers()
     {
-        return $this->hasMany('\App\Dossier');
+        return $this->hasMany('\App\Dossier')->orderBy('id', 'desc');
     }
-
-    */
 }

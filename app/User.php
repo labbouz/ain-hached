@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->roleuser->role->slug;
     }
+
+    public function dossiers()
+    {
+        return $this->hasMany('\App\Dossier')->orderBy('id', 'desc');
+    }
 }

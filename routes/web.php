@@ -67,10 +67,14 @@ Route::group( ['middleware' => ['auth'] ], function (){
 
     Route::post('REST/societes/{id_secteur}/{id_delegation}', 'SocieteController@getElementsJSONviaRegion')->name('json.region.societes.index');
 
+    Route::get('REST/societes/')->name('json.region.societes.get.url');
 
-    // Dossiers
+
+    // Dossiers Dashboard
     Route::get('/dossiers', 'HomeController@dashboardDossiers')->name('dashboard.dossiers');
     Route::get('/dossier/add', 'HomeController@dashboardDossiers')->name('dossier.add');
+
+    Route::resource('dossier', 'DossierController');
 
 
 });

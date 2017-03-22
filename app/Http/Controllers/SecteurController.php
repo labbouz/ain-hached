@@ -150,7 +150,7 @@ class SecteurController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
-            if( $uesers_secteur->count() == 0 ) {
+            if( $uesers_secteur->count() == 0 && $secteurRemoved->societes->count() == 0 ) {
 
                 $secteurRemoved->delete();
                 $response = array(
