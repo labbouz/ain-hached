@@ -43,6 +43,47 @@ $(document).ready(function(){
 
     };
 
+    function creatDossier(url, data_elemen) {
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: data_elemen,
+            dataType: 'json',
+            success: function(data) {
+
+                if(data.status == 'success') {
+                    swal({
+                        title: data.msg,
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    // redirection ver elintihakat
+                } else {
+                    //console.log(data);
+                    swal({
+                        title: data.msg,
+                        text: data.msg_text,
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+                }
+            },
+            error: function(data){
+                console.log(data);
+                swal({
+                    title: data.responseText,
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        });
+
+    }
+
     var loadElements = function(elements) {
 
         $('#list_elements').show('fade', {}, 'fast', function() {
@@ -149,7 +190,7 @@ $(document).ready(function(){
 
         var _idSecteur = $(this).attr( 'data-ajax' );
         var _nomSecteur = $(this).attr( 'data-field-name');
-
+        $('#secteur_label_text').text(_nomSecteur);
         $('#indicat_secteur').text(_nomSecteur);
 
 
@@ -179,6 +220,7 @@ $(document).ready(function(){
         var _idGouvernorat = $(this).attr( 'data-ajax' );
         var _nomGouvernorat = $(this).attr( 'data-field-name');
         $('#indicat_gouvenorat').text(_nomGouvernorat);
+        $('#gouvernorat_label_text').text(_nomGouvernorat);
 
         $('#gouvernorat_id').val(_idGouvernorat);
 
@@ -206,6 +248,7 @@ $(document).ready(function(){
         var _idDelegation = $(this).attr( 'data-ajax' );
         var _nomDelegation = $(this).attr( 'data-field-name');
         $('#indicat_delegation').text(_nomDelegation);
+        $('#delegation_label_text').text(_nomDelegation);
 
         var _idGouvernorat = $('#gouvernorat_id').val();
         var _idSecteur = $('#secteur_id').val();
@@ -230,5 +273,72 @@ $(document).ready(function(){
 
 
 
+    });
+
+    $(document).on('click', '.add_dossier', function(){
+
+        var _idSociete = $(this).attr( 'data-ajax' );
+        var _nomSociete = $(this).attr( 'data-field-name');
+        $('#societe_label_text').text(_nomSociete);
+
+        $('#societe_id').val(_idSociete);
+
+        var _selectorSociete = $(this);
+
+        //display gouvernorat
+        $('#list_elements').hide( 'fade', {}, 'fast', function(){
+
+            swal({
+                    title: _selectorSociete.attr('data-warning'),
+                    text: $('#message_asked').html(),
+                    type: "info",
+                    html: true,
+                    showCancelButton: true,
+                    confirmButtonColor: "#00a918",
+                    confirmButtonText: _selectorSociete.attr('data-confirm-buttontext'),
+                    cancelButtonText: _selectorSociete.attr('data-cancel-buttonText'),
+                    closeOnConfirm: false,
+                    closeOnCancel: true,
+                    showLoaderOnConfirm: true
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+
+                        /*
+                        var _url_action = $('#api').find('#store').val();
+                        _url_action = _url_action + '/' + _idSociete;
+
+                        var _dataRequestAction = {
+                            _token : _csrf_token,
+                            _method: "DELETE"
+                        };
+
+                        creatDossier(_url_action, _dataRequestAction);
+                        */
+
+                    } else {
+                        $('#list_elements').show( 'fade', {}, 'slow');
+
+                    }
+                }
+            );
+
+        });
+
+
+
+
+    });
+
+    // for searche filtre
+    $('#input-search').on('keyup', function() {
+        var word_search = jQuery(this).val();
+
+        var rex = new RegExp(word_search, 'i');
+
+        $('#list_elements .container-card').hide();
+        $('#list_elements .container-card').filter(function() {
+            return rex.test($(this).find('.label_elemen_societe').text());
+        }).show();
     });
 });

@@ -97,27 +97,25 @@
 
     <div class="container container-tools">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-action">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 container-action">
                 <div class="container_element">
                     <a href="javascript:void(0)" class="box add">
                         <span class="fa fa-plus-circle"></span>
-                        <span class="text">@lang('societe.add_societe')</span>
+                        <span class="text">@lang('dossier.add_societe')</span>
                     </a>
                 </div>
 
 
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-8 container-action container-action-search">
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 container-action container-action-search">
                 <div class="container_element container_element_search">
                     <div class="box add">
                         <span class="fa fa-search"> <span class="titre_input">@lang('dossier.search_societes')</span></span>
-                        <form class="form-inline search-societes-names">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        <form class="form-inline search-societes-names" dir="rtl">
+                            <div class="form-group form-search-societes">
+                                <input type="text" class="form-control" id="input-search" placeholder="@lang('dossier.search_in') @lang('societe.nom_societe') @lang('dossier.and') @lang('societe.nom_marque')">
                             </div>
                         </form>
                     </div>
@@ -169,9 +167,14 @@
             <div class="container_element">
 
                 <div class="edit_card card box">
-                    <div class="label_elemen">
-                        <span class="edit nom_marque" dir="rtl">{nom_marque}</span>
-                        <span class="edit nom_societe" dir="rtl">{nom_societe}</span>
+                    <div class="label_elemen label_elemen_societe add_dossier" data-ajax="{id}" data-field-name="{nom_societe}"
+                         data-warning="@lang('dossier.are_you_sure')"
+                         data-text-warning=""
+                         data-confirm-buttontext="@lang('dossier.confirmButtonText')"
+                         data-cancel-buttonText="@lang('main.cancelButtonText')"
+                         data-cancelled="@lang('main.cancelled')" >
+                        <span class="nom_marque" dir="rtl">{nom_marque}</span>
+                        <span class="nom_societe" dir="rtl">{nom_societe}</span>
                     </div>
                 </div>
             </div>
@@ -182,6 +185,16 @@
     <input type="hidden" id="gouvernorat_id" value="0">
     <input type="hidden" id="delegation_id" value="0">
     <input type="hidden" id="societe_id" value="0">
+
+    <div id="message_asked" class="hide">
+        <p dir="rtl">
+            @lang('dossier.description_are_you_sure') <br>
+            <strong id="societe_label_text"></strong> <br>
+            @lang('dossier.description_are_you_sure_secteur')  <strong id="secteur_label_text"></strong>
+            @lang('dossier.not_exit_delegation') <strong id="delegation_label_text"></strong>
+            @lang('dossier.not_exit_gouvenorat') <strong id="gouvernorat_label_text"></strong> .
+        </p>
+    </div>
 
 @endsection
 

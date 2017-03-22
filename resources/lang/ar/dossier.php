@@ -55,6 +55,17 @@ return [
     'not_exit_secteur' => 'قطاع',
     'not_exit_delegation' => 'بمعتمدية',
     'not_exit_gouvenorat' => 'ولاية',
+
+    'search_in' => 'يتم البحث في',
+    'and' => 'و',
+    'add_societe' => 'إضافة مؤسسة نقابية جديدة مع إنشاء ملف جديد',
+    'are_you_sure' => 'هل أنت واثق؟',
+    'confirmButtonText' => 'نعم، قم بإنشاء الملف',
+
+    'description_are_you_sure' => 'هل أنت متأكد من إنشاء ملف جديد للمؤسسة النقابية',
+    'description_are_you_sure_secteur' => 'والتي تنتمي لقطاع',
+    '' => '',
+    '' => '',
     '' => '',
 
 

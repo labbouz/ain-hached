@@ -32,6 +32,13 @@
     line-height: normal;
 
 
+
+
+}
+
+.container-card .label_elemen_societe {
+    padding: 8px;
+    line-height: 21px;
 }
 
 .container-card .label_elemen span {
@@ -39,6 +46,18 @@
     height: 100%;
     display: block;
     cursor: pointer;
+}
+
+.container-card .label_elemen span.nom_marque {
+    height: 50%;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 700;
+}
+.container-card .label_elemen span.nom_societe {
+    height: 50%;
+    font-size: 12px;
+    text-align: right;
 }
 
 .container-card .container_display_user .label_elemen span {
@@ -220,7 +239,6 @@ form.search-societes-names {
 }
 
 form.search-societes-names input {
-    margin-bottom: 5px;
 }
 
 .container-empty-element {
@@ -243,4 +261,9 @@ form.search-societes-names input {
 
 .container-action-search {
     display: none;
+}
+
+.form-search-societes,
+.form-search-societes input {
+    width: 100% !important;
 }
