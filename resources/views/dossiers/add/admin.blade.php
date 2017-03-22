@@ -115,7 +115,7 @@
                         <span class="fa fa-search"> <span class="titre_input">@lang('dossier.search_societes')</span></span>
                         <form class="form-inline search-societes-names" dir="rtl">
                             <div class="form-group form-search-societes">
-                                <input type="text" class="form-control" id="input-search" placeholder="@lang('dossier.search_in') @lang('societe.nom_societe') @lang('dossier.and') @lang('societe.nom_marque')">
+                                <input type="text" class="form-control" id="input-search" placeholder="@lang('dossier.search_in') @lang('societe.nom_societe') @lang('dossier.and') @lang('societe.nom_marque') @lang('dossier.search_in_secteur_delegation')">
                             </div>
                         </form>
                     </div>
