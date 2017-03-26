@@ -94,6 +94,7 @@ a:focus{
     margin: 0;
     text-align: right;
     font-weight: 400;
+    padding-left: 100px;
 }
 
 .page-title > div {

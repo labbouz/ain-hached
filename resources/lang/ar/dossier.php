@@ -66,6 +66,11 @@ return [
     'description_are_you_sure' => 'هل أنت متأكد من إنشاء ملف جديد للمؤسسة النقابية',
     'description_are_you_sure_secteur' => 'والتي تنتمي لقطاع',
 
+    'message_save_succes_dossier' => 'لقد تم إنشاء الملف رقم',
+    'message_desc_save_succes_dossier' => ' تمت إضافة ملف جديد للمؤسسة النقابية',
+    'pour_societe' => 'للمؤسسة النقابية',
+    'histrory_dossier' => 'عرض ملخص شامل لجميع الأحداث المتعلقة بهذا الملف',
+    'histrory_dossier_violations' => 'إدارة الإنتهاكات المدرجة في هذا الملف والبالغ عددها',
     '' => '',
     '' => '',
 

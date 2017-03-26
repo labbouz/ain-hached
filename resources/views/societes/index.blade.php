@@ -77,6 +77,9 @@
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_main')"></i></a>
                         <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_convention')"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
+                        <a href="{url_show_dossiers}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_dossiers}">{nb_dossiers} <i class="fa fa-archive" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.histrory_societe')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
 
 
                     </div>

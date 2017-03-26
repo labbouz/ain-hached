@@ -46,7 +46,7 @@ $(document).ready(function(){
     function creatDossier(url, data_elemen) {
 
         $.ajax({
-            type: 'PATCH',
+            type: 'POST',
             url: url,
             data: data_elemen,
             dataType: 'json',
@@ -55,9 +55,16 @@ $(document).ready(function(){
                 if(data.status == 'success') {
                     swal({
                         title: data.msg,
+                        text: data.msg_text,
                         type: "success",
-                        timer: 2000,
+                        html: true,
+                        timer: 3000,
                         showConfirmButton: false
+                    },
+                    function(){
+
+                        // redirection detail file
+                        window.location.href = $('#api').find('#store').val() + '/' + data.id;
                     });
 
                     // redirection ver elintihakat
@@ -69,16 +76,20 @@ $(document).ready(function(){
                         type: "error",
                         confirmButtonColor: "#4F5467"
                     });
+
+                    $('#list_elements').show( 'fade', {}, 'slow');
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
                     timer: 2000,
                     showConfirmButton: false
                 });
+
+                $('#list_elements').show( 'fade', {}, 'slow');
             }
         });
 
@@ -141,7 +152,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 // success logic
-                console.log(data);
+                //console.log(data);
                 $('.loading_data').hide('fade', {}, 500, function(){
                     $('#header_index').show( 'fade', {}, 'slow', function(){
                         //
@@ -304,17 +315,16 @@ $(document).ready(function(){
                 function(isConfirm){
                     if (isConfirm) {
 
-                        /*
+
                         var _url_action = $('#api').find('#store').val();
-                        _url_action = _url_action + '/' + _idSociete;
 
                         var _dataRequestAction = {
                             _token : _csrf_token,
-                            _method: "DELETE"
+                            societe_id : _idSociete
                         };
 
                         creatDossier(_url_action, _dataRequestAction);
-                        */
+
 
                     } else {
                         $('#list_elements').show( 'fade', {}, 'slow');

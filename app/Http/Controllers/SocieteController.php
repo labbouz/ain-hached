@@ -144,6 +144,9 @@ class SocieteController extends Controller
         // save delegation
         $societe_adedd = new Societe;
         $societe_adedd->nom_societe = $request->nom_societe;
+        if( strlen($request->nom_marque) == 0 ) {
+            $request->nom_marque = $request->nom_societe;
+        }
         $societe_adedd->nom_marque = $request->nom_marque;
         $societe_adedd->type_societe_id = $request->type_societe_id;
         $societe_adedd->date_cration_societe = $request->date_cration_societe;
@@ -166,7 +169,30 @@ class SocieteController extends Controller
      */
     public function show($id)
     {
+        echo $id;
+    }
+
+    public function showDossiers($id)
+    {
         //
+        $societe = Societe::find($id);
+        switch (Auth::user()->getRole()) {
+            case "observateur_regional":
+            case "observateur":
+                if( $societe->delegation->gouvernorat_id != Auth::user()->roleuser->gouvernorat_id) {
+                    return redirect('notacces');
+                }
+                break;
+
+            case "observateur_secteur":
+                if( $societe->secteur_id != Auth::user()->roleuser->secteur_id) {
+                    return redirect('notacces');
+                }
+
+                break;
+        }
+
+        return view('societes.dossiers', compact('societe'));
     }
 
     public function showRegionByAdmin($id_secteur)
@@ -526,6 +552,12 @@ class SocieteController extends Controller
         $delegation->setSecteur($secteur->id);
 
         $societes = $delegation->societesViaSecteur;
+
+        foreach ($societes as $societe) {
+            $societe->nb_dossiers = $societe->dossiers->count();
+            $societe->url_show_dossiers = route('societe.show.dossiers', $societe->id);
+
+        }
 
         $reponse = [
             'status' => 'success',

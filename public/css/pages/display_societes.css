@@ -1,4 +1,9 @@
 
+.card-dossier {
+    display: block;
+    float: right;
+}
+
 .container_element {
     height: 100px;
 }
@@ -29,6 +34,15 @@
 
 
 }
+
+.container-card .label_elemen_file {
+    height: auto;
+    display: block;
+    float: right;
+    padding-bottom: 10px;
+}
+
+
 
 .container-card .label_elemen span {
     width: 100%;
@@ -79,6 +93,10 @@
     text-align: center;
 }
 
+.container-card .container_display_user .edit_card .toolbar_dossier{
+    text-align: right;
+}
+
 .container_element .edit_card .toolbar_box a,
 .container_element .toolbar_box a {
     display: block;
@@ -93,6 +111,17 @@
 .container_element .toolbar_box a:hover {
     color: #d9d9d9;
 }
+
+.container-card .container_display_user .edit_card .toolbar_dossier a{
+    display: inline;
+    margin-right: 10px;
+}
+
+.container-card .container_display_user .edit_card .toolbar_dossier a i {
+    font-size: 20px;
+    line-height: 42px;
+}
+
 
 .container-card .loader,
 .container_element .loader {
@@ -159,3 +188,52 @@
     line-height: 56px;
 }
 
+.container-card .label_elemen_file .display_objet {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.container-card .label_elemen_file .creator {
+    display: block;
+    float: right;
+    padding: 0 10px;
+    font-size: 18px;
+    line-height: 36px;
+    font-weight: 700;
+}
+
+.container-card .label_elemen_file .creator .created_by {
+    display: block;
+    float: right;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: right;
+}
+
+.container-card .label_elemen_file .creator .info {
+    display: block;
+    float: right;
+    width: 80%;
+    text-align: right;
+
+}
+
+.container-card .label_elemen_file .creator .info .role {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+}
+
+.container-card .label_elemen_file .creator .profile {
+    display: block;
+    float: right;
+    width: 20%;
+}
+
+.add-dossier .fa {
+    font-size: 70px;
+    height: 104px;
+    line-height: 104px;
+}

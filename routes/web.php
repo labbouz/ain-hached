@@ -43,6 +43,8 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('societes', 'SocieteController');
     Route::match(['put', 'patch'], '/societes/convention/{societe}','SocieteController@updateConvention')->name('societes.chnageconvention');
 
+    Route::get('/societes/{societe}/dossiers','SocieteController@showDossiers')->name('societe.show.dossiers');
+
     Route::post('REST/users/{id_role}/{id_inicateur?}', 'UserController@getElementsJSON')->name('json.users.index');
     Route::post('REST/observateurs/', 'UserController@getElementsJSONviaRegion')->name('json.observateurs.index');
     Route::post('REST/secteurs', 'SecteurController@getElementsJSON')->name('json.secteurs.index');

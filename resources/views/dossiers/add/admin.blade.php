@@ -160,6 +160,7 @@
 
 @section('url_ajax')
     <input id="index" type="hidden" value="{{ route('json.region.societes.get.url') }}">
+    <input id="store" type="hidden" value="{{ route('dossier.store') }}">
     {{ csrf_field() }}
 
     <div id="template_container" class="hide">
