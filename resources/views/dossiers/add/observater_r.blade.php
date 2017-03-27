@@ -53,14 +53,15 @@
 
         </div>
 
-        <div id="list_elements_gouveronrat" class="row">
-            @foreach ($gouvernorats as $gouvernorat)
+
+        <div id="list_elements_delegations_{{ $gouvernorat->id }}" class="row">
+            @foreach ($gouvernorat->delegations as $delegation)
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 container-card">
                     <div class="container_element">
 
                         <div class="edit_card card box">
                             <div class="label_elemen">
-                                <a href="javascript:void(0)" class="display_objet set_gouvernorat" dir="rtl" data-ajax="{{ $gouvernorat->id }}" data-field-name="{{ $gouvernorat->nom_gouvernorat }}">{{ $gouvernorat->nom_gouvernorat }}</a>
+                                <a href="javascript:void(0)" class="display_objet set_delegation" dir="rtl" data-ajax="{{ $delegation->id }}" data-field-name="{{ $delegation->nom_delegation }}">{{ $delegation->nom_delegation }}</a>
                             </div>
                         </div>
 
@@ -69,30 +70,8 @@
                 </div>
 
             @endforeach
+        </div>
 
-
-         </div>
-
-
-        @foreach ($gouvernorats as $gouvernorat)
-            <div id="list_elements_delegations_{{ $gouvernorat->id }}" class="row">
-                @foreach ($gouvernorat->delegations as $delegation)
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 container-card">
-                        <div class="container_element">
-
-                            <div class="edit_card card box">
-                                <div class="label_elemen">
-                                    <a href="javascript:void(0)" class="display_objet set_delegation" dir="rtl" data-ajax="{{ $delegation->id }}" data-field-name="{{ $delegation->nom_delegation }}">{{ $delegation->nom_delegation }}</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                @endforeach
-            </div>
-        @endforeach
 
     </div>
 
@@ -104,7 +83,7 @@
                         <span class="fa fa-building-o"></span>
                         <span class="text">@lang('dossier.management_societe') <strong class="indicat_secteur"></strong>
                             @lang('dossier.not_exit_delegation') <strong class="indicat_delegation"></strong>
-                            @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat"></strong></span>
+                            @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat">{{ $gouvernorat->nom_gouvernorat }}</strong></span>
                     </a>
                 </div>
 
@@ -146,7 +125,7 @@
                         <p>
                             @lang('dossier.not_exit') @lang('dossier.not_exit_secteur') <strong class="indicat_secteur"></strong>
                             @lang('dossier.not_exit_delegation') <strong class="indicat_delegation"></strong>
-                            @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat"></strong>
+                            @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat">{{ $gouvernorat->nom_gouvernorat }}</strong>
                         </p>
                     </div>
                 </div>
@@ -196,7 +175,7 @@
     </div>
 
     <input type="hidden" id="secteur_id" value="0">
-    <input type="hidden" id="gouvernorat_id" value="0">
+    <input type="hidden" id="gouvernorat_id" value="{{ $gouvernorat->id }}">
     <input type="hidden" id="delegation_id" value="0">
     <input type="hidden" id="societe_id" value="0">
 
@@ -206,7 +185,7 @@
             <strong id="societe_label_text"></strong> <br>
             @lang('dossier.description_are_you_sure_secteur')  <strong id="secteur_label_text"></strong>
             @lang('dossier.not_exit_delegation') <strong id="delegation_label_text"></strong>
-            @lang('dossier.not_exit_gouvenorat') <strong id="gouvernorat_label_text"></strong> .
+            @lang('dossier.not_exit_gouvenorat') <strong id="gouvernorat_label_text">{{ $gouvernorat->nom_gouvernorat }}</strong> .
         </p>
     </div>
 

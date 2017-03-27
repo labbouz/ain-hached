@@ -522,12 +522,22 @@ class SocieteController extends Controller
                 break;
         }
 
-        $societeDeleted->delete();
+        if($societeDeleted->dossiers->count() > 0) {
+            $response = array(
+                'status' => 'pb_database',
+                'msg' => trans('main.problem_delet'),
+                'msg_text' => trans('societe.indication_1_problem_delet'),
+            );
+        } else {
+            $societeDeleted->delete();
 
-        $response = array(
-            'status' => 'success',
-            'msg' => trans('societe.message_delete_succes_societe'),
-        );
+            $response = array(
+                'status' => 'success',
+                'msg' => trans('societe.message_delete_succes_societe'),
+            );
+        }
+
+
 
         return response()->json($response);
     }
@@ -559,9 +569,25 @@ class SocieteController extends Controller
 
         }
 
+        switch (Auth::user()->getRole()) {
+            case "administrator":
+                $url_management_societes = route('societes.display.admin', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] );
+                break;
+
+            case "observateur_regional":
+            case "observateur":
+                $url_management_societes = route('societes_regional.display', ['id_secteur' => $secteur->id, 'id_delegation' => $delegation->id] );
+                break;
+
+            case "observateur_secteur":
+                $url_management_societes = route('societes_sectorial.display', ['id_delegation' => $delegation->id] );
+                break;
+        }
+
         $reponse = [
             'status' => 'success',
             'elements' => $societes,
+            'url_management' => $url_management_societes
         ];
 
         return response()->json($reponse);

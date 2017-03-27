@@ -163,6 +163,9 @@ $(document).ready(function(){
 
 
                 if(data.status == 'success') {
+
+                    $('#url_management_societes').attr('href',data.url_management);
+
                     $('.container-tools').show('fade', {}, 'slow', function() {
 
                         if( data.elements.length > 0 ) {
@@ -195,31 +198,59 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    displayElementSecteures();
+
+    var _idSecteur = $('#secteur_id').val();
+
+    if( parseInt(_idSecteur) > 0) {
+        displayElementGouvernorats();
+    } else {
+        displayElementSecteures();
+    }
+
+
+
 
     $(document).on('click', '.set_secteur', function(){
 
         var _idSecteur = $(this).attr( 'data-ajax' );
         var _nomSecteur = $(this).attr( 'data-field-name');
         $('#secteur_label_text').text(_nomSecteur);
-        $('#indicat_secteur').text(_nomSecteur);
+        $('.indicat_secteur').text(_nomSecteur);
+
+
 
 
         $('#secteur_id').val(_idSecteur);
 
-        //display gouvernorat
+        var _idGouvernorat = $('#gouvernorat_id').val();
+
         $('#list_elements_secteur').hide( 'fade', {}, 'fast', function(){
+            if( parseInt(_idGouvernorat) > 0) {
+                //display delegation
+                $('#header_index').hide( 'fade', {}, 'fast', function(){
+                    $(this).find('#title_choizir_secteur').hide();
+                    $(this).find('#title_choizir_delegation').show();
 
-            $('#header_index').hide( 'fade', {}, 'fast', function(){
-                $(this).find('#title_choizir_secteur').hide();
-                $(this).find('#title_choizir_gouvernorat').show();
-
-                $(this).show( 'fade', {}, 'slow', function(){
-                    displayElementGouvernorats();
+                    $(this).show( 'fade', {}, 'slow', function(){
+                        displayElementDelegations(_idGouvernorat);
+                    });
                 });
-            });
+            } else {
+                //display gouvernorat
+                $('#header_index').hide( 'fade', {}, 'fast', function(){
+                    $(this).find('#title_choizir_secteur').hide();
+                    $(this).find('#title_choizir_gouvernorat').show();
 
+                    $(this).show( 'fade', {}, 'slow', function(){
+                        displayElementGouvernorats();
+                    });
+                });
+            }
         });
+
+
+
+
 
 
 
@@ -230,7 +261,7 @@ $(document).ready(function(){
 
         var _idGouvernorat = $(this).attr( 'data-ajax' );
         var _nomGouvernorat = $(this).attr( 'data-field-name');
-        $('#indicat_gouvenorat').text(_nomGouvernorat);
+        $('.indicat_gouvenorat').text(_nomGouvernorat);
         $('#gouvernorat_label_text').text(_nomGouvernorat);
 
         $('#gouvernorat_id').val(_idGouvernorat);
@@ -258,7 +289,7 @@ $(document).ready(function(){
 
         var _idDelegation = $(this).attr( 'data-ajax' );
         var _nomDelegation = $(this).attr( 'data-field-name');
-        $('#indicat_delegation').text(_nomDelegation);
+        $('.indicat_delegation').text(_nomDelegation);
         $('#delegation_label_text').text(_nomDelegation);
 
         var _idGouvernorat = $('#gouvernorat_id').val();
@@ -272,6 +303,9 @@ $(document).ready(function(){
             $('#header_index').hide( 'fade', {}, 'fast', function(){
                 $(this).find('#title_choizir_delegation').hide();
                 $(this).find('#title_choizir_societe').show();
+
+                $(this).find('.text-danger').hide();
+                $(this).find('.message_indicateur').show();
 
                 $('.loading_data').show( 'fade', {}, 'fast', function(){
                     var _url_display_societe = _url + '/' + _idSecteur + '/' + _idDelegation;

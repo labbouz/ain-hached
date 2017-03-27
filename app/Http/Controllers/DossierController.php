@@ -49,13 +49,13 @@ class DossierController extends Controller
             case "observateur":
                 $secteures = Secteur::orderBy('id', 'desc')->get();
                 $gouvernorat = Gouvernorat::find(Auth::user()->roleuser->gouvernorat_id);
-                return view('dossiers.add.admin', compact('secteures','gouvernorat'));
+                return view('dossiers.add.observater_r', compact('secteures','gouvernorat'));
                 break;
 
             case "observateur_secteur":
                 $secteur = Secteur::find(Auth::user()->roleuser->secteur_id);
                 $gouvernorats = Gouvernorat::orderBy('nom_gouvernorat', 'asc')->get();
-                return view('dossiers.add.admin', compact('secteur','gouvernorats'));
+                return view('dossiers.add.observater_s', compact('secteur','gouvernorats'));
                 break;
         }
     }

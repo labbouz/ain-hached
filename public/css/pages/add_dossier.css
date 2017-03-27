@@ -267,3 +267,35 @@ form.search-societes-names input {
 .form-search-societes input {
     width: 100% !important;
 }
+
+.container-action {
+}
+hr {
+    margin-top: 0;
+    border-color: #d0d5d6;
+}
+
+.add .text {
+    padding-bottom: 0;
+    font-size: 15px;
+}
+.add .text strong {
+    color: #c71618;
+}
+
+.page-title p.message_indicateur {
+    display: none;
+    color: #000000;
+}
+
+.page-title p.message_indicateur::before {
+    color: #c71618;
+    display: block;
+    float: right;
+    margin-left: 10px;
+    font: normal normal normal 38px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f071';
+}

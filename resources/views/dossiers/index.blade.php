@@ -27,6 +27,7 @@
 @endsection
 
 @section('content')
+    <h1>En cours</h1>
     <div class="container">
         <div id="list_elements" class="row">
             <div class="bg_detail"></div>

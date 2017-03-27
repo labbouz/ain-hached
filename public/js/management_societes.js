@@ -317,13 +317,14 @@ $(document).ready(function(){
                 } else {
                     swal({
                         title: data.msg,
+                        text: data.msg_text,
                         type: "error",
                         confirmButtonColor: "#4F5467"
                     });
                 }
             },
             error: function(data){
-                //console.log(data);
+                console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",

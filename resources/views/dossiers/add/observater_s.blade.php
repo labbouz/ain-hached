@@ -34,24 +34,6 @@
 
 @section('content')
     <div class="container">
-        <div id="list_elements_secteur" class="row">
-            @foreach ($secteures as $secteure)
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-card">
-                    <div class="container_element">
-
-                        <div class="edit_card card box">
-                            <div class="label_elemen">
-                                <a href="javascript:void(0)" class="display_objet set_secteur" dir="rtl" data-ajax="{{ $secteure->id }}" data-field-name="{{ $secteure->nom_secteur }}">{{ $secteure->nom_secteur }}</a>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-            @endforeach
-
-        </div>
 
         <div id="list_elements_gouveronrat" class="row">
             @foreach ($gouvernorats as $gouvernorat)
@@ -102,7 +84,7 @@
                 <div class="container_element">
                     <a id="url_management_societes" href="javascript:void(0)" class="box add">
                         <span class="fa fa-building-o"></span>
-                        <span class="text">@lang('dossier.management_societe') <strong class="indicat_secteur"></strong>
+                        <span class="text">@lang('dossier.management_societe') <strong class="indicat_secteur">{{ $secteur->nom_secteur }}</strong>
                             @lang('dossier.not_exit_delegation') <strong class="indicat_delegation"></strong>
                             @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat"></strong></span>
                     </a>
@@ -144,7 +126,7 @@
                 <div class="container_element">
                     <div class="box">
                         <p>
-                            @lang('dossier.not_exit') @lang('dossier.not_exit_secteur') <strong class="indicat_secteur"></strong>
+                            @lang('dossier.not_exit') @lang('dossier.not_exit_secteur') <strong class="indicat_secteur">{{ $secteur->nom_secteur }}</strong>
                             @lang('dossier.not_exit_delegation') <strong class="indicat_delegation"></strong>
                             @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat"></strong>
                         </p>
@@ -195,7 +177,7 @@
         </div>
     </div>
 
-    <input type="hidden" id="secteur_id" value="0">
+    <input type="hidden" id="secteur_id" value="{{ $secteur->id }}">
     <input type="hidden" id="gouvernorat_id" value="0">
     <input type="hidden" id="delegation_id" value="0">
     <input type="hidden" id="societe_id" value="0">
@@ -204,7 +186,7 @@
         <p dir="rtl">
             @lang('dossier.description_are_you_sure') <br>
             <strong id="societe_label_text"></strong> <br>
-            @lang('dossier.description_are_you_sure_secteur')  <strong id="secteur_label_text"></strong>
+            @lang('dossier.description_are_you_sure_secteur')  <strong id="secteur_label_text">{{ $secteur->nom_secteur }}</strong>
             @lang('dossier.not_exit_delegation') <strong id="delegation_label_text"></strong>
             @lang('dossier.not_exit_gouvenorat') <strong id="gouvernorat_label_text"></strong> .
         </p>
