@@ -175,6 +175,29 @@ class DossierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dossierRemoveed = Dossier::find($id);
+
+        if( Auth::user()->isAdmin() ||  $dossierRemoveed->created_by == Auth::user()->id) {
+
+            // removes violation + mouvement  + les notes qui sont liees
+
+            $id_dossier_removed = sprintf("%05d", $dossierRemoveed->id);
+
+            $dossierRemoveed->delete();
+
+            $response = array(
+                'status' => 'success',
+                'msg' => trans('dossier.message_delete_succes_dossier') . ' ' . $id_dossier_removed . ' ' . trans('dossier.from_systeme'),
+            );
+        } else {
+            $response = array(
+                'status' => 'notacces',
+                'msg' => trans('main.not_acces'),
+                'msg_text' => '',
+            );
+        }
+
+        return response()->json($response);
+
     }
 }
