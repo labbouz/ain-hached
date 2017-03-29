@@ -77,6 +77,14 @@ return [
     'message_delete_succes_dossier' => 'تم حذف الملف  رقم ',
     'from_systeme' => 'من النظام',
     'management_societe' => 'إدارة المؤسسات النقابية التي تنتمي لقطاع',
+
+
+    'dossier_number' => 'الملف رقم',
+    'resume_dossier' => 'خلاصة الملف',
+    'societe_secteur' => 'هذه المؤسسة النقابية تنتمي لقطاع',
+    'societe_pour_delegation' => 'بمعتمدية',
+    'societe_pour_gouvenorat' => 'ولاية',
+    '' => '',
     '' => '',
 
 

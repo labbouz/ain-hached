@@ -56,14 +56,15 @@
                                             $user_image = 'images/avatars/' . $dossier->user->avatar;
                                         }
                                         ?>
+                                        <span class="profile">
+                                            <img src="{{ Request::root() }}/{{ $user_image }}" class="img-circle img-responsive">
+                                        </span>
                                         <span class="info">
                                             {{ $dossier->user->name }}
                                             <br>
                                             <span class="role"> {{ $dossier->user->roleuser->role->name }}</span>
                                         </span>
-                                        <span class="profile">
-                                            <img src="{{ Request::root() }}/{{ $user_image }}" class="img-circle img-responsive">
-                                        </span>
+
                                     </div>
                                 </a>
 

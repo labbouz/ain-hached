@@ -1,0 +1,137 @@
+.box-info {
+    min-height: 220px;
+    background-color: #fff;
+    border: 1px solid #d0d5d6;
+    padding: 20px;
+    float: right;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.box-info:hover {
+
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+    box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+
+}
+
+.row-rtl > div {
+    float: right;
+}
+
+/**** for box-number-dossier ****/
+.box-number-dossier span.number_dossier,
+.box-number-dossier span.icon_big {
+    font-size: 60px;
+    line-height: 70px;
+    height: 70px;
+    margin-left: 20px;
+}
+
+.box-number-dossier span.number_dossier
+{
+    font-weight: 700;
+    margin-left: 0;
+
+}
+
+.box-number-dossier .fa-lg {
+    font-size: 70px;
+}
+
+.box-number-dossier h6 {
+    padding-right: 64px;
+}
+
+.box-number-dossier .profile {
+    display: block;
+    float: right;
+    width: 17%;
+}
+
+.box-number-dossier .info {
+    display: block;
+    float: right;
+    width: 83%;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.box-number-dossier .info .name_user {
+    font-size: 24px;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+}
+.box-number-dossier .info .role {
+    font-size: 15px;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/**** for box-societe-dossier ****/
+.box-societe-dossier div.icon_big {
+    display: block;
+    font-size: 24px;
+    line-height: 70px;
+    height: 70px;
+    width: 20%;
+    float: right;
+}
+.box-societe-dossier .fa-lg {
+    font-size: 60px;
+}
+
+.box-societe-dossier div.info {
+    display: block;
+    float: right;
+    width: 80%;
+}
+
+
+.box-societe-dossier span.nom_marque  {
+    display: block;
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.box-societe-dossier span.nom_societe  {
+    display: block;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+}
+
+.box-societe-dossier span.nom_secteur_delegation  {
+    display: block;
+    font-size: 15px;
+    line-height: 26px;
+    font-weight: 400;
+}
+
+.box-societe-dossier span.nom_secteur_delegation strong {
+    font-weight: 700;
+    color: #c71618;
+}
+.box-societe-dossier .societe_local,
+.box-societe-dossier .recap_societe {
+    display: block;
+    float: right;
+    width: 100%;
+}
+.box-societe-dossier .societe_local {
+    margin-bottom: 10px;
+}
+
+.box-societe-dossier .recap_societe > div {
+    text-align: center;
+}
+
+.box-societe-dossier .recap_societe > div a {
+    font-size: 46px;
+}
+
+

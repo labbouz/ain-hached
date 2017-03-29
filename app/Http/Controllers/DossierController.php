@@ -25,11 +25,6 @@ class DossierController extends Controller
         //
     }
 
-    public function showDossiers($id_societe)
-    {
-        //return view('dossiers.index', compact('types_violations','gravites'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -140,8 +135,23 @@ class DossierController extends Controller
     {
         $dossier = Dossier::find($id);
 
-        echo 'Nom societe = ' . $dossier->societe->nom_societe;
-        echo 'Nom createur = ' . $dossier->user->name;
+        switch (Auth::user()->getRole()) {
+            case "observateur_regional":
+            case "observateur":
+                if( $dossier->societe->delegation->gouvernorat_id != Auth::user()->roleuser->gouvernorat_id) {
+                    return redirect('notacces');
+                }
+                break;
+
+            case "observateur_secteur":
+                if( $dossier->societe->secteur_id != Auth::user()->roleuser->secteur_id) {
+                    return redirect('notacces');
+                }
+
+                break;
+        }
+
+        return view('dossiers.show', compact('dossier'));
     }
 
     /**
