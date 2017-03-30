@@ -417,24 +417,36 @@ class UserController extends Controller
 
         $userRemoved = $roleuserRemoved->user;
 
-        $roleuserRemoved->delete();
 
-        // delete Avatar
-        if($userRemoved->avatar != null) {
-            $old_image_path = public_path('images/avatars/' . $userRemoved->avatar);
+        if($userRemoved->dossiers->count() == 0) {
+            $roleuserRemoved->delete();
 
-            if (File::exists($old_image_path)) {
-                //File::delete($image_path);
-                unlink($old_image_path);
+            // delete Avatar
+            if($userRemoved->avatar != null) {
+                $old_image_path = public_path('images/avatars/' . $userRemoved->avatar);
+
+                if (File::exists($old_image_path)) {
+                    //File::delete($image_path);
+                    unlink($old_image_path);
+                }
             }
+
+            $userRemoved->delete();
+
+            $response = array(
+                'status' => 'success',
+                'msg' => trans('users.message_delete_succes_user'),
+            );
+        } else {
+            $response = array(
+                'status' => 'pb_database',
+                'msg' => trans('main.problem_delet'),
+                'msg_text' => trans('secteur.indication_1_problem_delet'),
+            );
+
         }
 
-        $userRemoved->delete();
 
-        $response = array(
-            'status' => 'success',
-            'msg' => trans('users.message_delete_succes_user'),
-        );
 
         return response()->json($response);
     }

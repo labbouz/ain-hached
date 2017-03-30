@@ -215,3 +215,10 @@ select.form-control{
 .m-t-8 {
     margin-top: 8px;
 }
+
+/***** tooltip ******/
+
+.tooltip {
+    font-family:'Droid Arabic Kufi','Open Sans',sans-serif;
+    font-weight: 400;
+}

@@ -58,7 +58,7 @@
                             <a class="fa fa-info-circle" href="javascript:void(0)"></a>
                         </div>
                         <div class="col-xs-4">
-                            <a class="fa fa-archive" href="{{ route('societes.show', $dossier->societe->id ) }}"></a>
+                            <a class="fa fa-archive" href="{{ route('societe.show.dossiers', $dossier->societe->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {{ $dossier->societe->dossiers->count() }}"></a>
                         </div>
                         <div class="col-xs-4">
                             <a class="fa fa-eye" href="{{ route('societes.show', $dossier->societe->id ) }}"></a>

@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasOne('\App\Role_user');
     }
 
+    public function dossiers()
+    {
+        return $this->hasMany('\App\Dossier', 'created_by')->orderBy('id', 'desc');
+    }
+
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);
@@ -82,8 +87,4 @@ class User extends Authenticatable
         return $this->roleuser->role->slug;
     }
 
-    public function dossiers()
-    {
-        return $this->hasMany('\App\Dossier')->orderBy('id', 'desc');
-    }
 }
