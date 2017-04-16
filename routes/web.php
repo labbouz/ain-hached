@@ -34,6 +34,8 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('conventions', 'ConventionController');
     Route::get('/conventions/display/{id_secteur}', 'ConventionController@display')->name('conventions.display');
     Route::resource('moves', 'MoveController');
+    Route::resource('plaintes', 'PlainteController');
+    Route::resource('medias', 'MediaController');
     Route::resource('structure_syndicale', 'StructureSyndicaleController');
     Route::resource('violations', 'ViolationController');
     Route::resource('type_societe', 'TypeSocieteController');
@@ -49,6 +51,8 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::post('REST/observateurs/', 'UserController@getElementsJSONviaRegion')->name('json.observateurs.index');
     Route::post('REST/secteurs', 'SecteurController@getElementsJSON')->name('json.secteurs.index');
     Route::post('REST/moves', 'MoveController@getElementsJSON')->name('json.moves.index');
+    Route::post('REST/plaintes', 'PlainteController@getElementsJSON')->name('json.plaintes.index');
+    Route::post('REST/medias', 'MediaController@getElementsJSON')->name('json.medias.index');
     Route::post('REST/structure_syndicale', 'StructureSyndicaleController@getElementsJSON')->name('json.structure_syndicale.index');
     Route::post('REST/violations', 'ViolationController@getElementsJSON')->name('json.violations.index');
     Route::post('REST/gouvernorats', 'GouvernoratController@getElementsJSON')->name('json.gouvernorats.index');

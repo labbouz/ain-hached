@@ -25,6 +25,26 @@ return [
     'move_media_organisations' => 'منضمات',
     'move_media_parties' => 'احزاب',
 
+    'add_media' => 'إضافة مواجهة إعلام  جديدة',
+    'message_save_succes_media' => ' تم اضافة نوع المواجهة بنجاح',
+    'message_delete_succes_media' => 'تم حذف نوع المواجهة بنجاح',
+    'message_update_succes_media' => 'تم تعديل نوع المواجهة بنجاح',
+    'suppression_defenitife' =>'هل تريد حذف هذا المواجهة نهائيا من النظام ؟',
+
+    'medias' => 'الإعــــــلام',
+    'description_medias' => 'قائمة أنواع مواجهات الإعلام المسجلة في النظام',
+    'nom_media' => 'الإعلام',
+    'categorie_media' => 'تصنيف الإعلام',
+    'affrontement' => 'مواجهة',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+
 
 
 

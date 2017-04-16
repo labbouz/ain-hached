@@ -40,19 +40,19 @@ return [
     'suppression_defenitife' =>'هل تريد حذف هذا التصنيف نهائيا من النظام ؟',
 
 
-    'classment_societees_selon_secteur' => 'تصنيف المؤسسات النقابية حسب القطاعات',
-    'desc_classment_societees_selon_secteur' => 'كل مؤسسة نقابية تنتمي إلى قطاع محدد .... لإظهار المؤسسات عليك تحديد القطاع',
+    'classment_societees_selon_secteur' => 'تصنيف المؤسسات المنتهكة حسب القطاعات',
+    'desc_classment_societees_selon_secteur' => 'كل مؤسسة منتهكة تنتمي إلى قطاع محدد .... لإظهار المؤسسات عليك تحديد القطاع',
     'nb_societes' => 'عدد المؤسسات النقابية',
-    'classment_societees_selon_gouvernorat' => 'تصنيف المؤسسات النقابية حسب الولايات بقطاع',
-    'desc_classment_societees_selon_gouvernorat' => 'كل مؤسسة نقابية تنتمي إلى ولاية محددة عبر المعتمدية التي تنتمي لنفس الولاية  .... لإظهار المؤسسات عليك تحديد الولاية ثم المعتمدية',
+    'classment_societees_selon_gouvernorat' => 'تصنيف المؤسسات المنتهكة حسب الولايات بقطاع',
+    'desc_classment_societees_selon_gouvernorat' => 'كل مؤسسة منتهكة تنتمي إلى ولاية محددة عبر المعتمدية التي تنتمي لنفس الولاية  .... لإظهار المؤسسات عليك تحديد الولاية ثم المعتمدية',
     'nnb_societe' => 'والبالغ عددها',
-    'classment_societees_selon_delecgation' => 'تصنيف المؤسسات النقابية حسب معتمديات ولاية',
+    'classment_societees_selon_delecgation' => 'تصنيف المؤسسات المنتهكة حسب معتمديات ولاية',
     'pour_secteur' => 'بقطاع',
-    'desc_classment_societees_selon_delecgation' => 'كل مؤسسة نقابية تنتمي إلى معتمدية  .... لإظهار المؤسسات عليك تحديد المعتمدية',
-    'list_societees_pour_secteur' => 'المؤسسات النقابية بقطاع',
+    'desc_classment_societees_selon_delecgation' => 'كل مؤسسة منتهكة تنتمي إلى معتمدية  .... لإظهار المؤسسات عليك تحديد المعتمدية',
+    'list_societees_pour_secteur' => 'المؤسسات المنتهكة بقطاع',
     'list_societees_pour_delegation' => 'بمعتمدية',
     'list_societees_pour_gouvernorat' => 'ولاية',
-    'description_list_societees_pour_secteur' => 'جميع المؤسسات النقابية المسجلة في النظام لقطاع',
+    'description_list_societees_pour_secteur' => 'جميع المؤسسات المنتهكة المسجلة في النظام لقطاع',
     'exemple_format_date' => 'على سبيل المثال : ',
 
     'accord_de_fondation_1' => 'لديها اتفاقية مؤسسة',
@@ -61,11 +61,11 @@ return [
     'convention_cadre_commun_0' => 'ليست لديهااتفاقية قطاعية مشتركة',
 
 
-    'message_save_succes_societe' => ' تم اضافة المؤسسة النقابية بنجاح',
-    'message_delete_succes_societe' => 'تم حذف المؤسسة النقابية بنجاح',
-    'message_update_succes_societe' => 'تم تعديل المؤسسة النقابية بنجاح',
-    'suppression_defenitife_societe' =>'هل تريد حذف هذه المؤسسة النقابية نهائيا من النظام ؟',
-    'indication_1_problem_delet' => 'يجب حذف جميع الملفات المتعلقة بهذه المؤسسة النقابية',
+    'message_save_succes_societe' => ' تم اضافة المؤسسة المنتهكة بنجاح',
+    'message_delete_succes_societe' => 'تم حذف المؤسسة المنتهكة بنجاح',
+    'message_update_succes_societe' => 'تم تعديل المؤسسة المنتهكة بنجاح',
+    'suppression_defenitife_societe' =>'هل تريد حذف هذه المؤسسة المنتهكة نهائيا من النظام ؟',
+    'indication_1_problem_delet' => 'يجب حذف جميع الملفات المتعلقة بهذه المؤسسة المنتهكة',
 
     'societe_convention' => 'تعديل الاتفاقيات التي تخص هذه المؤسسة',
     'societe_main' => 'تعديل المعلومات الرئسية لهذه المؤسسة',
@@ -74,7 +74,7 @@ return [
     'display_dossiers_for_societees' => 'إدارة جميع الملفات المرتبطة بهذه المؤسسة والبالغ عددها',
     'dossiers' => 'ملفات',
 
-    'gestion_dossiers' => 'إدارة الملفات المرتبطة بالمؤسسة النقابية',
+    'gestion_dossiers' => 'إدارة الملفات المرتبطة بالمؤسسة المنتهكة',
     'descr_gestion_dossiers' => 'حيث بإمكان إضافة ملفات جديدة لهذه المؤسسة وعرض ملخص بسيط لكل ملف من خطورتها وعدد الإنتهاكات المدرجة لكل ملف ... كما بإمكان حذف الملف بواسطة ناشئها أو بواسطة المشرف العام',
     'cree_par' => 'تم إنشاؤه بواسطة',
     'histrory_societe' => 'عرض ملخص شامل لجميع الأحداث المتعلقة بهذه المؤسسة',

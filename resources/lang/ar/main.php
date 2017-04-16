@@ -48,7 +48,7 @@ return [
     'violations_individuelles' => 'الانتهاكات الفردية',
     'violations_massives' => 'الانتهاكات الجماعية',
     'moves' => 'التحركات',
-    'syndicats' => 'النقابات',
+    'syndicats' => 'المؤسسات المنتهكة',
 
     'contacts' => 'جهات الاتصال',
 

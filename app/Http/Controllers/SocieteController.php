@@ -97,7 +97,12 @@ class SocieteController extends Controller
             'type_societe_id' => 'required|numeric',
             'date_cration_societe' => 'date|date_format:Y-m-d',
             'delegation_id' => 'required|numeric',
-            'secteur_id' => 'required|numeric'
+            'secteur_id' => 'required|numeric',
+            'accord_de_fondation' => 'required|numeric',
+            'convention_cadre_commun' => 'required|numeric',
+            'convention_id' => 'required|numeric',
+            'nombre_travailleurs_cdi' => 'required|numeric',
+            'nombre_travailleurs_cdd' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -152,6 +157,13 @@ class SocieteController extends Controller
         $societe_adedd->date_cration_societe = $request->date_cration_societe;
         $societe_adedd->delegation_id = $request->delegation_id;
         $societe_adedd->secteur_id = $request->secteur_id;
+
+        $societe_adedd->accord_de_fondation = $request->accord_de_fondation;
+        $societe_adedd->convention_cadre_commun = $request->convention_cadre_commun;
+        $societe_adedd->convention_id = $request->convention_id;
+        $societe_adedd->nombre_travailleurs_cdi = $request->nombre_travailleurs_cdi;
+        $societe_adedd->nombre_travailleurs_cdd = $request->nombre_travailleurs_cdd;
+
         $societe_adedd->save();
         $response = array(
             'status' => 'success',

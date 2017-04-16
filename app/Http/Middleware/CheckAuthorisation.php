@@ -111,6 +111,20 @@ class CheckAuthorisation
             'moves.update',
             'json.moves.index');
 
+        $plaintes_acces = array('plaintes.index',
+            'plaintes.store',
+            'plaintes.create',
+            'plaintes.destroy',
+            'plaintes.update',
+            'json.plaintes.index');
+
+        $medias_acces = array('medias.index',
+            'medias.store',
+            'medias.create',
+            'medias.destroy',
+            'medias.update',
+            'json.medias.index');
+
         $type_societe_acces = array('type_societe.store',
             'type_societe.index',
             'type_societe.create',
@@ -162,6 +176,8 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $plaintes_acces,
+            $medias_acces,
             $type_societe_acces,
             $societes_admin_acces,
             $observateur_secteur_acces,
@@ -175,6 +191,8 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $plaintes_acces,
+            $medias_acces,
             $type_societe_acces,
             $societes_admin_acces,
             $observateur_region_acces,
@@ -188,6 +206,8 @@ class CheckAuthorisation
             $conventions_acces,
             $secteurs_acces,
             $moves_acces,
+            $plaintes_acces,
+            $medias_acces,
             $type_societe_acces,
             $societes_admin_acces,
             $observateur_secteur_acces,

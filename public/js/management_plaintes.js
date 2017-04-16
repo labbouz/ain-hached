@@ -15,12 +15,6 @@ $(document).ready(function(){
     setLoading();
     getList(_url, _dataRequest);
 
-    $('[data-toggle="tooltip"]').tooltip();
-
-    var setCountElement = function(_count) {
-        $('.count').text(_count);
-    };
-
     var loadElements = function(elements) {
 
         var _container_form = $('#template_form_add').html();
@@ -48,6 +42,9 @@ $(document).ready(function(){
             });
         });
 
+
+
+
     };
 
 
@@ -60,12 +57,13 @@ $(document).ready(function(){
             $(this).find('select').each(function( ) {
                 var _valDefault = $(this).attr('data-reset');
                 $(this).find('option[value='+_valDefault+']').attr('selected','selected');
-            });
+             });
 
             _delay = _delay + 100;
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+
+            $('[data-toggle="tooltip"]').tooltip();
 
     };
 
@@ -79,23 +77,18 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 // success logic
-                //console.log(data);
+
                 $('.header_action_active').hide('fade', {}, 500, function(){
                     $('#header_index').show('fade', {}, 800, function(){
                         $(this).addClass('header_action_active');
                     });
                 });
 
-
                 if(data.status == 'success') {
-                    // update nomber element
-                    setCountElement(data.elements.length);
-
                     loadElements(data.elements);
                 } else {
                     console.log(data);
                 }
-
             },
             error: function(data){
                 console.log(data);
@@ -139,7 +132,7 @@ $(document).ready(function(){
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -158,8 +151,6 @@ $(document).ready(function(){
         //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
-        var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
-
         $.ajax({
             type: 'PATCH',
             url: url,
@@ -175,12 +166,8 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).text(data_elemen.nom_societe);
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).text(data_elemen.nom_marque);
-                    _form.find( '#nom_societe' ).attr('data-reset', data_elemen.nom_societe);
-                    _form.find( '#nom_marque' ).attr('data-reset', data_elemen.nom_marque);
-                    _form.find( '#type_societe_id' ).attr('data-reset', data_elemen.type_societe_id);
-                    _form.find( '#date_cration_societe' ).attr('data-reset', data_elemen.date_cration_societe);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span' ).text(data_elemen.nom_plainte);
+                    _selectorContainer.find( 'form' ).find( '#nom_plainte' ).attr('data-reset', data_elemen.nom_plainte);
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -204,7 +191,7 @@ $(document).ready(function(){
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -214,71 +201,6 @@ $(document).ready(function(){
 
                 _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                     _selectorContainer.find('.cancel_edit').trigger( "click" );
-                });
-            }
-        });
-
-    }
-
-    function updateConvontionElement(url, data_elemen, id_elemen) {
-        //console.log(data_elemen);
-        var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
-
-        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
-
-        $.ajax({
-            type: 'PATCH',
-            url: url,
-            data: data_elemen,
-            dataType: 'json',
-            success: function(data) {
-
-                if(data.status == 'success') {
-                    swal({
-                        title: data.msg,
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-
-                    _form.find( '#accord_de_fondation' ).attr('data-reset', data_elemen.accord_de_fondation);
-                    _form.find( '#convention_cadre_commun' ).attr('data-reset', data_elemen.convention_cadre_commun);
-                    _form.find( '#convention_id' ).attr('data-reset', data_elemen.convention_id);
-                    _form.find( '#nombre_travailleurs_cdi' ).attr('data-reset', data_elemen.nombre_travailleurs_cdi);
-                    _form.find( '#nombre_travailleurs_cdd' ).attr('data-reset', data_elemen.nombre_travailleurs_cdd);
-
-                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                        _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-                        });
-                    });
-
-                    downModEdit();
-
-                } else {
-                    //console.log(data);
-                    swal({
-                        title: data.msg,
-                        text: data.msg_text,
-                        type: "error",
-                        confirmButtonColor: "#4F5467"
-                    });
-
-                    _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                        _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
-                    });
-                }
-            },
-            error: function(data){
-                console.log(data);
-                swal({
-                    title: data.responseText,
-                    type: "error",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-
-                _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                    _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
                 });
             }
         });
@@ -297,10 +219,6 @@ $(document).ready(function(){
             success: function(data) {
 
                 if(data.status == 'success') {
-                    var _count = parseInt($('.count').text());
-
-                    setCountElement(_count-1);
-
                     swal({
                         title: data.msg,
                         type: "success",
@@ -308,23 +226,17 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
+                    $(document).trigger( "click" );
 
                     _selectorContainerCard.hide('fade', {}, 'fast', function(){
                         $(this).remove();
                     });
 
 
-                } else {
-                    swal({
-                        title: data.msg,
-                        text: data.msg_text,
-                        type: "error",
-                        confirmButtonColor: "#4F5467"
-                    });
                 }
             },
             error: function(data){
-                console.log(data);
+                //console.log(data);
                 swal({
                     title: data.responseText,
                     type: "error",
@@ -365,6 +277,7 @@ $(document).ready(function(){
 
     });
 
+
     $(document).on('click', '.edit', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
@@ -373,7 +286,7 @@ $(document).ready(function(){
 
         $( ".container-card" ).each(function() {
             if( $(this).find('.form-box').is(':visible') ) {
-                $(this).find('.cancel_edit').trigger( "click" );
+               $(this).find('.cancel_edit').trigger( "click" );
             }
         });
 
@@ -403,7 +316,7 @@ $(document).ready(function(){
         downModEdit();
         _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-                // reset edit for input
+               // reset edit for input
                 _selectorContainer.find( 'form' ).find('input').each(function(){
                     var recap =$(this).attr('data-reset');
                     $(this).val(recap);
@@ -425,17 +338,6 @@ $(document).ready(function(){
 
     });
 
-    $.validator.addMethod(
-        "myDateFormat",
-        function(value, element) {
-            // yyyy-mm-dd
-            var re = /^\d{4}-\d{1,2}-\d{1,2}$/;
-
-            // valid if optional and empty OR if it passes the regex test
-            return (this.optional(element) && value=="") || re.test(value);
-        }
-    );
-
     $(document).on('click', '.save_element', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
@@ -443,26 +345,6 @@ $(document).ready(function(){
         var form = _selectorContainer.find('form');
 
         form.validate({
-            rules: {
-                type_societe_id: {
-                    required: true,
-                    min: 1
-                },
-                date_cration_societe: {
-                    required: false,
-                    date: true
-                },
-                nombre_travailleurs_cdi: {
-                    required: true,
-                    number: true,
-                    min: 0
-                },
-                nombre_travailleurs_cdd: {
-                    required: true,
-                    number: true,
-                    min: 0
-                }
-            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -486,18 +368,7 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_societe : form.find('#nom_societe').val(),
-                        nom_marque : form.find('#nom_marque').val(),
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        date_cration_societe : form.find('#date_cration_societe').val(),
-                        delegation_id : form.find('#delegation_id').val(),
-                        secteur_id : form.find('#secteur_id').val(),
-
-                        accord_de_fondation : form.find('#accord_de_fondation').val(),
-                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
-                        convention_id : form.find('#convention_id').val(),
-                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
-                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val()
+                        nom_plainte : form.find('#nom_plainte').val()
                     };
 
                     addElement(_url_action, _dataRequestAction, _selectorContainer);
@@ -514,19 +385,9 @@ $(document).ready(function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find( '.form-box' ).find('form');
+        var form = _selectorContainer.find('form');
 
         form.validate({
-            rules: {
-                type_societe_id: {
-                    required: true,
-                    min: 1
-                },
-                date_cration_societe: {
-                    required: false,
-                    date: true
-                }
-            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -553,10 +414,7 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_societe : form.find('#nom_societe').val(),
-                        nom_marque : form.find('#nom_marque').val(),
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        date_cration_societe : form.find('#date_cration_societe').val(),
+                        nom_plainte : form.find('#nom_plainte').val(),
                         _method: "PATCH"
                     };
 
@@ -612,117 +470,6 @@ $(document).ready(function(){
                     });
                 }
             });
-    });
-
-    $(document).on('click', '.edit_conventions', function(){
-
-        var _selectorContainer = $(this).closest( ".container_element" );
-
-        setModEdit();
-
-        $( ".container-card" ).each(function() {
-            if( $(this).find('.form-box-conventions').is(':visible') ) {
-                $(this).find('.cancel_edit_conventions').trigger( "click" );
-            }
-        });
-
-        _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.form-box-conventions' ).show('fade', {}, 'fast');
-        });
-
-
-    });
-
-    $(document).on('click', '.cancel_edit_conventions', function(){
-
-        var _selectorContainer = $(this).closest( ".container_element" );
-        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
-
-        downModEdit();
-        _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
-                // reset edit for input
-                _form.find('input').each(function(){
-                    var recap =$(this).attr('data-reset');
-                    $(this).val(recap);
-                });
-                // reset edit for textarea
-                _form.find('textarea').each(function(){
-                    var recap =$(this).attr('data-reset');
-                    $(this).val(recap);
-                });
-                // reset edit for select
-                _form.find('select').each(function( ) {
-                    var _valDefault = $(this).attr('data-reset');
-                    $(this).val(_valDefault);
-                });
-
-            });
-        });
-
-
-    });
-
-    $(document).on('click', '.update_conventions_element', function(){
-
-        var _selectorContainer = $(this).closest( ".container_element" );
-
-        var form = _selectorContainer.find( '.form-box-conventions' ).find('form');
-
-        form.validate({
-            rules: {
-                nombre_travailleurs_cdi: {
-                    required: true,
-                    number: true,
-                    min: 0
-                },
-                nombre_travailleurs_cdd: {
-                    required: true,
-                    number: true,
-                    min: 0
-                }
-            },
-            errorPlacement: function(error, element) {
-                // /just nothing, empty
-            },
-            invalidHandler: function() {
-
-                swal({
-                    title: form.attr('data-error'),
-                    type: "error",
-                    confirmButtonColor: "#4F5467"
-                });
-
-            }
-        });
-
-        if( form.valid() ) {
-
-            _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
-                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
-
-                    var _idElement = form.attr('data-id');
-
-                    var _url_action = $('#api').find('#store').val();
-                    _url_action = _url_action + '/convention/' + _idElement;
-
-                    var _dataRequestAction = {
-                        _token : _csrf_token,
-                        accord_de_fondation : form.find('#accord_de_fondation').val(),
-                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
-                        convention_id : form.find('#convention_id').val(),
-                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
-                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val(),
-                        _method: "PATCH"
-                    };
-
-                    updateConvontionElement(_url_action, _dataRequestAction, _idElement);
-
-                });
-            });
-
-        }
-
     });
 
 });

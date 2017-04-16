@@ -217,6 +217,43 @@
                             <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="" />
                         </div>
 
+                        <!------------------------------------------------------------------------------->
+                        <div class="form-group m-t-8">
+                            <select id="accord_de_fondation" name="accord_de_fondation" class="form-control">
+                                <option value="1">@lang('societe.accord_de_fondation_1')</option>
+                                <option value="0" selected>@lang('societe.accord_de_fondation_0')</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="convention_cadre_commun" name="convention_cadre_commun" class="form-control">
+                                <option value="1" selected>@lang('societe.convention_cadre_commun_1')</option>
+                                <option value="0">@lang('societe.convention_cadre_commun_0')</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.convention')</label>
+                            <select id="convention_id" name="convention_id" class="form-control">
+                                <option value="0"> @lang('societe.pas_de_convontion')   </option>
+                                @foreach ($secteur->conventions as $convention)
+                                    <option value="{{ $convention->id }}">{{ $convention->nom_convention }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.nombre_travailleurs_cdi')</label>
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdi" id="nombre_travailleurs_cdi" placeholder="@lang('societe.nombre_travailleurs_cdi')" value="" />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('societe.nombre_travailleurs_no_cdi')</label>
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdd" id="nombre_travailleurs_cdd" placeholder="@lang('societe.nombre_travailleurs_no_cdi')" value="" />
+                        </div>
+
+                        <!------------------------------------------------------------------------------->
+
                         <input type="hidden" id="delegation_id" value="{{ $delegation->id }}">
                         <input type="hidden" id="secteur_id" value="{{ $secteur->id }}">
 

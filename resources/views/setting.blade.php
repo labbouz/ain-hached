@@ -33,13 +33,23 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
+                <a href="{{ route('type_societe.index') }}"><i class="fa fa-list fa-lg" ></i>
+                    <span>@lang('societe.types_societes')</span>
+                </a>
+            </div>
+            <div class="col-md-2 icon">
                 <a href="{{ route('moves.index') }}"><i class="fa fa-map-signs fa-lg" ></i>
                     <span>@lang('main.moves')</span>
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('type_societe.index') }}"><i class="fa fa-list fa-lg" ></i>
-                    <span>@lang('societe.types_societes')</span>
+                <a href="{{ route('plaintes.index') }}"><i class="fa fa-gavel fa-lg" ></i>
+                    <span>@lang('plainte.plaintes')</span>
+                </a>
+            </div>
+            <div class="col-md-2 icon">
+                <a href="{{ route('medias.index') }}"><i class="fa fa-bullhorn fa-lg" ></i>
+                    <span>@lang('media.medias')</span>
                 </a>
             </div>
 
