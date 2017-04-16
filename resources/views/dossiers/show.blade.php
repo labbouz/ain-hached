@@ -70,6 +70,25 @@
 
             </div>
 
+            <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
+                el intihakat
+            </div>
+
+            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
+                <div class="box-info box-observateurs-dossier">
+                    <div class="icon_big"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
+                    <div class="titlr_box"><h1>@lang('dossier.observateurs_concernees')</h1></div>
+                    <ul>
+                        <li>el ma3niyoun</li>
+                        <li>el ma3niyoun</li>
+                        <li>el ma3niyoun</li>
+                        <li>el ma3niyoun</li>
+                        <li>el ma3niyoun</li>
+                        <li>el ma3niyoun</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

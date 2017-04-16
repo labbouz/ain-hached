@@ -135,3 +135,26 @@
 }
 
 
+
+/**** for box-observateurs-dossier ****/
+
+.box-observateurs-dossier .icon_big {
+    display: block;
+    float: right;
+    width: 100px;
+    height: 70px;
+
+    text-align: center;
+}
+
+.box-observateurs-dossier .icon_big .fa-lg {
+    font-size: 60px;
+    line-height: 70px;
+}
+
+.box-observateurs-dossier h2 {
+    display: block;
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 700;
+}
