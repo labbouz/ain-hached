@@ -152,9 +152,123 @@
     line-height: 70px;
 }
 
+.box-observateurs-dossier .titlr_box {
+    display: block;
+    float: right;
+    width: 215px;
+}
+
 .box-observateurs-dossier h2 {
     display: block;
     font-size: 24px;
-    line-height: 26px;
+    line-height:32px;
     font-weight: 700;
+    margin: 0;
+    padding: 0;
 }
+
+.list-user-concernees {
+    display: block;
+    float: left;
+    border-top: 1px solid #d0d5d6;
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.box-observateurs-dossier ul {
+    display: block;
+    float: left;
+    margin: 0;
+    padding:0;
+}
+.box-observateurs-dossier li {
+    display: block;
+    float: left;
+    width: 100%;
+
+    border-bottom: 1px solid #d0d5d6;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.box-observateurs-dossier li > span {
+    display: block;
+    float: right;
+}
+
+.box-observateurs-dossier li .profile {
+    width: 20%;
+}
+
+.box-observateurs-dossier li .profile img {
+}
+
+.box-observateurs-dossier li .info {
+    width: 79%;
+}
+
+.box-observateurs-dossier li .info .name_user {
+    font-size: 18px;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    padding-right: 10px;
+}
+.box-observateurs-dossier li .info .role {
+    font-size: 14px;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+
+/**** box-liste-abus ****/
+.box-liste-abus {
+    min-height: auto;
+}
+.box-liste-abus .icon_big {
+    display: block;
+    float: right;
+    width: 100px;
+    height: 70px;
+
+    text-align: center;
+}
+
+.box-liste-abus  .icon_big .fa-lg {
+    font-size: 60px;
+    line-height: 70px;
+}
+
+.box-liste-abus  .titlr_box {
+    display: block;
+    float: right;
+}
+
+.box-liste-abus  h2 {
+    display: block;
+    font-size: 24px;
+    line-height:32px;
+    font-weight: 700;
+    margin: 0;
+    padding: 19px 0;
+}
+
+
+.box-liste-abus  p {
+    display: block;
+    font-size: 15px;
+}
+.box-liste-abus  p.alert {
+    line-height: 26px;
+    font-weight: 400;
+    margin-bottom: 0;
+
+}
+
+.box-liste-abus  p.alert strong {
+    font-weight: 700;
+    color: #c71618;
+}
+

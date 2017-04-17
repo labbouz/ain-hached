@@ -71,21 +71,45 @@
             </div>
 
             <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
-                el intihakat
+                <div class="box-info box-liste-abus">
+                    <div class="icon_big"><i class="fa fa-fire fa-lg" aria-hidden="true"></i></div>
+                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_dossier')</h2></div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                            <p class="alert"><strong>@lang('abus.aucun_abus')</strong> .... <strong><a href="javascript:void(0)">@lang('abus.gestion_abus')</a></strong></p>
+                         </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
                 <div class="box-info box-observateurs-dossier">
                     <div class="icon_big"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
-                    <div class="titlr_box"><h1>@lang('dossier.observateurs_concernees')</h1></div>
-                    <ul>
-                        <li>el ma3niyoun</li>
-                        <li>el ma3niyoun</li>
-                        <li>el ma3niyoun</li>
-                        <li>el ma3niyoun</li>
-                        <li>el ma3niyoun</li>
-                        <li>el ma3niyoun</li>
-                    </ul>
+                    <div class="titlr_box"><h2>@lang('dossier.observateurs_concernees')</h2></div>
+                    <div class="clearfix list-user-concernees">
+                        <ul>
+                            @foreach ($users_concernes as $user_concerne)
+                                <li>
+                                <span class="profile">
+                                    @if($dossier->user->avatar  == null)
+                                        <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-circle img-responsive">
+                                    @else
+                                        <img src="{{ Request::root() }}/images/avatars/{{ $user_concerne->user->avatar }}" class="img-circle img-responsive">
+                                    @endif
+
+                                </span>
+                                    <span class="info">
+                                    <span class="name_user">{{ $user_concerne->user->name }}</span>
+                                    <span class="role"> {{ $user_concerne->role->name }} </span>
+                                </span>
+
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
                 </div>
             </div>
 

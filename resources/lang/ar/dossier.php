@@ -87,7 +87,7 @@ return [
 
 
 
-    'observateurs_concernees' => 'الراصيدون المعنيون  بالملف',
+    'observateurs_concernees' => 'الراصدون المعنيون  بالملف',
     '' => '',
     '' => '',
     '' => '',

@@ -12,6 +12,7 @@ use App\Secteur;
 use App\Gouvernorat;
 use App\Societe;
 use App\Dossier;
+use App\Role_user;
 
 class DossierController extends Controller
 {
@@ -151,7 +152,18 @@ class DossierController extends Controller
                 break;
         }
 
-        return view('dossiers.show', compact('dossier'));
+        $gouvernorat_id = $dossier->societe->delegation->gouvernorat_id;
+        $secteur_id = $dossier->societe->secteur_id;
+
+        $users_concernes = Role_user::where('gouvernorat_id', $gouvernorat_id)
+            ->orWhere('secteur_id', $secteur_id)
+            ->orWhere(function ($query) {
+                    $query->where('gouvernorat_id', 0)->where('secteur_id', 0);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('dossiers.show', compact('dossier','users_concernes'));
     }
 
     /**

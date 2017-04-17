@@ -21,4 +21,9 @@ class Dossier extends Model
 
     }
 
+    public function abus()
+    {
+        return $this->hasMany('\App\Abus')->orderBy('id', 'desc');
+    }
+
 }

@@ -22,4 +22,9 @@ class Violation extends Model
         return $this->belongsTo('\App\Gravite');
 
     }
+
+    public function abus()
+    {
+        return $this->hasMany('\App\Abus')->orderBy('id', 'desc');
+    }
 }
