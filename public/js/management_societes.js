@@ -11,6 +11,8 @@ $(document).ready(function(){
         _token : _csrf_token
     };
 
+
+
     /************* Initialisation ***/
     setLoading();
     getList(_url, _dataRequest);
@@ -426,15 +428,16 @@ $(document).ready(function(){
     });
 
     $.validator.addMethod(
-        "myDateFormat",
+        "FrancaisDate",
         function(value, element) {
             // yyyy-mm-dd
-            var re = /^\d{4}-\d{1,2}-\d{1,2}$/;
+            var re = /^\d\d?\/\d\d?\/\d\d\d\d$/;
 
             // valid if optional and empty OR if it passes the regex test
             return (this.optional(element) && value=="") || re.test(value);
         }
     );
+
 
     $(document).on('click', '.save_element', function(){
 
@@ -450,7 +453,7 @@ $(document).ready(function(){
                 },
                 date_cration_societe: {
                     required: false,
-                    date: true
+                    FrancaisDate : true
                 },
                 nombre_travailleurs_cdi: {
                     required: true,
@@ -524,7 +527,7 @@ $(document).ready(function(){
                 },
                 date_cration_societe: {
                     required: false,
-                    date: true
+                    FrancaisDate : true
                 }
             },
             errorPlacement: function(error, element) {

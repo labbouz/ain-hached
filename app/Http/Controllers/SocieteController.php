@@ -95,7 +95,7 @@ class SocieteController extends Controller
             'nom_societe' => 'required|max:255|unique:societes,nom_societe,NULL,id,delegation_id,'.$request->delegation_id.',secteur_id,'.$request->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
-            'date_cration_societe' => 'date|date_format:Y-m-d',
+            'date_cration_societe' => 'date|date_format:d/m/Y',
             'delegation_id' => 'required|numeric',
             'secteur_id' => 'required|numeric',
             'accord_de_fondation' => 'required|numeric',
@@ -118,6 +118,9 @@ class SocieteController extends Controller
         // Controle date if empty
         if($request->date_cration_societe == '') {
             $request->date_cration_societe = null;
+        } else {
+            $date_fr = explode('/', $request->date_cration_societe );
+            $request->date_cration_societe = $date_fr[2].'-'.$date_fr[1].'-'.$date_fr[0];
         }
 
         switch (Auth::user()->getRole()) {
@@ -372,7 +375,7 @@ class SocieteController extends Controller
             'nom_societe' => 'required|max:255|unique:societes,nom_societe,'.$societeUpdated->id.',id,delegation_id,'.$societeUpdated->delegation_id.',secteur_id,'.$societeUpdated->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
-            'date_cration_societe' => 'date|date_format:Y-m-d'
+            'date_cration_societe' => 'date|date_format:d/m/Y'
         ]);
 
         if ($validator->fails()) {
@@ -388,6 +391,9 @@ class SocieteController extends Controller
         // Controle date if empty
         if($request->date_cration_societe == '') {
             $request->date_cration_societe = null;
+        } else {
+            $date_fr = explode('/', $request->date_cration_societe );
+            $request->date_cration_societe = $date_fr[2].'-'.$date_fr[1].'-'.$date_fr[0];
         }
 
         switch (Auth::user()->getRole()) {
@@ -578,6 +584,9 @@ class SocieteController extends Controller
         foreach ($societes as $societe) {
             $societe->nb_dossiers = $societe->dossiers->count();
             $societe->url_show_dossiers = route('societe.show.dossiers', $societe->id);
+
+            $date_fr = explode('-', $societe->date_cration_societe );
+            $societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
 
         }
 

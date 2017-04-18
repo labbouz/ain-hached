@@ -109,7 +109,7 @@
 
                         <div class="form-group m-t-8">
                             <label>@lang('societe.date_cration_societe')</label>
-                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="{date_cration_societe}" data-reset="{date_cration_societe}" />
+                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24/07/2003" value="{date_cration_societe}" data-reset="{date_cration_societe}" />
                         </div>
 
                     </form>
@@ -214,7 +214,7 @@
 
                         <div class="form-group m-t-8">
                             <label>@lang('societe.date_cration_societe')</label>
-                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24-07-2003" value="" />
+                            <input dir="ltr" type="text" class="form-control myDateFormat" name="date_cration_societe" id="date_cration_societe" placeholder="@lang('societe.exemple_format_date') 24/07/2003" value="" />
                         </div>
 
                         <!------------------------------------------------------------------------------->
