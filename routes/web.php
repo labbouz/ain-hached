@@ -82,6 +82,8 @@ Route::group( ['middleware' => ['auth'] ], function (){
 
     Route::resource('dossier', 'DossierController');
 
+    //Abus
+    Route::get('/dossier/abus/{dossier}', 'DossierController@gestionAbus')->name('dossier.gestion');
 
 });
 

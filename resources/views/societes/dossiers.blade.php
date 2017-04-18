@@ -78,7 +78,7 @@
                                    data-cancelled="@lang('main.cancelled')"
                                 ><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('dossier.histrory_dossier_violations') 0">0 <i class="fa fa-fire" aria-hidden="true"></i></a>
-                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('dossier.histrory_dossier')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="{{ route('dossier.show', $dossier->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('dossier.histrory_dossier')"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             </div>
                         </div>
 

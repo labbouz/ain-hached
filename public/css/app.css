@@ -40,7 +40,6 @@ a:focus{
 }
 
 #app .logo {
-    display: none;
     padding-right: 100px;
     background: url("../images/logo.png") right no-repeat;
     font-size: 24px;
@@ -223,3 +222,42 @@ select.form-control{
     font-family:'Droid Arabic Kufi','Open Sans',sans-serif;
     font-weight: 400;
 }
+
+
+.menu-partiel {
+}
+.menu-partiel .icon {
+    height: 68px;
+    margin-bottom: 15px;
+}
+
+.menu-partiel  .square {
+    padding-right: 0;
+}
+
+.menu-partiel .icon a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border: 1px solid #d0d5d6;
+}
+
+.menu-partiel .icon a:hover {
+
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+    box-shadow: 0px 0px 5px 0px rgba(208,213,214,1);
+
+}
+
+.menu-partiel .icon a i {
+    font-size: 40px;
+    width: 100%;
+    height: 68px;
+    line-height: 68px;
+    text-align: center;
+
+}
+

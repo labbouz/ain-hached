@@ -225,7 +225,7 @@
 
 /**** box-liste-abus ****/
 .box-liste-abus {
-    min-height: auto;
+    min-height: inherit;
 }
 .box-liste-abus .icon_big {
     display: block;
@@ -272,3 +272,64 @@
     color: #c71618;
 }
 
+
+/***** box-resumer-dossier *****/
+
+
+.box-resumer-dossier .icon_big {
+    display: block;
+    float: right;
+    height: 70px;
+
+    text-align: center;
+}
+
+.box-resumer-dossier .icon_big .fa-lg {
+    font-size: 60px;
+    line-height: 70px;
+}
+
+.box-resumer-dossier .titlr_box {
+    display: block;
+    float: right;
+    width: 215px;
+    height: 70px;
+    margin-right: 20px;
+}
+
+.box-resumer-dossier h2 {
+    display: block;
+    font-size: 28px;
+    line-height:70px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.box-resumer-dossier .recap_dossier {
+    margin-top: 20px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.box-resumer-dossier .recap_dossier > div {
+    text-align: center;
+}
+
+.box-resumer-dossier .recap_dossier > div a,
+.box-resumer-dossier .recap_dossier > div i{
+    font-size: 32px;
+}
+
+.box-resumer-dossier .recap_dossier > div.gravite-danger .fa {
+    color: red;
+}
+.box-resumer-dossier .recap_dossier > div.gravite-warning .fa {
+    color: darkorange;
+}
+
+.box-resumer-dossier .recap_dossier .chiffre {
+    font-size: 24px;
+    line-height: 32px;
+}

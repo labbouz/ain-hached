@@ -88,13 +88,17 @@ return [
 
 
     'observateurs_concernees' => 'الراصدون المعنيون  بالملف',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+
+
+    'display_indicateur_gravite_danger' => 'عدد الإنتهاكات الخطيرة جدا المدرجة في هذا الملف',
+    'display_indicateur_gravite_warning' => 'عدد الإنتهاكات الخطيرة المدرجة في هذا الملف',
+    'display_indicateur_abus_gestion' => 'إدارة جميع الإنتهاكات المدرجة في هذا الملف والبالغ عددها',
+
+    'display_indicateur_confrontations_medias' => 'العدد الكلي لمواجهات الإعلام ضد الإنتهاكات المدرجة في هذا الملف',
+    'display_indicateur_confrontations_plaintes' => 'العدد الكلي لمواجهات الشكاوي ضد الإنتهاكات المدرجة في هذا الملف',
+    'display_indicateur_confrontations_mouvements' => 'العدد الكلي لمواجهات التحركات ضد الإنتهاكات المدرجة في هذا الملف',
+
+    'management_abus' => 'إدارة جميع الإنتهاكات المدرجة في هذا الملف',
     '' => '',
     '' => '',
     '' => '',

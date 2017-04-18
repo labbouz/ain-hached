@@ -579,14 +579,18 @@ class SocieteController extends Controller
         //set croisment
         $delegation->setSecteur($secteur->id);
 
+
         $societes = $delegation->societesViaSecteur;
+
 
         foreach ($societes as $societe) {
             $societe->nb_dossiers = $societe->dossiers->count();
             $societe->url_show_dossiers = route('societe.show.dossiers', $societe->id);
 
-            $date_fr = explode('-', $societe->date_cration_societe );
-            $societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+            if($societe->date_cration_societe != null && $societe->date_cration_societe != '') {
+                $date_fr = explode('-', $societe->date_cration_societe );
+                $societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+            }
 
         }
 

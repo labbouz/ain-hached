@@ -166,6 +166,40 @@ class DossierController extends Controller
         return view('dossiers.show', compact('dossier','users_concernes'));
     }
 
+    public function gestionAbus($id)
+    {
+        $dossier = Dossier::find($id);
+
+        switch (Auth::user()->getRole()) {
+            case "observateur_regional":
+            case "observateur":
+                if( $dossier->societe->delegation->gouvernorat_id != Auth::user()->roleuser->gouvernorat_id) {
+                    return redirect('notacces');
+                }
+                break;
+
+            case "observateur_secteur":
+                if( $dossier->societe->secteur_id != Auth::user()->roleuser->secteur_id) {
+                    return redirect('notacces');
+                }
+
+                break;
+        }
+
+        $gouvernorat_id = $dossier->societe->delegation->gouvernorat_id;
+        $secteur_id = $dossier->societe->secteur_id;
+
+        $users_concernes = Role_user::where('gouvernorat_id', $gouvernorat_id)
+            ->orWhere('secteur_id', $secteur_id)
+            ->orWhere(function ($query) {
+                $query->where('gouvernorat_id', 0)->where('secteur_id', 0);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('dossiers.show', compact('dossier','users_concernes'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
