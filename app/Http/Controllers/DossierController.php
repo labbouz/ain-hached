@@ -13,6 +13,9 @@ use App\Gouvernorat;
 use App\Societe;
 use App\Dossier;
 use App\Role_user;
+use App\TypeViolation;
+use App\StructureSyndicale;
+
 
 class DossierController extends Controller
 {
@@ -186,7 +189,12 @@ class DossierController extends Controller
                 break;
         }
 
-        return view('dossiers.gestion', compact('dossier'));
+        $types_violations_1 = TypeViolation::find(1);
+        $types_violations_2 = TypeViolation::find(2);
+
+        $structures_syndicales = StructureSyndicale::orderBy('type_structure_syndicale', 'asc')->get();
+
+        return view('dossiers.gestion', compact('dossier', 'types_violations_1', 'types_violations_2', 'structures_syndicales'));
     }
 
     /**

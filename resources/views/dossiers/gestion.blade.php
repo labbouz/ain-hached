@@ -170,10 +170,142 @@
 
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="nom_societe" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="" required />
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <select id="violation_id" name="violation_id" class="form-control">
+                                    <option value="">@lang('main.selectionnez') @lang('abus.violation')</option>
+                                    @foreach ($types_violations_1->violations as $violation)
+                                        <option value="{{ $violation->id }}">{{ $violation->nom_violation }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.resultat')</label>
+                                <select id="statut_reglement" name="statut_reglement" class="form-control">
+                                    <option value="1">@lang('abus.resultat_ok')</option>
+                                    <option value="0" selected>@lang('abus.resultat_not_ok')</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.date_violation')</label>
+                                <input dir="ltr" type="text" class="form-control myDateFormat" name="date_violation" id="date_violation" placeholder="@lang('abus.exemple_format_date') 24/07/2003" value="" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.agresseur')</label>
+                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par')</label>
+                            </div>
+                            <div class="form-group">
+                                <label>@lang('abus.responsabilite_represente_par_type_1')</label>
+                                <select id="responsabilite_1" name="responsabilite_1" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par_type_2')</label>
+                                <select id="responsabilite_2" name="responsabilite_2" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par_type_3')</label>
+                                <select id="responsabilite_3" name="responsabilite_3" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.endommage')</label>
+                                <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="violation_id" name="violation_id" class="form-control">
+                                    <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
+                                    @foreach ($structures_syndicales as $structure_syndicale)
+                                        <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="genre" name="genre" class="form-control">
+                                    <option value="" selected>@lang('main.selectionnez') @lang('abus.genre')</option>
+                                    <option value="male">@lang('abus.male')</option>
+                                    <option value="feminin">@lang('abus.feminin')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="age" name="age" class="form-control">
+                                    <option value="0" selected>@lang('main.selectionnez') @lang('abus.age')</option>
+                                    <option value="1">@lang('abus.age_type_1')</option>
+                                    <option value="2">@lang('abus.age_type_2')</option>
+                                    <option value="3">@lang('abus.age_type_3')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="etat_civile" name="etat_civile" class="form-control">
+                                    <option value="0" selected>@lang('main.selectionnez') @lang('abus.etat_civil')</option>
+                                    <option value="1">@lang('abus.marie')</option>
+                                    <option value="2">@lang('abus.unique')</option>
+                                    <option value="3">@lang('abus.absolu')</option>
+                                    <option value="4">@lang('abus.veuf')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input dir="rtl" type="text" class="form-control" name="nb_enfant" id="nb_enfant" placeholder="@lang('abus.nombre_enfants_parrainage')" value="" />
+                            </div>
+
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('abus.telephone')" value="" />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="email" id="email" placeholder="@lang('abus.email')" value="" />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="type_contrat" name="type_contrat" class="form-control">
+                                    <option value="0" selected>@lang('main.selectionnez') @lang('abus.delimitation')</option>
+                                    <option value="1">@lang('abus.delimitation_oui')</option>
+                                    <option value="2">@lang('abus.delimitation_non')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <select id="anciennete" name="anciennete" class="form-control">
+                                    <option value="0" selected>@lang('main.selectionnez') @lang('abus.la_responsabilite_seniority_syndicale')</option>
+                                    <option value="1">@lang('abus.la_responsabilite_seniority_syndicale_type_1')</option>
+                                    <option value="2">@lang('abus.la_responsabilite_seniority_syndicale_type_2')</option>
+                                    <option value="3">@lang('abus.la_responsabilite_seniority_syndicale_type_3')</option>
+                                    <option value="4">@lang('abus.la_responsabilite_seniority_syndicale_type_4')</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="dossier_id" id="dossier_id" value="{{ $dossier->id }}">
 
                     </form>
 
@@ -202,10 +334,87 @@
 
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="nom_societe" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="" required />
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <select id="violation_id" name="violation_id" class="form-control">
+                                    <option value="">@lang('main.selectionnez') @lang('abus.violation')</option>
+                                    @foreach ($types_violations_2->violations as $violation)
+                                        <option value="{{ $violation->id }}">{{ $violation->nom_violation }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.resultat')</label>
+                                <select id="statut_reglement" name="statut_reglement" class="form-control">
+                                    <option value="1">@lang('abus.resultat_ok')</option>
+                                    <option value="0" selected>@lang('abus.resultat_not_ok')</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.date_violation')</label>
+                                <input dir="ltr" type="text" class="form-control myDateFormat" name="date_violation" id="date_violation" placeholder="@lang('abus.exemple_format_date') 24/07/2003" value="" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.agresseur')</label>
+                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par')</label>
+                            </div>
+                            <div class="form-group">
+                                <label>@lang('abus.responsabilite_represente_par_type_1')</label>
+                                <select id="responsabilite_1" name="responsabilite_1" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par_type_2')</label>
+                                <select id="responsabilite_2" name="responsabilite_2" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.responsabilite_represente_par_type_3')</label>
+                                <select id="responsabilite_3" name="responsabilite_3" class="form-control">
+                                    <option value="1">@lang('abus.oui')</option>
+                                    <option value="0" selected>@lang('abus.non')</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group m-t-8">
+                                <label>@lang('abus.endommage')</label>
+                                <select id="violation_id" name="violation_id" class="form-control">
+                                    <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
+                                    @foreach ($structures_syndicales as $structure_syndicale)
+                                        <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" name="dossier_id" id="dossier_id" value="{{ $dossier->id }}">
 
                     </form>
 
