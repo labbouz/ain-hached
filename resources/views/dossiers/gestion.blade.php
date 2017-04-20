@@ -204,13 +204,13 @@
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.agresseur')</label>
-                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" required />
+                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" />
                             </div>
                             <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" required />
+                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" />
                             </div>
                             <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" required />
+                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" />
                             </div>
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.responsabilite_represente_par')</label>
@@ -246,7 +246,7 @@
                                 <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="" required />
                             </div>
                             <div class="form-group m-t-8">
-                                <select id="violation_id" name="violation_id" class="form-control">
+                                <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control">
                                     <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
                                     @foreach ($structures_syndicales as $structure_syndicale)
                                         <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
@@ -311,7 +311,7 @@
 
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
-                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+                        <a href="javascript:void(0)" class="save_element_1"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
 
                     </div>
@@ -404,7 +404,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.endommage')</label>
-                                <select id="violation_id" name="violation_id" class="form-control">
+                                <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control">
                                     <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
                                     @foreach ($structures_syndicales as $structure_syndicale)
                                         <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
@@ -420,7 +420,7 @@
 
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
-                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+                        <a href="javascript:void(0)" class="save_element_2"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
 
                     </div>

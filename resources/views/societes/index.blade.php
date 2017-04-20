@@ -244,12 +244,12 @@
 
                         <div class="form-group m-t-8">
                             <label>@lang('societe.nombre_travailleurs_cdi')</label>
-                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdi" id="nombre_travailleurs_cdi" placeholder="@lang('societe.nombre_travailleurs_cdi')" value="" />
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdi" id="nombre_travailleurs_cdi" placeholder="@lang('societe.nombre_travailleurs_cdi')" value="0" />
                         </div>
 
                         <div class="form-group m-t-8">
                             <label>@lang('societe.nombre_travailleurs_no_cdi')</label>
-                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdd" id="nombre_travailleurs_cdd" placeholder="@lang('societe.nombre_travailleurs_no_cdi')" value="" />
+                            <input dir="ltr" type="text" class="form-control" name="nombre_travailleurs_cdd" id="nombre_travailleurs_cdd" placeholder="@lang('societe.nombre_travailleurs_no_cdi')" value="0" />
                         </div>
 
                         <!------------------------------------------------------------------------------->

@@ -46,6 +46,7 @@ class AbusController extends Controller
 
         ]);
 
+
         if ($validator->fails()) {
             $response = array(
                 'status' => 'pb_validate',

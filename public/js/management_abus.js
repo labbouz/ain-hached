@@ -452,7 +452,106 @@ $(document).ready(function(){
     );
 
 
-    $(document).on('click', '.save_element', function(){
+    $(document).on('click', '.save_element_1', function(){
+
+        var _selectorContainer = $(this).closest( ".container_element" );
+
+        var form = _selectorContainer.find('form');
+
+        form.validate({
+            rules: {
+                violation_id: {
+                    required: true,
+                    min: 1
+                },
+                date_violation: {
+                    required: true,
+                    FrancaisDate : true
+                },
+                structure_syndicale_id: {
+                    required: true,
+                    min: 1
+                },
+                genre: {
+                    required: true
+                },
+                age: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+                nb_enfant: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                phone_number: {
+                    required: false,
+                    number: true,
+                    min: 0
+                },
+                email: {
+                    required: false,
+                    email: true
+                },
+                type_contrat: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+                anciennete: {
+                    required: true,
+                    number: true,
+                    min: 1
+                }
+            },
+            errorPlacement: function(error, element) {
+                // /just nothing, empty
+            },
+            invalidHandler: function() {
+
+                swal({
+                    title: form.attr('data-error'),
+                    type: "error",
+                    confirmButtonColor: "#4F5467"
+                });
+
+            }
+        });
+
+        if( form.valid() ) {
+
+            _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
+                _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
+
+                    var _url_action = $('#api').find('#store').val();
+
+                    var _dataRequestAction = {
+                        _token : _csrf_token,
+                        violation_id : form.find('#violation_id').val(),
+                        dossier_id : form.find('#dossier_id').val(),
+                        date_violation : form.find('#date_violation').val(),
+                        statut_reglement : form.find('#statut_reglement').val()/*,
+
+                        type_societe_id : form.find('#type_societe_id').val(),
+                        delegation_id : form.find('#delegation_id').val(),
+                        secteur_id : form.find('#secteur_id').val(),
+                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
+                        convention_id : form.find('#convention_id').val(),
+                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
+                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val()*/
+                    };
+
+                    addElement(_url_action, _dataRequestAction, _selectorContainer);
+
+                });
+            });
+
+        }
+
+    });
+
+    $(document).on('click', '.save_element_2', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
