@@ -83,7 +83,10 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('dossier', 'DossierController');
 
     //Abus
-    Route::get('/dossier/abus/{dossier}', 'DossierController@gestionAbus')->name('dossier.gestion');
+    Route::get('/dossier/{dossier}/gestion', 'DossierController@gestionAbus')->name('dossier.gestion');
+
+    Route::resource('abus', 'AbusController');
+    Route::post('REST/abus/{id_dossier}', 'AbusController@getElementsJSON')->name('json.abus.index');
 
 });
 

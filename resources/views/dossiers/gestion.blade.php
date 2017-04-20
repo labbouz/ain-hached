@@ -1,131 +1,232 @@
 @extends('layouts.app')
 
 @section('header')
-    <link href="{{ asset('css/pages/dossier.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pages/abus.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-title')
+    <div class="container menu-partiel">
+        <div class="row" dir="rtl">
+            <div class="col-md-1 icon square">
+                <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="top" title="@lang('main.dashboard')">
+                    <i class="fa fa-tachometer" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ route('dossier.show', $dossier->id ) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('dossier.histrory_dossier')">
+                    <i class="fa fa-eye" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ URL::previous() }}" data-toggle="tooltip" data-placement="right" title="@lang('main.retour_previous')">
+                    <i class="fa fa-reply" aria-hidden="true" ></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="row row-rtl" dir="rtl">
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-number-dossier">
-                    <p>
-                        <span class="icon_big"><i class="fa fa-folder-open fa-lg"></i></span>
-                        <span class="number_dossier">{{ sprintf("%05d", $dossier->id) }}</span>
-                    </p>
-                    <h6>@lang('societe.cree_par')</h6>
-                    <p>
-                        <span class="profile">
-                            @if($dossier->user->avatar  == null)
-                                <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-circle img-responsive">
-                            @else
-                                <img src="{{ Request::root() }}/images/avatars/{{ $dossier->user->avatar }}" class="img-circle img-responsive">
-                            @endif
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm12 col-xs-12">
+                <div class="page-title">
+                    <div id="header_loading" class="header_action header_action_active"></div>
 
-                        </span>
-                        <span class="info">
-                            <span class="name_user">{{ $dossier->user->name }}</span>
-                            <span class="role"> {{ $dossier->user->roleuser->role->name }} </span>
-                        </span>
+                    <div id="header_index" class="header_action" dir="rtl">
 
-                    </p>
 
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info">
-                    <h4>@lang('dossier.resume_dossier')</h4>
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-societe-dossier">
-                    <div class="icon_big"><i class="fa fa-building fa-lg"></i></div>
-                    <div class="info">
-                        <span class="nom_marque">{{ $dossier->societe->nom_marque }}</span>
-                        <span class="nom_societe">{{ $dossier->societe->nom_societe }}</span>
+                        <h3 dir="rtl"> @lang('abus.gestion_abus_number_file') {{ sprintf("%05d", $dossier->id) }} @lang('abus.abus_from') <strong>{{ $dossier->societe->nom_marque }}</strong>  </h3>
+                        <p dir="rtl" class="text-muted">@lang('abus.description_gestion_abus').</p>
                     </div>
 
-                    <div class="societe_local">
-                        <span class="nom_secteur_delegation">@lang('dossier.societe_secteur') <strong>{{ $dossier->societe->secteur->nom_secteur }}</strong> @lang('dossier.societe_pour_delegation') <strong>{{ $dossier->societe->delegation->nom_delegation }}</strong> @lang('dossier.societe_pour_gouvenorat') <strong>{{ $dossier->societe->delegation->gouvernorat->nom_gouvernorat }}</strong></span>
-                    </div>
-
-                    <div class="recap_societe">
-                        <div class="col-xs-4">
-                            <a class="fa fa-info-circle" href="javascript:void(0)"></a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a class="fa fa-archive" href="{{ route('societe.show.dossiers', $dossier->societe->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {{ $dossier->societe->dossiers->count() }}"></a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a class="fa fa-eye" href="{{ route('societes.show', $dossier->societe->id ) }}"></a>
-                        </div>
-                    </div>
 
 
                 </div>
 
             </div>
+        </div>
+    </div>
 
-            <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
-                <div class="box-info box-liste-abus">
-                    <div class="icon_big"><i class="fa fa-fire fa-lg" aria-hidden="true"></i></div>
-                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_dossier')</h2></div>
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
-                            <p class="alert"><strong>@lang('abus.aucun_abus')</strong> .... <strong><a href="javascript:void(0)">@lang('abus.gestion_abus')</a></strong></p>
-                         </div>
-                    </div>
+@endsection
 
-                </div>
-            </div>
+@section('content')
 
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-observateurs-dossier">
-                    <div class="icon_big"><i class="fa fa-users fa-lg" aria-hidden="true"></i></div>
-                    <div class="titlr_box"><h2>@lang('dossier.observateurs_concernees')</h2></div>
-                    <div class="clearfix list-user-concernees">
-                        <ul>
-                            @foreach ($users_concernes as $user_concerne)
-                                <li>
-                                <span class="profile">
-                                    @if($dossier->user->avatar  == null)
-                                        <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-circle img-responsive">
-                                    @else
-                                        <img src="{{ Request::root() }}/images/avatars/{{ $user_concerne->user->avatar }}" class="img-circle img-responsive">
-                                    @endif
+    <div class="container">
+        <div id="list_elements" class="row">
+            <div class="bg_detail"></div>
 
-                                </span>
-                                    <span class="info">
-                                    <span class="name_user">{{ $user_concerne->user->name }}</span>
-                                    <span class="role"> {{ $user_concerne->role->name }} </span>
-                                </span>
-
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
 
         </div>
     </div>
 @endsection
 
-@section('content')
-
-
-@endsection
-
 @section('url_ajax')
+    <input id="index" type="hidden" value="{{ route('json.abus.index', $dossier->id) }}">
+    <input id="store" type="hidden" value="{{ route('abus.store') }}">
 
+    {{ csrf_field() }}
+
+    <div id="template_container" class="hide">
+        <div id="id_{id}" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-card">
+            <div class="container_element">
+
+                <div class="edit_card card box">
+                    <div class="label_elemen">
+                        <span class="edit nom_marque" dir="rtl">{nom_marque}</span>
+                        <span class="edit nom_societe" dir="rtl">{nom_societe}</span>
+                    </div>
+
+
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="remove"
+                           data-warning="@lang('main.etes_vous_sure')"
+                           data-text-warning="@lang('societe.suppression_defenitife_societe')"
+                           data-confirm-buttontext="@lang('main.confirmButtonText')"
+                           data-cancel-buttonText="@lang('main.cancelButtonText')"
+                           data-cancelled="@lang('main.cancelled')"
+                        ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_main')"></i></a>
+                        <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_convention')"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
+                        <a href="{url_show_dossiers}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_dossiers}">{nb_dossiers} <i class="fa fa-archive" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.histrory_societe')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-box box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="{nom_societe}" data-reset="{nom_societe}" required />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom_marque" id="nom_marque" placeholder="@lang('societe.nom_marque')" value="{nom_marque}" data-reset="{nom_marque}" />
+                        </div>
+
+
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_edit"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+                <div class="form-box-conventions box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
+
+                        <div class="form-group m-t-8">
+                            <select id="accord_de_fondation" name="accord_de_fondation" class="form-control" data-reset="{accord_de_fondation}">
+                                <option value="1">@lang('societe.accord_de_fondation_1')</option>
+                                <option value="0" selected>@lang('societe.accord_de_fondation_0')</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="convention_cadre_commun" name="convention_cadre_commun" class="form-control" data-reset="{convention_cadre_commun}">
+                                <option value="1" selected>@lang('societe.convention_cadre_commun_1')</option>
+                                <option value="0">@lang('societe.convention_cadre_commun_0')</option>
+                            </select>
+                        </div>
+
+
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_edit_conventions"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_conventions_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+                    </div>
+                </div>
+
+                <div class="loader box"><i class='fa fa-spinner fa-spin'></i></div>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <div id="template_loading" class="hide">
+        <div class='loading'></div>
+    </div>
+
+    <div id="template_form_add" class="hide">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 container-action">
+            <div class="container_element">
+                <a href="javascript:void(0)" class="box add add1">
+                    <span class="fa fa-user"></span>
+                    <span class="text" dir="rtl"><i class="fa fa-plus"></i> @lang('abus.add_abus') @lang('violations.type_violation_1')</span>
+                </a>
+
+                <div class="form-box box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="nom_societe" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="" required />
+                        </div>
+
+
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+
+                    </div>
+                </div>
+
+                <div class="loader box"><i class='fa fa-spinner fa-spin'></i></div>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 container-action">
+            <div class="container_element">
+                <a href="javascript:void(0)" class="box add add2">
+                    <span class="fa fa-users"></span>
+                    <span class="text" dir="rtl"><i class="fa fa-plus"></i> @lang('abus.add_abus') @lang('violations.type_violation_2')</span>
+                </a>
+
+                <div class="form-box box">
+                    <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="nom_societe" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="" required />
+                        </div>
+
+
+                    </form>
+
+                    <div class="toolbar_box"  dir="rtl">
+                        <a href="javascript:void(0)" class="cancel_add"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="save_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+
+
+                    </div>
+                </div>
+
+                <div class="loader box"><i class='fa fa-spinner fa-spin'></i></div>
+
+
+            </div>
+
+
+        </div>
+    </div>
 @endsection
 
 @section('footer')
-    <script src="{{ asset('js/show_dossier.js') }}"></script>
+    <script src="{{ asset('js/management_abus.js') }}"></script>
 @endsection

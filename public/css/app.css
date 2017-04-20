@@ -40,6 +40,7 @@ a:focus{
 }
 
 #app .logo {
+    opacity: 0;
     padding-right: 100px;
     background: url("../images/logo.png") right no-repeat;
     font-size: 24px;

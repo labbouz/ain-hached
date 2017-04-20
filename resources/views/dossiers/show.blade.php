@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="col-md-1 icon square">
-                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="@lang('dossier.management_abus')">
+                <a href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('dossier.management_abus')">
                     <i class="fa fa-fire" aria-hidden="true" ></i>
                 </a>
             </div>
