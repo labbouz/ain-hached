@@ -11,6 +11,9 @@ class StructuresSyndicalesTableSeeder extends Seeder
      */
     public function run()
     {
+        //disable foreign key check for this connection before running seeders
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         //delete Structures Syndicales table records
         DB::table('structures_syndicales')->truncate();
         //insert some dummy records
@@ -29,5 +32,8 @@ class StructuresSyndicalesTableSeeder extends Seeder
             array('type_structure_syndicale'=>trans('syndicale.TypeStructureSyndicale_12'), 'created_at' => date('Y-m-d H:i:s')),
 
         ));
+
+        // but I like to explicitly undo what I've done for clarity
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
