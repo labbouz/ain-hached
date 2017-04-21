@@ -41,7 +41,7 @@ class AbusController extends Controller
         $validator = Validator::make($request->all(), [
             'violation_id' => 'required|numeric',
             'dossier_id' => 'required|numeric',
-            'date_violation' => 'date|date_format:d/m/Y',
+            'date_violation' => 'required|date_format:d/m/Y',
             'statut_reglement' => 'required|numeric'
 
         ]);
@@ -50,7 +50,7 @@ class AbusController extends Controller
         if ($validator->fails()) {
             $response = array(
                 'status' => 'pb_validate',
-                'msg' => trans('main.problem_sauve'),
+                'msg' => $request->date_violation . ' - ' . trans('main.problem_sauve'),
                 'msg_text' => $validator->errors()->all(),
             );
 
@@ -114,7 +114,7 @@ class AbusController extends Controller
         $abusUpdated = Abus::find($id);
 
         $validator = Validator::make($request->all(), [
-            'date_violation' => 'date|date_format:d/m/Y',
+            'date_violation' => 'required|date_format:d/m/Y',
             'statut_reglement' => 'required|numeric'
         ]);
 
@@ -204,19 +204,26 @@ class AbusController extends Controller
 
         $abus = $dossier->abus;
 
-
-        /*
         foreach ($abus as $abu) {
-            $societe->nb_dossiers = $societe->dossiers->count();
-            $societe->url_show_dossiers = route('societe.show.dossiers', $societe->id);
+            $abu->nom_violation = $abu->violation->nom_violation;
 
-            if($societe->date_cration_societe != null && $societe->date_cration_societe != '') {
-                $date_fr = explode('-', $societe->date_cration_societe );
-                $societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+            $abu->nom_type_violation = $abu->violation->type_violation->nom_type_violation;
+            $abu->class_color_type_violation = $abu->violation->type_violation->class_color_type_violation;
+
+            $abu->	nom_gravite = $abu->violation->gravite->nom_gravite;
+            $abu->	class_color_gravite = $abu->violation->gravite->class_color_gravite;
+
+            $abu->nb_confrontations_moves = 0;
+            $abu->nb_confrontations_plaintes = 0;
+            $abu->nb_confrontations_medias = 0;
+
+            if($abu->date_violation != null && $abu->date_violation != '') {
+                $date_fr = explode('-', $abu->date_violation );
+                $abu->date_violation = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
             }
 
         }
-        */
+
 
         $reponse = [
             'status' => 'success',

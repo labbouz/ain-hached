@@ -95,7 +95,7 @@ class SocieteController extends Controller
             'nom_societe' => 'required|max:255|unique:societes,nom_societe,NULL,id,delegation_id,'.$request->delegation_id.',secteur_id,'.$request->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
-            'date_cration_societe' => 'date|date_format:d/m/Y',
+            'date_cration_societe' => 'date_format:d/m/Y',
             'delegation_id' => 'required|numeric',
             'secteur_id' => 'required|numeric',
             'accord_de_fondation' => 'required|numeric',
@@ -375,7 +375,7 @@ class SocieteController extends Controller
             'nom_societe' => 'required|max:255|unique:societes,nom_societe,'.$societeUpdated->id.',id,delegation_id,'.$societeUpdated->delegation_id.',secteur_id,'.$societeUpdated->secteur_id,
             'nom_marque' => 'max:255',
             'type_societe_id' => 'required|numeric',
-            'date_cration_societe' => 'date|date_format:d/m/Y'
+            'date_cration_societe' => 'date_format:d/m/Y'
         ]);
 
         if ($validator->fails()) {

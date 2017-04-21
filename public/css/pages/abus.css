@@ -1,6 +1,8 @@
-
+.card {
+    min-height: 200px;
+}
 .container_element {
-    height: 100px;
+    height: auto;
     position: relative;
 }
 
@@ -54,7 +56,7 @@
 }
 
 .container-card .label_elemen {
-    height: 56px;
+    height: 156px;
     text-align: center;
     padding: 8px;
     line-height: 21px;
@@ -69,18 +71,63 @@
     line-height: 20px;
 }
 
-.container-card .label_elemen span.nom_marque {
-    height: 50%;
+.container-card .label_elemen span.icon_abus {
+    float: right;
+    width: 60px;
+    height: 60px;
+}
+
+.container-card .label_elemen span.icon_abus i {
+    display: block;
+    font-size: 41px;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    float: right;
+    border-radius: 50%;
+    text-align: center;
+    color: #ffffff;
+}
+.container-card .label_elemen span.icon_abus .violation-collectif::before {
+    content: "\f0c0";
+}
+.container-card .label_elemen span.icon_abus .violation-individuel::before {
+    content: "\f007";
+}
+
+.container-card .label_elemen span.icon_abus .gravite-danger {
+    background-color: #ff0000;
+}
+.container-card .label_elemen span.icon_abus .gravite-warning {
+    background-color: #ff9600;
+}
+
+
+
+.container-card .label_elemen span.nom_violation {
+    margin-right: 15px;
+    line-height: 28px;
+    min-height: 60px;
+    width: 70%;
+    float: right;
+    display: block;
     text-align: right;
     font-size: 18px;
     font-weight: 700;
 }
 
-.container-card .label_elemen span.nom_societe {
-    height: 50%;
-    font-size: 12px;
+
+.container-card .label_elemen .info_abus {
+    margin-top: 10px;
+display: block;
+    float: left;
+    width: 100%;
+}
+
+.container-card .label_elemen .info_abus span {
     text-align: right;
 }
+
 
 .container_element .edit_card .toolbar_box,
 .container_element .form-box .toolbar_box,

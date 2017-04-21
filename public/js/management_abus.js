@@ -81,7 +81,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 // success logic
-                //console.log(data);
+                console.log(data);
                 $('.header_action_active').hide('fade', {}, 500, function(){
                     $('#header_index').show('fade', {}, 800, function(){
                         $(this).addClass('header_action_active');
@@ -481,7 +481,7 @@ $(document).ready(function(){
                     min: 1
                 },
                 nb_enfant: {
-                    required: true,
+                    required: false,
                     number: true,
                     min: 0
                 },
@@ -493,11 +493,6 @@ $(document).ready(function(){
                 email: {
                     required: false,
                     email: true
-                },
-                type_contrat: {
-                    required: true,
-                    number: true,
-                    min: 1
                 },
                 anciennete: {
                     required: true,

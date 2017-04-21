@@ -11,7 +11,7 @@ class Violation extends Model
 
     protected $fillable = ['nom_violation','description_violation','type_violation_id','gravite_id'];
 
-    public function typeviolation()
+    public function type_violation()
     {
         return $this->belongsTo('\App\TypeViolation');
 
@@ -25,6 +25,6 @@ class Violation extends Model
 
     public function abus()
     {
-        return $this->hasMany('\App\Abus')->orderBy('id', 'desc');
+        return $this->hasMany('\App\Abus','violation_id')->orderBy('id', 'desc');
     }
 }

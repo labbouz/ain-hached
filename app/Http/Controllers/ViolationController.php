@@ -157,11 +157,11 @@ class ViolationController extends Controller
     public function getElementsJSON()
     {
 
-        $violation = Violation::orderBy('id', 'desc')->get();
+        $violations = Violation::orderBy('id', 'desc')->get();
 
         $reponse = [
             'status' => 'success',
-            'elements' => $violation,
+            'elements' => $violations,
         ];
 
         return response()->json($reponse);

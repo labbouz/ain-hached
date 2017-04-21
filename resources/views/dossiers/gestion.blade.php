@@ -67,14 +67,19 @@
     {{ csrf_field() }}
 
     <div id="template_container" class="hide">
-        <div id="id_{id}" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 container-card">
+        <div id="id_{id}" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-card">
             <div class="container_element">
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit nom_marque" dir="rtl">{nom_marque}</span>
-                        <span class="edit nom_societe" dir="rtl">{nom_societe}</span>
+                        <span class="icon_abus"><i class="fa {class_color_type_violation} {class_color_gravite}" data-toggle="tooltip" data-placement="bottom"  title="@lang('abus.abu') {nom_gravite} {nom_type_violation}"></i></span>
+                        <span class="edit nom_violation" dir="rtl">{nom_violation}</span>
+
+                        <div class="info_abus">
+                            <span class="date_abus" dir="rtl">@lang('abus.date_violation') <strong>{date_violation}</strong></span>
+                        </div>
                     </div>
+
 
 
 
@@ -88,8 +93,13 @@
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_main')"></i></a>
                         <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_convention')"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
-                        <a href="{url_show_dossiers}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_dossiers}">{nb_dossiers} <i class="fa fa-archive" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-archive" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.histrory_societe')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
+
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-map-signs" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_plaintes}">{nb_confrontations_plaintes} <i class="fa fa-gavel" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_medias}">{nb_confrontations_medias} <i class="fa fa-bullhorn" aria-hidden="true"></i></a>
 
 
 
@@ -121,7 +131,7 @@
 
                 <div class="form-box-conventions box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
-
+                        {{--
                         <div class="form-group m-t-8">
                             <select id="accord_de_fondation" name="accord_de_fondation" class="form-control" data-reset="{accord_de_fondation}">
                                 <option value="1">@lang('societe.accord_de_fondation_1')</option>
@@ -135,7 +145,7 @@
                                 <option value="0">@lang('societe.convention_cadre_commun_0')</option>
                             </select>
                         </div>
-
+                        --}}
 
                     </form>
 
