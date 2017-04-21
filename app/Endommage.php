@@ -18,6 +18,6 @@ class Endommage extends Model
 
     public function structure_syndicale()
     {
-        return $this->belongsTo('App\StructureSyndicale');
+        return $this->belongsTo('App\StructureSyndicale', 'structure_syndicale_id');
     }
 }

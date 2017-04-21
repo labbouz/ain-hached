@@ -107,7 +107,7 @@
 .container-card .label_elemen span.nom_violation {
     margin-right: 15px;
     line-height: 28px;
-    min-height: 60px;
+    min-height: 70px;
     width: 70%;
     float: right;
     display: block;
@@ -332,6 +332,16 @@ display: block;
 .statut_reglement_0::before {
     content: "\f165";
 }
+
+.info_endommage {
+    margin-top: 10px;
+    display: block;
+    float: left;
+    width: 100%;
+    text-align: right;
+
+}
+
 
 
 

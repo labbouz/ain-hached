@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Abus;
 use App\Endommage;
+use App\Agresseur;
+
 use App\Dossier;
 
 class AbusController extends Controller
@@ -43,8 +45,7 @@ class AbusController extends Controller
             'violation_id' => 'required|numeric',
             'dossier_id' => 'required|numeric',
             'date_violation' => 'required|date_format:d/m/Y',
-            'statut_reglement' => 'required|numeric'/*,
-
+            'statut_reglement' => 'required|numeric',
 
             'prenom_endommage' => 'required',
             'nom_endommage' => 'required',
@@ -56,16 +57,21 @@ class AbusController extends Controller
             'phone_number' => 'numeric',
             'email' => 'email',
             'type_contrat' => 'required|numeric',
-            'anciennete' => 'required|numeric'*/
+            'anciennete' => 'required|numeric',
 
-
+            'prenom_agresseur' => 'max:255',
+            'nom_agresseur' => 'max:255',
+            'nationalite' => 'max:255',
+            'responsabilite_1' => 'required|numeric',
+            'responsabilite_2' => 'required|numeric',
+            'responsabilite_3' => 'required|numeric'
         ]);
 
 
         if ($validator->fails()) {
             $response = array(
                 'status' => 'pb_validate',
-                'msg' => $request->date_violation . ' - ' . trans('main.problem_sauve'),
+                'msg' => trans('main.problem_sauve'),
                 'msg_text' => $validator->errors()->all(),
             );
 
@@ -87,11 +93,11 @@ class AbusController extends Controller
         $abus_adedd->date_violation = $request->date_violation;
         $abus_adedd->statut_reglement = $request->statut_reglement;
         $abus_adedd->save();
-/*
+
         $endommage_addedd = new Endommage;
         $endommage_addedd->abus_id = $abus_adedd->id;
-        $endommage_addedd->structure_syndicale_id =  $request->structure_syndicale_id;
-        $endommage_addedd->nom = $request->nom_endommage;
+        $endommage_addedd->structure_syndicale_id = $request->structure_syndicale_id;
+        $endommage_addedd->nom = $request->prenom_endommage;
         $endommage_addedd->prenom = $request->prenom_endommage;
         $endommage_addedd->genre = $request->genre;
         $endommage_addedd->age =  $request->age;
@@ -102,7 +108,96 @@ class AbusController extends Controller
         $endommage_addedd->type_contrat = $request->type_contrat;
         $endommage_addedd->anciennete = $request->anciennete;
         $endommage_addedd->save();
-*/
+
+        $agresseur_addedd = new Agresseur;
+        $agresseur_addedd->abus_id = $abus_adedd->id;
+        $agresseur_addedd->nom = $request->nom_agresseur;
+        $agresseur_addedd->prenom = $request->prenom_agresseur;
+        $agresseur_addedd->nationalite = $request->nationalite;
+        $agresseur_addedd->responsabilite_1 = $request->responsabilite_1;
+        $agresseur_addedd->responsabilite_2 = $request->responsabilite_1;
+        $agresseur_addedd->responsabilite_3 = $request->responsabilite_1;
+        $agresseur_addedd->save();
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('abus.message_save_succes_abus'),
+        );
+
+        return response()->json($response);
+    }
+
+
+    public function store2(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'violation_id' => 'required|numeric',
+            'dossier_id' => 'required|numeric',
+            'date_violation' => 'required|date_format:d/m/Y',
+            'statut_reglement' => 'required|numeric',
+
+            'structure_syndicale_id' => 'required|numeric',
+
+            'prenom_agresseur' => 'max:255',
+            'nom_agresseur' => 'max:255',
+            'nationalite' => 'max:255',
+            'responsabilite_1' => 'required|numeric',
+            'responsabilite_2' => 'required|numeric',
+            'responsabilite_3' => 'required|numeric'
+        ]);
+
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        // Controle date if empty
+        if($request->date_violation == '') {
+            $request->date_violation = null;
+        } else {
+            $date_fr = explode('/', $request->date_violation );
+            $request->date_violation = $date_fr[2].'-'.$date_fr[1].'-'.$date_fr[0];
+        }
+
+        // save secteur
+        $abus_adedd = new Abus;
+        $abus_adedd->violation_id = $request->violation_id;
+        $abus_adedd->dossier_id = $request->dossier_id;
+        $abus_adedd->date_violation = $request->date_violation;
+        $abus_adedd->statut_reglement = $request->statut_reglement;
+        $abus_adedd->save();
+
+        $endommage_addedd = new Endommage;
+        $endommage_addedd->abus_id = $abus_adedd->id;
+        $endommage_addedd->structure_syndicale_id = $request->structure_syndicale_id;
+        $endommage_addedd->nom = '';
+        $endommage_addedd->prenom = '';
+        $endommage_addedd->genre = '';
+        $endommage_addedd->age =  0;
+        $endommage_addedd->etat_civile = 0;
+        $endommage_addedd->nb_enfant = 0;
+        $endommage_addedd->phone_number = '';
+        $endommage_addedd->email =  '';
+        $endommage_addedd->type_contrat = 0;
+        $endommage_addedd->anciennete = 0;
+        $endommage_addedd->save();
+
+        $agresseur_addedd = new Agresseur;
+        $agresseur_addedd->abus_id = $abus_adedd->id;
+        $agresseur_addedd->nom = $request->nom_agresseur;
+        $agresseur_addedd->prenom = $request->prenom_agresseur;
+        $agresseur_addedd->nationalite = $request->nationalite;
+        $agresseur_addedd->responsabilite_1 = $request->responsabilite_1;
+        $agresseur_addedd->responsabilite_2 = $request->responsabilite_1;
+        $agresseur_addedd->responsabilite_3 = $request->responsabilite_1;
+        $agresseur_addedd->save();
+
         $response = array(
             'status' => 'success',
             'msg' => trans('abus.message_save_succes_abus'),
@@ -208,6 +303,8 @@ class AbusController extends Controller
         }
         */
 
+        $abusDeleted->endommage->delete();
+        $abusDeleted->agresseur->delete();
         $abusDeleted->delete();
 
         $response = array(
@@ -241,8 +338,8 @@ class AbusController extends Controller
             $abu->nom_type_violation = $abu->violation->type_violation->nom_type_violation;
             $abu->class_color_type_violation = $abu->violation->type_violation->class_color_type_violation;
 
-            $abu->	nom_gravite = $abu->violation->gravite->nom_gravite;
-            $abu->	class_color_gravite = $abu->violation->gravite->class_color_gravite;
+            $abu->nom_gravite = $abu->violation->gravite->nom_gravite;
+            $abu->class_color_gravite = $abu->violation->gravite->class_color_gravite;
 
             $abu->nb_confrontations_moves = 0;
             $abu->nb_confrontations_plaintes = 0;
@@ -260,9 +357,34 @@ class AbusController extends Controller
             }
 
             // endommage
+            if(strlen($abu->endommage->nom)>0) {
+                $abu->info_endommage = $abu->endommage->nom . ' ' . $abu->endommage->prenom . ' / ' . $abu->endommage->structure_syndicale->type_structure_syndicale;
+            } else {
+                $abu->info_endommage = $abu->endommage->structure_syndicale->type_structure_syndicale;
+            }
 
-            //$abu->type_structure_syndicale = $abu->endommage->structure_syndicale; //->type_structure_syndicale
 
+            // info endommage
+            $abu->structure_syndicale_id = $abu->endommage->structure_syndicale_id;
+            $abu->prenom_endommage = $abu->endommage->prenom;
+            $abu->nom_endommage = $abu->endommage->nom;
+            $abu->genre = $abu->endommage->genre;
+            $abu->age =  $abu->endommage->age;
+            $abu->etat_civile = $abu->endommage->etat_civile;
+            $abu->nb_enfant = $abu->endommage->nb_enfant;
+            $abu->phone_number = $abu->endommage->phone_number;
+            $abu->email = $abu->endommage->email;
+            $abu->type_contrat = $abu->endommage->type_contrat;
+            $abu->anciennete = $abu->endommage->anciennete;
+
+
+            // info agresseur
+            $abu->prenom_agresseur = $abu->agresseur->prenom;
+            $abu->nom_agresseur = $abu->agresseur->nom;
+            $abu->nationalite = $abu->agresseur->nationalite;
+            $abu->responsabilite_1 = $abu->agresseur->responsabilite_1;
+            $abu->responsabilite_2 = $abu->agresseur->responsabilite_2;
+            $abu->responsabilite_3 = $abu->agresseur->responsabilite_3;
 
         }
 

@@ -63,6 +63,7 @@
 @section('url_ajax')
     <input id="index" type="hidden" value="{{ route('json.abus.index', $dossier->id) }}">
     <input id="store" type="hidden" value="{{ route('abus.store') }}">
+    <input id="store2" type="hidden" value="{{ route('abus.store2') }}">
 
     {{ csrf_field() }}
 
@@ -79,28 +80,27 @@
                             <span class="date_abus" dir="rtl">@lang('abus.date_violation') <strong>{date_violation}</strong></span>
                             <i class="fa statut_reglement statut_reglement_{statut_reglement}" dir="rtl" data-toggle="tooltip" data-placement="right" title="{resultat_violation}"></i>
                         </div>
+                        <span class="info_endommage" dir="rtl">@lang('abus.endommage') <strong>{info_endommage}</strong></span>
                     </div>
-
-
 
 
                     <div class="toolbar_box"  dir="rtl">
                         <a href="javascript:void(0)" class="remove"
                            data-warning="@lang('main.etes_vous_sure')"
-                           data-text-warning="@lang('societe.suppression_defenitife_societe')"
+                           data-text-warning="@lang('abus.suppression_defenitife_societe')"
                            data-confirm-buttontext="@lang('main.confirmButtonText')"
                            data-cancel-buttonText="@lang('main.cancelButtonText')"
                            data-cancelled="@lang('main.cancelled')"
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_main')"></i></a>
-                        <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('societe.societe_convention')"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-archive" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.histrory_societe')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="edit"><i class="fa fa-frown-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_main')"></i></a>
+                        <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_agresseur_update')"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.documentations') 0">0 <i class="fa fa-files-o" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.display_detail_abus')"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
 
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-map-signs" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_plaintes}">{nb_confrontations_plaintes} <i class="fa fa-gavel" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {nb_confrontations_medias}">{nb_confrontations_medias} <i class="fa fa-bullhorn" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_moves_abus') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-map-signs" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_plaintes_abus') {nb_confrontations_plaintes}">{nb_confrontations_plaintes} <i class="fa fa-gavel" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_medias_abus') {nb_confrontations_medias}">{nb_confrontations_medias} <i class="fa fa-bullhorn" aria-hidden="true"></i></a>
 
 
 
@@ -112,13 +112,91 @@
 
                 <div class="form-box box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
+
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nom_societe" placeholder="@lang('societe.nom_societe')" value="{nom_societe}" data-reset="{nom_societe}" required />
+                            <label>@lang('abus.date_violation')</label>
+                            <input dir="rtl" type="text" class="form-control" name="date_violation" id="date_violation" placeholder="@lang('abus.exemple_format_date') 24/07/2003" value="{date_violation}" data-reset="{date_violation}" />
                         </div>
 
                         <div class="form-group m-t-8">
-                            <input type="text" class="form-control" name="nom_marque" id="nom_marque" placeholder="@lang('societe.nom_marque')" value="{nom_marque}" data-reset="{nom_marque}" />
+                            <label>@lang('abus.resultat')</label>
+                            <select id="statut_reglement" name="statut_reglement" class="form-control" data-reset="{statut_reglement}">
+                                <option value="1">@lang('abus.resultat_ok')</option>
+                                <option value="0" selected>@lang('abus.resultat_not_ok')</option>
+                            </select>
                         </div>
+
+                        <div class="form-group m-t-8">
+                            <label>@lang('abus.endommage')</label>
+                            <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="{prenom_endommage}" data-reset="{prenom_endommage}" required />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="{nom_endommage}" data-reset="{nom_endommage}" required />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control" data-reset="{structure_syndicale_id}">
+                                <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
+                                @foreach ($structures_syndicales as $structure_syndicale)
+                                    <option value="{{ $structure_syndicale->id }}">{{ $structure_syndicale->type_structure_syndicale }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group m-t-8">
+                            <select id="genre" name="genre" class="form-control" data-reset="{genre}">
+                                <option value="">@lang('main.selectionnez') @lang('abus.genre')</option>
+                                <option value="male">@lang('abus.male')</option>
+                                <option value="feminin">@lang('abus.feminin')</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <select id="age" name="age" class="form-control" data-reset="{age}">
+                                <option value="0" selected>@lang('main.selectionnez') @lang('abus.age')</option>
+                                <option value="1">@lang('abus.age_type_1')</option>
+                                <option value="2">@lang('abus.age_type_2')</option>
+                                <option value="3">@lang('abus.age_type_3')</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <select id="etat_civile" name="etat_civile" class="form-control" data-reset="{etat_civile}">
+                                <option value="0" selected>@lang('main.selectionnez') @lang('abus.etat_civil')</option>
+                                <option value="1">@lang('abus.marie')</option>
+                                <option value="2">@lang('abus.unique')</option>
+                                <option value="3">@lang('abus.absolu')</option>
+                                <option value="4">@lang('abus.veuf')</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input dir="rtl" type="text" class="form-control" name="nb_enfant" id="nb_enfant" placeholder="@lang('abus.nombre_enfants_parrainage')" value="{nb_enfant}" data-reset="{nb_enfant}" />
+                        </div>
+
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('abus.telephone')" value="{phone_number}" data-reset="{phone_number}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="email" id="email" placeholder="@lang('abus.email')" value="{email}" data-reset="{email}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <select id="type_contrat" name="type_contrat" class="form-control" data-reset="{type_contrat}">
+                                <option value="0" selected>@lang('main.selectionnez') @lang('abus.delimitation')</option>
+                                <option value="1">@lang('abus.delimitation_oui')</option>
+                                <option value="2">@lang('abus.delimitation_non')</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <select id="anciennete" name="anciennete" class="form-control" data-reset="{anciennete}">
+                                <option value="0" selected>@lang('main.selectionnez') @lang('abus.la_responsabilite_seniority_syndicale')</option>
+                                <option value="1">@lang('abus.la_responsabilite_seniority_syndicale_type_1')</option>
+                                <option value="2">@lang('abus.la_responsabilite_seniority_syndicale_type_2')</option>
+                                <option value="3">@lang('abus.la_responsabilite_seniority_syndicale_type_3')</option>
+                                <option value="4">@lang('abus.la_responsabilite_seniority_syndicale_type_4')</option>
+                            </select>
+                        </div>
+
 
 
                     </form>
@@ -132,21 +210,41 @@
 
                 <div class="form-box-conventions box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
-                        {{--
                         <div class="form-group m-t-8">
-                            <select id="accord_de_fondation" name="accord_de_fondation" class="form-control" data-reset="{accord_de_fondation}">
-                                <option value="1">@lang('societe.accord_de_fondation_1')</option>
-                                <option value="0" selected>@lang('societe.accord_de_fondation_0')</option>
+                            <label>@lang('abus.agresseur')</label>
+                            <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="{prenom_agresseur}" data-reset="{prenom_agresseur}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="{nom_agresseur}" data-reset="{nom_agresseur}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="{nationalite}" data-reset="{nationalite}" />
+                        </div>
+                        <div class="form-group m-t-8">
+                            <label>@lang('abus.responsabilite_represente_par')</label>
+                        </div>
+                        <div class="form-group">
+                            <label>@lang('abus.responsabilite_represente_par_type_1')</label>
+                            <select id="responsabilite_1" name="responsabilite_1" class="form-control" data-reset="{responsabilite_1}">
+                                <option value="1">@lang('abus.oui')</option>
+                                <option value="0" selected>@lang('abus.non')</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <label>@lang('abus.responsabilite_represente_par_type_2')</label>
+                            <select id="responsabilite_2" name="responsabilite_2" class="form-control" data-reset="{responsabilite_2}">
+                                <option value="1">@lang('abus.oui')</option>
+                                <option value="0" selected>@lang('abus.non')</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-t-8">
+                            <label>@lang('abus.responsabilite_represente_par_type_3')</label>
+                            <select id="responsabilite_3" name="responsabilite_3" class="form-control"data-reset="{responsabilite_3}">
+                                <option value="1">@lang('abus.oui')</option>
+                                <option value="0" selected>@lang('abus.non')</option>
                             </select>
                         </div>
 
-                        <div class="form-group m-t-8">
-                            <select id="convention_cadre_commun" name="convention_cadre_commun" class="form-control" data-reset="{convention_cadre_commun}">
-                                <option value="1" selected>@lang('societe.convention_cadre_commun_1')</option>
-                                <option value="0">@lang('societe.convention_cadre_commun_0')</option>
-                            </select>
-                        </div>
-                        --}}
 
                     </form>
 

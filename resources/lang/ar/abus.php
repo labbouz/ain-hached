@@ -15,7 +15,9 @@ return [
     'message_save_succes_abus' => 'message_save_succes_abus',
     'message_update_succes_abus' => 'message_update_succes_abus',
     'message_delete_succes_abus' => 'message_delete_succes_abus',
+    'suppression_defenitife_societe' =>'هل تريد حذف هذا الإنتهاك نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'indication_1_problem_delet',
+
     'abus_from' => 'الصادرة من قبل المؤسسة المنتهكة',
     'add_abus' => 'إضافة إنتهاك',
 
@@ -66,13 +68,15 @@ return [
     'resultat_not_ok' => 'عدم تسوية الوضعية',
     'oui' => 'نعم',
     'non' => 'لا',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+
+
+    'abus_main' => 'تعديل المعلومات الأساسية للإنتهاك والخاصة بالمتضرر',
+    'abus_agresseur_update' => 'تعديل المعلومات الخاصة بالمعتدى',
+    'documentations' => 'الوثائق المدرجة لهذا الإنتهاك والبالغ عددها',
+    'gestion_moves_abus' => 'إدارة جميع التحركات الخاصة بهذا الإنتهاك والبالغ عددها',
+    'gestion_plaintes_abus' => 'إدارة جميع الشكاوي الخاصة بهذا الإنتهاك والبالغ عددها',
+    'gestion_medias_abus' => 'إدارة جميع مواجهات الإعلام الخاصة بهذا الإنتهاك والبالغ عددها',
+    'display_detail_abus' => 'عرض ملخص شامل لجميع الأحداث المتعلقة بهذا الإنتهاك من تفاصيل الإنتهاك إلى المواجهات',
     '' => '',
     '' => '',
 

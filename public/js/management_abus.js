@@ -61,7 +61,10 @@ $(document).ready(function(){
 
             $(this).find('select').each(function( ) {
                 var _valDefault = $(this).attr('data-reset');
-                $(this).find('option[value='+_valDefault+']').attr('selected','selected');
+                if(_valDefault) {
+                    $(this).find('option[value='+_valDefault+']').attr('selected','selected');
+                }
+
             });
 
             _delay = _delay + 100;
@@ -538,17 +541,15 @@ $(document).ready(function(){
                         phone_number : form.find('#phone_number').val(),
                         email : form.find('#email').val(),
                         type_contrat : form.find('#type_contrat').val(),
-                        anciennete : form.find('#anciennete').val()
+                        anciennete : form.find('#anciennete').val(),
 
-                        /*,
 
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        delegation_id : form.find('#delegation_id').val(),
-                        secteur_id : form.find('#secteur_id').val(),
-                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
-                        convention_id : form.find('#convention_id').val(),
-                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
-                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val()*/
+                        prenom_agresseur : form.find('#prenom_agresseur').val(),
+                        nom_agresseur : form.find('#nom_agresseur').val(),
+                        nationalite : form.find('#nationalite').val(),
+                        responsabilite_1 : form.find('#responsabilite_1').val(),
+                        responsabilite_2 : form.find('#responsabilite_2').val(),
+                        responsabilite_3 : form.find('#responsabilite_3').val()
                     };
 
                     addElement(_url_action, _dataRequestAction, _selectorContainer);
@@ -600,14 +601,21 @@ $(document).ready(function(){
             _selectorContainer.find( '.form-box' ).hide('fade', {}, 'fast', function(){
                 _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
 
-                    var _url_action = $('#api').find('#store').val();
+                    var _url_action = $('#api').find('#store2').val();
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
                         violation_id : form.find('#violation_id').val(),
                         dossier_id : form.find('#dossier_id').val(),
                         date_violation : form.find('#date_violation').val(),
-                        statut_reglement : form.find('#statut_reglement').val()
+                        statut_reglement : form.find('#statut_reglement').val(),
+                        structure_syndicale_id : form.find('#structure_syndicale_id').val(),
+                        prenom_agresseur : form.find('#prenom_agresseur').val(),
+                        nom_agresseur : form.find('#nom_agresseur').val(),
+                        nationalite : form.find('#nationalite').val(),
+                        responsabilite_1 : form.find('#responsabilite_1').val(),
+                        responsabilite_2 : form.find('#responsabilite_2').val(),
+                        responsabilite_3 : form.find('#responsabilite_3').val()
                     };
 
                     addElement(_url_action, _dataRequestAction, _selectorContainer);
