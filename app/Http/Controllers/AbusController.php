@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 
 use App\Abus;
+use App\Endommage;
 use App\Dossier;
 
 class AbusController extends Controller
@@ -42,7 +43,21 @@ class AbusController extends Controller
             'violation_id' => 'required|numeric',
             'dossier_id' => 'required|numeric',
             'date_violation' => 'required|date_format:d/m/Y',
-            'statut_reglement' => 'required|numeric'
+            'statut_reglement' => 'required|numeric'/*,
+
+
+            'prenom_endommage' => 'required',
+            'nom_endommage' => 'required',
+            'structure_syndicale_id' => 'required|numeric',
+            'genre' => 'required',
+            'age' => 'required|numeric',
+            'etat_civile' => 'numeric',
+            'nb_enfant' => 'numeric',
+            'phone_number' => 'numeric',
+            'email' => 'email',
+            'type_contrat' => 'required|numeric',
+            'anciennete' => 'required|numeric'*/
+
 
         ]);
 
@@ -72,6 +87,22 @@ class AbusController extends Controller
         $abus_adedd->date_violation = $request->date_violation;
         $abus_adedd->statut_reglement = $request->statut_reglement;
         $abus_adedd->save();
+/*
+        $endommage_addedd = new Endommage;
+        $endommage_addedd->abus_id = $abus_adedd->id;
+        $endommage_addedd->structure_syndicale_id =  $request->structure_syndicale_id;
+        $endommage_addedd->nom = $request->nom_endommage;
+        $endommage_addedd->prenom = $request->prenom_endommage;
+        $endommage_addedd->genre = $request->genre;
+        $endommage_addedd->age =  $request->age;
+        $endommage_addedd->etat_civile = $request->etat_civile;
+        $endommage_addedd->nb_enfant = intval($request->nb_enfant);
+        $endommage_addedd->phone_number = $request->phone_number;
+        $endommage_addedd->email =  $request->email;
+        $endommage_addedd->type_contrat = $request->type_contrat;
+        $endommage_addedd->anciennete = $request->anciennete;
+        $endommage_addedd->save();
+*/
         $response = array(
             'status' => 'success',
             'msg' => trans('abus.message_save_succes_abus'),
@@ -221,6 +252,17 @@ class AbusController extends Controller
                 $date_fr = explode('-', $abu->date_violation );
                 $abu->date_violation = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
             }
+
+            if($abu->statut_reglement) {
+                $abu->resultat_violation = trans('abus.resultat') . ' : ' . trans('abus.resultat_ok');
+            } else {
+                $abu->resultat_violation = trans('abus.resultat') . ' : ' . trans('abus.resultat_not_ok');
+            }
+
+            // endommage
+
+            //$abu->type_structure_syndicale = $abu->endommage->structure_syndicale; //->type_structure_syndicale
+
 
         }
 

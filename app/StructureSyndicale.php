@@ -10,4 +10,10 @@ class StructureSyndicale extends Model
 
     protected $fillable = ['type_structure_syndicale','description_type'];
 
+
+    public function endommages()
+    {
+        return $this->hasMany('\App\Endommage', 'structure_syndicale_id');
+    }
+
 }

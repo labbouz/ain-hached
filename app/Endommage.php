@@ -15,4 +15,9 @@ class Endommage extends Model
     {
         return $this->belongsTo('App\Abus');
     }
+
+    public function structure_syndicale()
+    {
+        return $this->belongsTo('App\StructureSyndicale');
+    }
 }

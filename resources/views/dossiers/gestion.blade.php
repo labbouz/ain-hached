@@ -71,12 +71,13 @@
             <div class="container_element">
 
                 <div class="edit_card card box">
-                    <div class="label_elemen">
+                    <div class="edit label_elemen">
                         <span class="icon_abus"><i class="fa {class_color_type_violation} {class_color_gravite}" data-toggle="tooltip" data-placement="bottom"  title="@lang('abus.abu') {nom_gravite} {nom_type_violation}"></i></span>
-                        <span class="edit nom_violation" dir="rtl">{nom_violation}</span>
+                        <span class="nom_violation" dir="rtl">{nom_violation}</span>
 
                         <div class="info_abus">
                             <span class="date_abus" dir="rtl">@lang('abus.date_violation') <strong>{date_violation}</strong></span>
+                            <i class="fa statut_reglement statut_reglement_{statut_reglement}" dir="rtl" data-toggle="tooltip" data-placement="right" title="{resultat_violation}"></i>
                         </div>
                     </div>
 
@@ -171,6 +172,8 @@
     </div>
 
     <div id="template_form_add" class="hide">
+
+        {{--  إضافة إنتهاك على المسؤول النقابي --}}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 container-action">
             <div class="container_element">
                 <a href="javascript:void(0)" class="box add add1">
@@ -335,6 +338,7 @@
 
         </div>
 
+        {{--  إضافة إنتهاك على النشاط النقابي --}}
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 container-action">
             <div class="container_element">
                 <a href="javascript:void(0)" class="box add add2">
@@ -378,13 +382,13 @@
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.agresseur')</label>
-                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" required />
+                                <input type="text" class="form-control" name="prenom_agresseur" id="prenom_agresseur" placeholder="@lang('abus.prenom')" value="" />
                             </div>
                             <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" required />
+                                <input type="text" class="form-control" name="nom_agresseur" id="nom_agresseur" placeholder="@lang('abus.nom')" value="" />
                             </div>
                             <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" required />
+                                <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="@lang('abus.nationalite')" value="" />
                             </div>
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.responsabilite_represente_par')</label>

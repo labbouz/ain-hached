@@ -118,6 +118,7 @@
 
 
 .container-card .label_elemen .info_abus {
+    position: relative;
     margin-top: 10px;
 display: block;
     float: left;
@@ -309,6 +310,27 @@ display: block;
     display: inline;
     font-size: 18px;
     line-height: 24px;
+}
+
+
+.statut_reglement {
+    position: absolute;
+    top:0;
+    left:0;
+    font-size: 30px;
+}
+.statut_reglement_1 {
+    color: #00c91c;
+}
+.statut_reglement_1::before {
+    content: "\f164";
+}
+
+.statut_reglement_0 {
+    color: #ff0000;
+}
+.statut_reglement_0::before {
+    content: "\f165";
 }
 
 

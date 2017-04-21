@@ -526,7 +526,21 @@ $(document).ready(function(){
                         violation_id : form.find('#violation_id').val(),
                         dossier_id : form.find('#dossier_id').val(),
                         date_violation : form.find('#date_violation').val(),
-                        statut_reglement : form.find('#statut_reglement').val()/*,
+                        statut_reglement : form.find('#statut_reglement').val(),
+
+                        prenom_endommage : form.find('#prenom_endommage').val(),
+                        nom_endommage : form.find('#nom_endommage').val(),
+                        structure_syndicale_id : form.find('#structure_syndicale_id').val(),
+                        genre : form.find('#genre').val(),
+                        age : form.find('#age').val(),
+                        etat_civile : form.find('#etat_civile').val(),
+                        nb_enfant : form.find('#nb_enfant').val(),
+                        phone_number : form.find('#phone_number').val(),
+                        email : form.find('#email').val(),
+                        type_contrat : form.find('#type_contrat').val(),
+                        anciennete : form.find('#anciennete').val()
+
+                        /*,
 
                         type_societe_id : form.find('#type_societe_id').val(),
                         delegation_id : form.find('#delegation_id').val(),
@@ -554,23 +568,17 @@ $(document).ready(function(){
 
         form.validate({
             rules: {
-                type_societe_id: {
+                violation_id: {
                     required: true,
                     min: 1
                 },
-                date_cration_societe: {
-                    required: false,
+                date_violation: {
+                    required: true,
                     FrancaisDate : true
                 },
-                nombre_travailleurs_cdi: {
+                structure_syndicale_id: {
                     required: true,
-                    number: true,
-                    min: 0
-                },
-                nombre_travailleurs_cdd: {
-                    required: true,
-                    number: true,
-                    min: 0
+                    min: 1
                 }
             },
             errorPlacement: function(error, element) {
@@ -596,18 +604,10 @@ $(document).ready(function(){
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        nom_societe : form.find('#nom_societe').val(),
-                        nom_marque : form.find('#nom_marque').val(),
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        date_cration_societe : form.find('#date_cration_societe').val(),
-                        delegation_id : form.find('#delegation_id').val(),
-                        secteur_id : form.find('#secteur_id').val(),
-
-                        accord_de_fondation : form.find('#accord_de_fondation').val(),
-                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
-                        convention_id : form.find('#convention_id').val(),
-                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
-                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val()
+                        violation_id : form.find('#violation_id').val(),
+                        dossier_id : form.find('#dossier_id').val(),
+                        date_violation : form.find('#date_violation').val(),
+                        statut_reglement : form.find('#statut_reglement').val()
                     };
 
                     addElement(_url_action, _dataRequestAction, _selectorContainer);
