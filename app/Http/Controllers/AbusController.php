@@ -54,7 +54,7 @@ class AbusController extends Controller
             'age' => 'required|numeric',
             'etat_civile' => 'numeric',
             'nb_enfant' => 'numeric',
-            'phone_number' => 'numeric',
+            'phone_number' => 'required|numeric',
             'email' => 'email',
             'type_contrat' => 'required|numeric',
             'anciennete' => 'required|numeric',
@@ -85,6 +85,7 @@ class AbusController extends Controller
             $date_fr = explode('/', $request->date_violation );
             $request->date_violation = $date_fr[2].'-'.$date_fr[1].'-'.$date_fr[0];
         }
+
 
         // save secteur
         $abus_adedd = new Abus;
@@ -239,10 +240,33 @@ class AbusController extends Controller
     {
         $abusUpdated = Abus::find($id);
 
-        $validator = Validator::make($request->all(), [
-            'date_violation' => 'required|date_format:d/m/Y',
-            'statut_reglement' => 'required|numeric'
-        ]);
+
+        if($abusUpdated->violation->type_violation_id == 1) {
+            $array_rules = [
+                'date_violation' => 'required|date_format:d/m/Y',
+                'statut_reglement' => 'required|numeric',
+
+                'prenom_endommage' => 'required',
+                'nom_endommage' => 'required',
+                'structure_syndicale_id' => 'required|numeric',
+                'genre' => 'required',
+                'age' => 'required|numeric',
+                'etat_civile' => 'numeric',
+                'nb_enfant' => 'numeric',
+                'phone_number' => 'required|numeric',
+                'email' => 'email',
+                'type_contrat' => 'required|numeric',
+                'anciennete' => 'required|numeric'
+            ];
+        } else { // $abusUpdated->violation->type_violation_id == 2
+            $array_rules = [
+                'date_violation' => 'required|date_format:d/m/Y',
+                'statut_reglement' => 'required|numeric',
+                'structure_syndicale_id' => 'required|numeric'
+            ];
+        }
+
+        $validator = Validator::make($request->all(), $array_rules);
 
         if ($validator->fails()) {
             $response = array(
@@ -253,6 +277,7 @@ class AbusController extends Controller
 
             return $response ;
         }
+
 
         // Controle date if empty
         if($request->date_violation == '') {
@@ -265,8 +290,77 @@ class AbusController extends Controller
         // save secteur
         $abusUpdated->date_violation = $request->date_violation;
         $abusUpdated->statut_reglement = $request->statut_reglement;
+        $abusUpdated->endommage->structure_syndicale_id = $request->structure_syndicale_id;
 
+        if($abusUpdated->violation->type_violation_id == 1) {
+            $abusUpdated->endommage->prenom = $request->prenom_endommage;
+            $abusUpdated->endommage->nom = $request->nom_endommage;
+            $abusUpdated->endommage->genre = $request->genre;
+            $abusUpdated->endommage->age = $request->age;
+            $abusUpdated->endommage->etat_civile = $request->etat_civile;
+            $abusUpdated->endommage->nb_enfant = $request->nb_enfant;
+            $abusUpdated->endommage->phone_number = $request->phone_number;
+            $abusUpdated->endommage->email = $request->email;
+            $abusUpdated->endommage->type_contrat = $request->type_contrat;
+            $abusUpdated->endommage->anciennete = $request->anciennete;
+        }
+
+        $abusUpdated->endommage->save();
         $abusUpdated->save();
+
+        if(strlen($abusUpdated->endommage->nom)>0) {
+            $info_endommage = $abusUpdated->endommage->nom . ' ' . $abusUpdated->endommage->prenom . ' / ' . $abusUpdated->endommage->structure_syndicale->type_structure_syndicale;
+        } else {
+            $info_endommage = $abusUpdated->endommage->structure_syndicale->type_structure_syndicale;
+        }
+
+        if($abusUpdated->statut_reglement) {
+            $resultat_violation = trans('abus.resultat') . ' : ' . trans('abus.resultat_ok');
+        } else {
+            $resultat_violation = trans('abus.resultat') . ' : ' . trans('abus.resultat_not_ok');
+        }
+
+        $response = array(
+            'status' => 'success',
+            'msg' => trans('abus.message_update_succes_abus'),
+            'info_endommage' => $info_endommage,
+            'resultat_violation' => $resultat_violation
+        );
+
+        return response()->json($response);
+    }
+
+    public function updateAgresseur(Request $request, $id)
+    {
+        $abusUpdated = Abus::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'prenom_agresseur' => 'max:255',
+            'nom_agresseur' => 'max:255',
+            'nationalite' => 'max:255',
+            'responsabilite_1' => 'required|numeric',
+            'responsabilite_2' => 'required|numeric',
+            'responsabilite_3' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            $response = array(
+                'status' => 'pb_validate',
+                'msg' => trans('main.problem_sauve'),
+                'msg_text' => $validator->errors()->all(),
+            );
+
+            return $response ;
+        }
+
+        $abusUpdated->agresseur->nom = $request->nom_agresseur;
+        $abusUpdated->agresseur->prenom = $request->prenom_agresseur;
+        $abusUpdated->agresseur->nationalite = $request->nationalite;
+        $abusUpdated->agresseur->responsabilite_1 = $request->responsabilite_1;
+        $abusUpdated->agresseur->responsabilite_2 = $request->responsabilite_2;
+        $abusUpdated->agresseur->responsabilite_3 = $request->responsabilite_3;
+        $abusUpdated->agresseur->save();
+
 
         $response = array(
             'status' => 'success',
@@ -335,6 +429,7 @@ class AbusController extends Controller
         foreach ($abus as $abu) {
             $abu->nom_violation = $abu->violation->nom_violation;
 
+            $abu->id_type_violation = $abu->violation->type_violation->id;
             $abu->nom_type_violation = $abu->violation->type_violation->nom_type_violation;
             $abu->class_color_type_violation = $abu->violation->type_violation->class_color_type_violation;
 

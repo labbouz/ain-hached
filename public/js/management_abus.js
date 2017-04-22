@@ -74,6 +74,51 @@ $(document).ready(function(){
 
     };
 
+    function getDateToDay() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd
+        }
+
+        if(mm<10) {
+            mm='0'+mm
+        }
+
+        today = yyyy+'-'+mm+'-'+dd;
+
+        return today;
+    }
+
+    function dateValide(value_date) {
+        res = value_date.split("/");
+        var year_v = res[2];
+        var month_v = parseInt(res[1]);
+        var day_v = parseInt(res[0]);
+
+        if(month_v>12 || day_v > 31) {
+            return false;
+        }
+        if(month_v<10) {
+            month_v='0'+month_v
+        }
+
+        if(day_v<10) {
+            day_v='0'+day_v
+        }
+
+        day_v = year_v+'-'+month_v+'-'+day_v;
+
+        if( day_v > getDateToDay() ) {
+            return false
+        }
+
+        return true;
+
+    }
 
     function getList(url, data) {
 
@@ -163,6 +208,8 @@ $(document).ready(function(){
         //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
+        var dataTypeViolation = _selectorContainer.attr('data-type-violation');
+
         var _form = _selectorContainer.find( '.form-box' ).find( 'form' );
 
         $.ajax({
@@ -180,12 +227,32 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).text(data_elemen.nom_societe);
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).text(data_elemen.nom_marque);
-                    _form.find( '#nom_societe' ).attr('data-reset', data_elemen.nom_societe);
-                    _form.find( '#nom_marque' ).attr('data-reset', data_elemen.nom_marque);
-                    _form.find( '#type_societe_id' ).attr('data-reset', data_elemen.type_societe_id);
-                    _form.find( '#date_cration_societe' ).attr('data-reset', data_elemen.date_cration_societe);
+
+
+                    _selectorContainer.find( '.label_elemen' ).find( '.date_abus' ).find('strong').text(data_elemen.date_violation);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.info_endommage' ).find('strong').text(data.info_endommage);
+
+                    _selectorContainer.find( '.label_elemen' ).find( '#display_status_reglement' ).attr("class","fa statut_reglement statut_reglement_"+data_elemen.statut_reglement);
+                    _selectorContainer.find( '.label_elemen' ).find( '#display_status_reglement' ).attr("title",data.resultat_violation);
+
+                    if(dataTypeViolation == '1') {
+                        _form.find( '#date_violation' ).attr('data-reset', data_elemen.date_violation);
+                        _form.find( '#statut_reglement' ).attr('data-reset', data_elemen.statut_reglement);
+                        _form.find( '#structure_syndicale_id' ).attr('data-reset', data_elemen.structure_syndicale_id);
+
+                        _form.find( '#prenom_endommage' ).attr('data-reset', data_elemen.prenom_endommage);
+                        _form.find( '#nom_endommage' ).attr('data-reset', data_elemen.nom_endommage);
+                        _form.find( '#genre' ).attr('data-reset', data_elemen.genre);
+                        _form.find( '#age' ).attr('data-reset', data_elemen.age);
+                        _form.find( '#etat_civile' ).attr('data-reset', data_elemen.etat_civile);
+                        _form.find( '#nb_enfant' ).attr('data-reset', data_elemen.nb_enfant);
+                        _form.find( '#phone_number' ).attr('data-reset', data_elemen.phone_number);
+                        _form.find( '#email' ).attr('data-reset', data_elemen.email);
+                        _form.find( '#type_contrat' ).attr('data-reset', data_elemen.type_contrat);
+                        _form.find( '#anciennete' ).attr('data-reset', data_elemen.anciennete);
+                    }
+
+
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
@@ -225,11 +292,11 @@ $(document).ready(function(){
 
     }
 
-    function updateConvontionElement(url, data_elemen, id_elemen) {
+    function updateAgresseurElement(url, data_elemen, id_elemen) {
         //console.log(data_elemen);
         var _selectorContainer = $("#id_"+id_elemen).find( ".container_element" );
 
-        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
+        var _form = _selectorContainer.find( '.form-box-gresseur' ).find( 'form' );
 
         $.ajax({
             type: 'PATCH',
@@ -246,12 +313,12 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _form.find( '#accord_de_fondation' ).attr('data-reset', data_elemen.accord_de_fondation);
-                    _form.find( '#convention_cadre_commun' ).attr('data-reset', data_elemen.convention_cadre_commun);
-                    _form.find( '#convention_id' ).attr('data-reset', data_elemen.convention_id);
-                    _form.find( '#nombre_travailleurs_cdi' ).attr('data-reset', data_elemen.nombre_travailleurs_cdi);
-                    _form.find( '#nombre_travailleurs_cdd' ).attr('data-reset', data_elemen.nombre_travailleurs_cdd);
-
+                    _form.find( '#prenom_agresseur' ).attr('data-reset', data_elemen.prenom_agresseur);
+                    _form.find( '#nom_agresseur' ).attr('data-reset', data_elemen.nom_agresseur);
+                    _form.find( '#nationalite' ).attr('data-reset', data_elemen.nationalite);
+                    _form.find( '#responsabilite_1' ).attr('data-reset', data_elemen.responsabilite_1);
+                    _form.find( '#responsabilite_2' ).attr('data-reset', data_elemen.responsabilite_2);
+                    _form.find( '#responsabilite_3' ).attr('data-reset', data_elemen.responsabilite_3);
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
                         _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                         });
@@ -269,7 +336,7 @@ $(document).ready(function(){
                     });
 
                     _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                        _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
+                        _selectorContainer.find('.cancel_edit_gresseur').trigger( "click" );
                     });
                 }
             },
@@ -283,7 +350,7 @@ $(document).ready(function(){
                 });
 
                 _selectorContainer.find( '.loader' ).hide('fade', {}, 'fast', function(){
-                    _selectorContainer.find('.cancel_edit_conventions').trigger( "click" );
+                    _selectorContainer.find('.cancel_edit_gresseur').trigger( "click" );
                 });
             }
         });
@@ -446,14 +513,14 @@ $(document).ready(function(){
     $.validator.addMethod(
         "FrancaisDate",
         function(value, element) {
-            // yyyy-mm-dd
+            // dd-mm-yyyy
             var re = /^\d\d?\/\d\d?\/\d\d\d\d$/;
 
+
             // valid if optional and empty OR if it passes the regex test
-            return (this.optional(element) && value=="") || re.test(value);
+            return (this.optional(element) && value=="") || (re.test(value) && dateValide(value));
         }
     );
-
 
     $(document).on('click', '.save_element_1', function(){
 
@@ -489,7 +556,7 @@ $(document).ready(function(){
                     min: 0
                 },
                 phone_number: {
-                    required: false,
+                    required: true,
                     number: true,
                     min: 0
                 },
@@ -627,37 +694,99 @@ $(document).ready(function(){
 
     });
 
-
     $(document).on('click', '.update_element', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
         var form = _selectorContainer.find( '.form-box' ).find('form');
 
-        form.validate({
-            rules: {
-                type_societe_id: {
-                    required: true,
-                    min: 1
+        var dataTypeViolation = _selectorContainer.attr('data-type-violation');
+
+        if(dataTypeViolation == '1') {
+            form.validate({
+                rules: {
+                    prenom_endommage: {
+                        required: true
+                    },
+                    nom_endommage: {
+                        required: true
+                    },
+                    date_violation: {
+                        required: true,
+                        FrancaisDate : true
+                    },
+                    structure_syndicale_id: {
+                        required: true,
+                        min: 1
+                    },
+                    genre: {
+                        required: true
+                    },
+                    age: {
+                        required: true,
+                        number: true,
+                        min: 1
+                    },
+                    nb_enfant: {
+                        required: false,
+                        number: true,
+                        min: 0
+                    },
+                    phone_number: {
+                        required: true,
+                        number: true,
+                        min: 0
+                    },
+                    email: {
+                        required: false,
+                        email: true
+                    },
+                    anciennete: {
+                        required: true,
+                        number: true,
+                        min: 1
+                    }
                 },
-                date_cration_societe: {
-                    required: false,
-                    FrancaisDate : true
+                errorPlacement: function(error, element) {
+                    // /just nothing, empty
+                },
+                invalidHandler: function() {
+
+                    swal({
+                        title: form.attr('data-error'),
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
+
                 }
-            },
-            errorPlacement: function(error, element) {
-                // /just nothing, empty
-            },
-            invalidHandler: function() {
+            });
+        } else {
+            form.validate({
+                rules: {
+                    date_violation: {
+                        required: true,
+                        FrancaisDate : true
+                    },
+                    structure_syndicale_id: {
+                        required: true,
+                        min: 1
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    // /just nothing, empty
+                },
+                invalidHandler: function() {
 
-                swal({
-                    title: form.attr('data-error'),
-                    type: "error",
-                    confirmButtonColor: "#4F5467"
-                });
+                    swal({
+                        title: form.attr('data-error'),
+                        type: "error",
+                        confirmButtonColor: "#4F5467"
+                    });
 
-            }
-        });
+                }
+            });
+        }
+
 
         if( form.valid() ) {
 
@@ -669,14 +798,38 @@ $(document).ready(function(){
                     var _url_action = $('#api').find('#store').val();
                     _url_action = _url_action + '/' + _idElement;
 
-                    var _dataRequestAction = {
-                        _token : _csrf_token,
-                        nom_societe : form.find('#nom_societe').val(),
-                        nom_marque : form.find('#nom_marque').val(),
-                        type_societe_id : form.find('#type_societe_id').val(),
-                        date_cration_societe : form.find('#date_cration_societe').val(),
-                        _method: "PATCH"
-                    };
+
+                    if(dataTypeViolation == '1') {
+                        var _dataRequestAction = {
+                            _token : _csrf_token,
+                            date_violation : form.find('#date_violation').val(),
+                            statut_reglement : form.find('#statut_reglement').val(),
+
+                            prenom_endommage : form.find('#prenom_endommage').val(),
+                            nom_endommage : form.find('#nom_endommage').val(),
+                            structure_syndicale_id : form.find('#structure_syndicale_id').val(),
+                            genre : form.find('#genre').val(),
+                            age : form.find('#age').val(),
+                            etat_civile : form.find('#etat_civile').val(),
+                            nb_enfant : form.find('#nb_enfant').val(),
+                            phone_number : form.find('#phone_number').val(),
+                            email : form.find('#email').val(),
+                            type_contrat : form.find('#type_contrat').val(),
+                            anciennete : form.find('#anciennete').val(),
+
+                            _method: "PATCH"
+                        };
+                    } else {
+                        var _dataRequestAction = {
+                            _token : _csrf_token,
+                            date_violation : form.find('#date_violation').val(),
+                            statut_reglement : form.find('#statut_reglement').val(),
+                            structure_syndicale_id : form.find('#structure_syndicale_id').val(),
+                            _method: "PATCH"
+                        };
+                    }
+
+
 
                     updateElement(_url_action, _dataRequestAction, _idElement);
 
@@ -732,32 +885,32 @@ $(document).ready(function(){
             });
     });
 
-    $(document).on('click', '.edit_conventions', function(){
+    $(document).on('click', '.edit_gresseur', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
         setModEdit();
 
         $( ".container-card" ).each(function() {
-            if( $(this).find('.form-box-conventions').is(':visible') ) {
-                $(this).find('.cancel_edit_conventions').trigger( "click" );
+            if( $(this).find('.form-box-gresseur').is(':visible') ) {
+                $(this).find('.cancel_edit_gresseur').trigger( "click" );
             }
         });
 
         _selectorContainer.find('.edit_card').hide('fade', {}, 'fast', function(){
-            _selectorContainer.find( '.form-box-conventions' ).show('fade', {}, 'fast');
+            _selectorContainer.find( '.form-box-gresseur' ).show('fade', {}, 'fast');
         });
 
 
     });
 
-    $(document).on('click', '.cancel_edit_conventions', function(){
+    $(document).on('click', '.cancel_edit_gresseur', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
-        var _form = _selectorContainer.find( '.form-box-conventions' ).find( 'form' );
+        var _form = _selectorContainer.find( '.form-box-gresseur' ).find( 'form' );
 
         downModEdit();
-        _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
+        _selectorContainer.find( '.form-box-gresseur' ).hide('fade', {}, 'fast', function(){
             _selectorContainer.find( '.edit_card' ).show('fade', {}, 'fast', function(){
                 // reset edit for input
                 _form.find('input').each(function(){
@@ -781,25 +934,13 @@ $(document).ready(function(){
 
     });
 
-    $(document).on('click', '.update_conventions_element', function(){
+    $(document).on('click', '.update_gresseur_element', function(){
 
         var _selectorContainer = $(this).closest( ".container_element" );
 
-        var form = _selectorContainer.find( '.form-box-conventions' ).find('form');
+        var form = _selectorContainer.find( '.form-box-gresseur' ).find('form');
 
         form.validate({
-            rules: {
-                nombre_travailleurs_cdi: {
-                    required: true,
-                    number: true,
-                    min: 0
-                },
-                nombre_travailleurs_cdd: {
-                    required: true,
-                    number: true,
-                    min: 0
-                }
-            },
             errorPlacement: function(error, element) {
                 // /just nothing, empty
             },
@@ -816,25 +957,27 @@ $(document).ready(function(){
 
         if( form.valid() ) {
 
-            _selectorContainer.find( '.form-box-conventions' ).hide('fade', {}, 'fast', function(){
+            _selectorContainer.find( '.form-box-gresseur' ).hide('fade', {}, 'fast', function(){
                 _selectorContainer.find( '.loader' ).show('fade', {}, 'fast', function(){
 
                     var _idElement = form.attr('data-id');
 
                     var _url_action = $('#api').find('#store').val();
-                    _url_action = _url_action + '/convention/' + _idElement;
+                    _url_action = _url_action + '/agresseur/' + _idElement;
 
                     var _dataRequestAction = {
                         _token : _csrf_token,
-                        accord_de_fondation : form.find('#accord_de_fondation').val(),
-                        convention_cadre_commun : form.find('#convention_cadre_commun').val(),
-                        convention_id : form.find('#convention_id').val(),
-                        nombre_travailleurs_cdi : form.find('#nombre_travailleurs_cdi').val(),
-                        nombre_travailleurs_cdd : form.find('#nombre_travailleurs_cdd').val(),
+
+                        prenom_agresseur : form.find('#prenom_agresseur').val(),
+                        nom_agresseur : form.find('#nom_agresseur').val(),
+                        nationalite : form.find('#nationalite').val(),
+                        responsabilite_1 : form.find('#responsabilite_1').val(),
+                        responsabilite_2 : form.find('#responsabilite_2').val(),
+                        responsabilite_3 : form.find('#responsabilite_3').val(),
                         _method: "PATCH"
                     };
 
-                    updateConvontionElement(_url_action, _dataRequestAction, _idElement);
+                    updateAgresseurElement(_url_action, _dataRequestAction, _idElement);
 
                 });
             });

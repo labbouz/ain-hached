@@ -88,6 +88,7 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::resource('abus', 'AbusController');
     Route::post('/abus2', 'AbusController@store2')->name('abus.store2');
     Route::post('REST/abus/{id_dossier}', 'AbusController@getElementsJSON')->name('json.abus.index');
+    Route::match(['put', 'patch'], '/abus/agresseur/{abus}','AbusController@updateAgresseur')->name('abus.updateagresseur');
 
 
 });

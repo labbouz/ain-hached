@@ -7,7 +7,7 @@
 }
 
 .container_element .form-box,
-.container_element .form-box-conventions {
+.container_element .form-box-gresseur {
     display: none;
     position: absolute;
     z-index: 99;
@@ -17,24 +17,24 @@
 }
 
 .container_element .form-box .form-cart,
-.container_element .form-box-conventions .form-cart {
+.container_element .form-box-gresseur .form-cart {
     padding: 8px;
     height: auto;
     border: none;
 }
 .container_element .form-box .form-cart .form-group,
-.container_element .form-box-conventions .form-cart .form-group {
+.container_element .form-box-gresseur .form-cart .form-group {
     margin-bottom: 0;
 }
 
 .container_element .form-box .form-cart input[type=text],
-.container_element .form-box-conventions .form-cart input[type=text]{
+.container_element .form-box-gresseur .form-cart input[type=text]{
     font-size: 15px;
 
 }
 
 .container_element .form-box .form-cart textarea,
-.container_element .form-box-conventions .form-cart textarea {
+.container_element .form-box-gresseur .form-cart textarea {
     font-size: 15px;
     height: 112px;
     resize: none;
@@ -44,14 +44,14 @@
 .container_element .form-box .form-cart input.error,
 .container_element .form-box .form-cart textarea.error,
 .container_element .form-box .form-cart select.error,
-.container_element .form-box-conventions .form-cart input.error,
-.container_element .form-box-conventions .form-cart textarea.error,
-.container_element .form-box-conventions .form-cart select.error {
+.container_element .form-box-gresseur .form-cart input.error,
+.container_element .form-box-gresseur .form-cart textarea.error,
+.container_element .form-box-gresseur .form-cart select.error {
     border-color: #F27474 !important;
 }
 
 .container_element .form-box .form-cart label,
-.container_element .form-box-conventions .form-cart label {
+.container_element .form-box-gresseur .form-cart label {
     padding: 0 12px;
 }
 
@@ -132,7 +132,7 @@ display: block;
 
 .container_element .edit_card .toolbar_box,
 .container_element .form-box .toolbar_box,
-.container_element .form-box-conventions .toolbar_box {
+.container_element .form-box-gresseur .toolbar_box {
     display: block;
     float: left;
     height: 42px;
@@ -142,7 +142,7 @@ display: block;
 }
 .container_element .edit_card .toolbar_box a,
 .container_element .form-box .toolbar_box a,
-.container_element .form-box-conventions .toolbar_box a {
+.container_element .form-box-gresseur .toolbar_box a {
     outline: none;
     text-decoration: none;
     line-height: 42px;
@@ -154,15 +154,15 @@ display: block;
 
 .container_element .edit_card .toolbar_box a i,
 .container_element .form-box .toolbar_box a i,
-.container_element .form-box-conventions .toolbar_box a i {
+.container_element .form-box-gresseur .toolbar_box a i {
     font-size: 20px;
     line-height: 42px;
 }
 
 .container_element .form-box .toolbar_box a:hover,
 .container_element .form-box .toolbar_box a:focus,
-.container_element .form-box-conventions .toolbar_box a:hover,
-.container_element .form-box-conventions .toolbar_box a:focus {
+.container_element .form-box-gresseur .toolbar_box a:hover,
+.container_element .form-box-gresseur .toolbar_box a:focus {
 }
 
 .container_element .edit_card .toolbar_box {
@@ -315,7 +315,7 @@ display: block;
 
 .statut_reglement {
     position: absolute;
-    top:0;
+    top:-7px;
     left:0;
     font-size: 30px;
 }
@@ -340,6 +340,11 @@ display: block;
     width: 100%;
     text-align: right;
 
+}
+
+
+.violation-collectif .form-cart .for-violation-individuel {
+    display: none;
 }
 
 

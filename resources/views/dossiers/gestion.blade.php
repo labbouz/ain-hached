@@ -69,7 +69,7 @@
 
     <div id="template_container" class="hide">
         <div id="id_{id}" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-card">
-            <div class="container_element">
+            <div class="container_element {class_color_type_violation}" data-type-violation="{id_type_violation}">
 
                 <div class="edit_card card box">
                     <div class="edit label_elemen">
@@ -78,7 +78,7 @@
 
                         <div class="info_abus">
                             <span class="date_abus" dir="rtl">@lang('abus.date_violation') <strong>{date_violation}</strong></span>
-                            <i class="fa statut_reglement statut_reglement_{statut_reglement}" dir="rtl" data-toggle="tooltip" data-placement="right" title="{resultat_violation}"></i>
+                            <i id="display_status_reglement" class="fa statut_reglement statut_reglement_{statut_reglement}" dir="rtl" data-toggle="tooltip" data-placement="right" title="{resultat_violation}"></i>
                         </div>
                         <span class="info_endommage" dir="rtl">@lang('abus.endommage') <strong>{info_endommage}</strong></span>
                     </div>
@@ -93,7 +93,7 @@
                            data-cancelled="@lang('main.cancelled')"
                         ><i class="fa fa-trash" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-frown-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_main')"></i></a>
-                        <a href="javascript:void(0)" class="edit_conventions" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_agresseur_update')"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" class="edit_gresseur" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_agresseur_update')"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.documentations') 0">0 <i class="fa fa-files-o" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.display_detail_abus')"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
@@ -125,17 +125,8 @@
                                 <option value="0" selected>@lang('abus.resultat_not_ok')</option>
                             </select>
                         </div>
-
                         <div class="form-group m-t-8">
                             <label>@lang('abus.endommage')</label>
-                            <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="{prenom_endommage}" data-reset="{prenom_endommage}" required />
-                        </div>
-
-                        <div class="form-group m-t-8">
-                            <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="{nom_endommage}" data-reset="{nom_endommage}" required />
-                        </div>
-
-                        <div class="form-group m-t-8">
                             <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control" data-reset="{structure_syndicale_id}">
                                 <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
                                 @foreach ($structures_syndicales as $structure_syndicale)
@@ -143,9 +134,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group m-t-8 for-violation-individuel">
+                            <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="{prenom_endommage}" data-reset="{prenom_endommage}" />
+                        </div>
 
+                        <div class="form-group m-t-8 for-violation-individuel">
+                            <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="{nom_endommage}" data-reset="{nom_endommage}" />
+                        </div>
 
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <select id="genre" name="genre" class="form-control" data-reset="{genre}">
                                 <option value="">@lang('main.selectionnez') @lang('abus.genre')</option>
                                 <option value="male">@lang('abus.male')</option>
@@ -153,7 +150,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <select id="age" name="age" class="form-control" data-reset="{age}">
                                 <option value="0" selected>@lang('main.selectionnez') @lang('abus.age')</option>
                                 <option value="1">@lang('abus.age_type_1')</option>
@@ -161,7 +158,7 @@
                                 <option value="3">@lang('abus.age_type_3')</option>
                             </select>
                         </div>
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <select id="etat_civile" name="etat_civile" class="form-control" data-reset="{etat_civile}">
                                 <option value="0" selected>@lang('main.selectionnez') @lang('abus.etat_civil')</option>
                                 <option value="1">@lang('abus.marie')</option>
@@ -170,24 +167,24 @@
                                 <option value="4">@lang('abus.veuf')</option>
                             </select>
                         </div>
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <input dir="rtl" type="text" class="form-control" name="nb_enfant" id="nb_enfant" placeholder="@lang('abus.nombre_enfants_parrainage')" value="{nb_enfant}" data-reset="{nb_enfant}" />
                         </div>
 
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('abus.telephone')" value="{phone_number}" data-reset="{phone_number}" />
                         </div>
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <input type="text" class="form-control" name="email" id="email" placeholder="@lang('abus.email')" value="{email}" data-reset="{email}" />
                         </div>
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <select id="type_contrat" name="type_contrat" class="form-control" data-reset="{type_contrat}">
                                 <option value="0" selected>@lang('main.selectionnez') @lang('abus.delimitation')</option>
                                 <option value="1">@lang('abus.delimitation_oui')</option>
                                 <option value="2">@lang('abus.delimitation_non')</option>
                             </select>
                         </div>
-                        <div class="form-group m-t-8">
+                        <div class="form-group m-t-8 for-violation-individuel">
                             <select id="anciennete" name="anciennete" class="form-control" data-reset="{anciennete}">
                                 <option value="0" selected>@lang('main.selectionnez') @lang('abus.la_responsabilite_seniority_syndicale')</option>
                                 <option value="1">@lang('abus.la_responsabilite_seniority_syndicale_type_1')</option>
@@ -208,7 +205,7 @@
                     </div>
                 </div>
 
-                <div class="form-box-conventions box">
+                <div class="form-box-gresseur box">
                     <form autocomplete="off" class="form-cart" dir="rtl" data-error="@lang('main.info_monquant')" data-id="{id}">
                         <div class="form-group m-t-8">
                             <label>@lang('abus.agresseur')</label>
@@ -249,8 +246,8 @@
                     </form>
 
                     <div class="toolbar_box"  dir="rtl">
-                        <a href="javascript:void(0)" class="cancel_edit_conventions"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
-                        <a href="javascript:void(0)" class="update_conventions_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
+                        <a href="javascript:void(0)" class="cancel_edit_gresseur"><i class="fa fa-times" aria-hidden="true"></i> @lang('main.cancel')</a>
+                        <a href="javascript:void(0)" class="update_gresseur_element"><i class="fa fa-floppy-o" aria-hidden="true"></i> @lang('main.save')</a>
 
                     </div>
                 </div>
@@ -351,12 +348,6 @@
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="form-group m-t-8">
                                 <label>@lang('abus.endommage')</label>
-                                <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="" required />
-                            </div>
-                            <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="" required />
-                            </div>
-                            <div class="form-group m-t-8">
                                 <select id="structure_syndicale_id" name="structure_syndicale_id" class="form-control">
                                     <option value="">@lang('main.selectionnez') @lang('abus.structure_syndicale')</option>
                                     @foreach ($structures_syndicales as $structure_syndicale)
@@ -364,6 +355,13 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="prenom_endommage" id="prenom_endommage" placeholder="@lang('abus.prenom')" value="" required />
+                            </div>
+                            <div class="form-group m-t-8">
+                                <input type="text" class="form-control" name="nom_endommage" id="nom_endommage" placeholder="@lang('abus.nom')" value="" required />
+                            </div>
+
                             <div class="form-group m-t-8">
                                 <select id="genre" name="genre" class="form-control">
                                     <option value="" selected>@lang('main.selectionnez') @lang('abus.genre')</option>
@@ -393,7 +391,7 @@
                             </div>
 
                             <div class="form-group m-t-8">
-                                <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('abus.telephone')" value="" />
+                                <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="@lang('abus.telephone')" value="" required />
                             </div>
                             <div class="form-group m-t-8">
                                 <input type="text" class="form-control" name="email" id="email" placeholder="@lang('abus.email')" value="" />
