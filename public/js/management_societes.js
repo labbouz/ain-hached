@@ -72,6 +72,53 @@ $(document).ready(function(){
     };
 
 
+    function getDateToDay() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd
+        }
+
+        if(mm<10) {
+            mm='0'+mm
+        }
+
+        today = yyyy+'-'+mm+'-'+dd;
+
+        return today;
+    }
+
+    function dateValide(value_date) {
+        res = value_date.split("/");
+        var year_v = res[2];
+        var month_v = parseInt(res[1]);
+        var day_v = parseInt(res[0]);
+
+        if(month_v>12 || day_v > 31) {
+            return false;
+        }
+        if(month_v<10) {
+            month_v='0'+month_v
+        }
+
+        if(day_v<10) {
+            day_v='0'+day_v
+        }
+
+        day_v = year_v+'-'+month_v+'-'+day_v;
+
+        if( day_v > getDateToDay() ) {
+            return false
+        }
+
+        return true;
+
+    }
+
+
     function getList(url, data) {
 
         $.ajax({
@@ -430,11 +477,12 @@ $(document).ready(function(){
     $.validator.addMethod(
         "FrancaisDate",
         function(value, element) {
-            // yyyy-mm-dd
+            // dd-mm-yyyy
             var re = /^\d\d?\/\d\d?\/\d\d\d\d$/;
 
+
             // valid if optional and empty OR if it passes the regex test
-            return (this.optional(element) && value=="") || re.test(value);
+            return (this.optional(element) && value=="") || (re.test(value) && dateValide(value));
         }
     );
 

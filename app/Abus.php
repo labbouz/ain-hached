@@ -32,5 +32,10 @@ class Abus extends Model
         return $this->hasOne('App\Agresseur');
     }
 
+    public function accrochages_moves()
+    {
+        return $this->hasMany('App\AccrochageMove');
+    }
+
 
 }
