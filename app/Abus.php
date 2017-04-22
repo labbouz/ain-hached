@@ -34,7 +34,17 @@ class Abus extends Model
 
     public function accrochages_moves()
     {
-        return $this->hasMany('App\AccrochageMove');
+        return $this->hasMany('App\AccrochageMove', 'abu_id');
+    }
+
+    public function accrochages_plaintes()
+    {
+        return $this->hasMany('App\AccrochagePlainte', 'abu_id');
+    }
+
+    public function accrochages_medias()
+    {
+        return $this->hasMany('App\AccrochageMedia', 'abu_id');
     }
 
 

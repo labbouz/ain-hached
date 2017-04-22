@@ -10,10 +10,8 @@ class Plainte extends Model
 
     protected $fillable = ['nom_plainte'];
 
-    /*
-    public function dossiers()
+    public function accrochages_plaintes()
     {
-        return $this->belongsToMany('\App\Dossier');
+        return $this->hasMany('App\AccrochagePlainte');
     }
-    */
 }

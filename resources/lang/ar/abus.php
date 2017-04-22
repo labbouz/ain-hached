@@ -12,9 +12,9 @@ return [
     'description_gestion_abus' => 'حيث بإمكان إضافة إنتهاكات وتعديلها حسب خطورتها و إدراج المعلومات الخاصة بالمتضرر  والمعتدي',
 
 
-    'message_save_succes_abus' => 'message_save_succes_abus',
-    'message_update_succes_abus' => 'message_update_succes_abus',
-    'message_delete_succes_abus' => 'message_delete_succes_abus',
+    'message_save_succes_abus' => 'تم تسجيل الإنتهاك في هذا الملف بنجاح',
+    'message_update_succes_abus' => 'تم تعديل الإنتهاك بنجاح',
+    'message_delete_succes_abus' => 'تم حذف الإنتهاك من هذا الملف بنجاح',
     'suppression_defenitife_societe' =>'هل تريد حذف هذا الإنتهاك نهائيا من النظام ؟',
     'indication_1_problem_delet' => 'indication_1_problem_delet',
 
@@ -60,7 +60,7 @@ return [
     'responsabilite_represente_par_type_2' => 'ادارة موارد بشرية',
     'responsabilite_represente_par_type_3' => 'ادارة عامة او مركزية',
 
-    'violation' => 'نوع الإعتداء',
+    'violation' => 'الإنتهاك',
     'exemple_format_date' => 'على سبيل المثال : ',
 
     'resultat' => 'النتيجـــة',
@@ -77,6 +77,32 @@ return [
     'gestion_plaintes_abus' => 'إدارة جميع الشكاوي الخاصة بهذا الإنتهاك والبالغ عددها',
     'gestion_medias_abus' => 'إدارة جميع مواجهات الإعلام الخاصة بهذا الإنتهاك والبالغ عددها',
     'display_detail_abus' => 'عرض ملخص شامل لجميع الأحداث المتعلقة بهذا الإنتهاك من تفاصيل الإنتهاك إلى المواجهات',
+
+
+    'accrochages_moves' => 'مواجهة الانتهاك - التحركات',
+    'description_accrochages_moves' => 'description_accrochages_moves',
+    'dossier_numero' => 'الملف رقم',
+    'societe_syndical' => 'المؤسسة المنتهكة ',
+    'add_accrochages' => ' إضافة مواجهة جديدة',
+    'accrochages' => 'مواجهة الانتهاك',
+    'date_accrochage' => 'تاريخ المواجهة',
+    'description_accrochage' => 'وصف المواجهة .. معلومات توضح المواجهة',
+    'message_save_succes_accrochage' => 'تم إضافة المواجهة بنجاح',
+    'message_update_succes_accrochage' => 'تم تعديل المواجهة بنجاح',
+    'message_delete_succes_accrochage' => 'تم حذف المواجهة من هذا الإنتهاك بنجاح',
+    'suppression_defenitife' => 'هل تريد حذف هذه المواجهة نهائيا من النظام ؟',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
     '' => '',
     '' => '',
 

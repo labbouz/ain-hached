@@ -90,6 +90,10 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::post('REST/abus/{id_dossier}', 'AbusController@getElementsJSON')->name('json.abus.index');
     Route::match(['put', 'patch'], '/abus/agresseur/{abus}','AbusController@updateAgresseur')->name('abus.updateagresseur');
 
+    Route::resource('accrochages_moves', 'AccrochagesMovesController');
+    Route::get('/abus/{abus}/moves', 'AccrochagesMovesController@indexMoves')->name('abus.moves');
+    Route::post('REST/accrochages_moves/{abus}', 'AccrochagesMovesController@getElementsJSON')->name('json.accrochages_moves.index');
+
 
 });
 

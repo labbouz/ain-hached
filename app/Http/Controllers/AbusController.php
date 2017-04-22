@@ -436,9 +436,11 @@ class AbusController extends Controller
             $abu->nom_gravite = $abu->violation->gravite->nom_gravite;
             $abu->class_color_gravite = $abu->violation->gravite->class_color_gravite;
 
-            $abu->nb_confrontations_moves = 0;
+            $abu->nb_confrontations_moves = $abu->accrochages_moves->count();
             $abu->nb_confrontations_plaintes = 0;
             $abu->nb_confrontations_medias = 0;
+
+            $abu->url_accrochages_moves = route('abus.moves', ['abus' => $abu]);
 
             if($abu->date_violation != null && $abu->date_violation != '') {
                 $date_fr = explode('-', $abu->date_violation );

@@ -12,9 +12,10 @@ class AccrochageMove extends Model
 
     public function abus()
     {
-        return $this->belongsTo('\App\Abus');
+        return $this->belongsTo('\App\Abus', 'abu_id');
 
     }
+
     public function move()
     {
         return $this->belongsTo('\App\Move');

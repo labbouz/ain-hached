@@ -15,4 +15,9 @@ class Media extends Model
         return $this->belongsTo('\App\CategorieMedia');
 
     }
+
+    public function accrochages_medias()
+    {
+        return $this->hasMany('App\AccrochageMedia');
+    }
 }
