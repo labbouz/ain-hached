@@ -94,7 +94,13 @@ Route::group( ['middleware' => ['auth'] ], function (){
     Route::get('/abus/{abus}/moves', 'AccrochagesMovesController@indexMoves')->name('abus.moves');
     Route::post('REST/accrochages_moves/{abus}', 'AccrochagesMovesController@getElementsJSON')->name('json.accrochages_moves.index');
 
+    Route::resource('accrochages_plaintes', 'AccrochagesPlaintesController');
+    Route::get('/abus/{abus}/plaintes', 'AccrochagesPlaintesController@indexPlaintes')->name('abus.plaintes');
+    Route::post('REST/accrochages_plaintes/{abus}', 'AccrochagesPlaintesController@getElementsJSON')->name('json.accrochages_plaintes.index');
 
+    Route::resource('accrochages_medias', 'AccrochagesMediasController');
+    Route::get('/abus/{abus}/medias', 'AccrochagesMediasController@indexMedias')->name('abus.medias');
+    Route::post('REST/accrochages_medias/{abus}', 'AccrochagesMediasController@getElementsJSON')->name('json.accrochages_medias.index');
 });
 
 

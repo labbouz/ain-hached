@@ -99,8 +99,8 @@
 
 
                         <a href="{url_accrochages_moves}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_moves_abus') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-map-signs" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_plaintes_abus') {nb_confrontations_plaintes}">{nb_confrontations_plaintes} <i class="fa fa-gavel" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_medias_abus') {nb_confrontations_medias}">{nb_confrontations_medias} <i class="fa fa-bullhorn" aria-hidden="true"></i></a>
+                        <a href="{url_accrochages_plaintes}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_plaintes_abus') {nb_confrontations_plaintes}">{nb_confrontations_plaintes} <i class="fa fa-gavel" aria-hidden="true"></i></a>
+                        <a href="{url_accrochages_medias}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_medias_abus') {nb_confrontations_medias}">{nb_confrontations_medias} <i class="fa fa-bullhorn" aria-hidden="true"></i></a>
 
 
 

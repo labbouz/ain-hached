@@ -10,7 +10,7 @@ class Media extends Model
 
     protected $fillable = ['nom_media','categorie_media_id'];
 
-    public function categoriemedia()
+    public function categorie_media()
     {
         return $this->belongsTo('\App\CategorieMedia');
 
