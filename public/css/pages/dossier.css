@@ -416,3 +416,38 @@ padding: 10px;
     content: "\f007";
 }
 
+.detail_abus .statut_reglement_1 {
+    color: #00c91c;
+}
+.detail_abus .statut_reglement_1::before {
+    content: "\f164";
+}
+
+.detail_abus .statut_reglement_0 {
+    color: #ff0000;
+}
+.detail_abus .statut_reglement_0::before {
+    content: "\f165";
+}
+
+.detail_abus .status_abus {
+    line-height: 40px;
+}
+
+.info_p_box p, .info_p_box h4 {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+h4 .date_accrochage {
+    color: #00a0ff;
+}
+
+h2 a {
+    color: #c71618;
+}
+
+
+.info_p_box .notice {
+    color: #c71618;
+}
+

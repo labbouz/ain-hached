@@ -557,8 +557,8 @@ $(document).ready(function(){
                 },
                 phone_number: {
                     required: true,
-                    number: true,
-                    min: 0
+                    digits:true,
+                    minlength: 8
                 },
                 email: {
                     required: false,
@@ -734,8 +734,8 @@ $(document).ready(function(){
                     },
                     phone_number: {
                         required: true,
-                        number: true,
-                        min: 0
+                        digits:true,
+                        minlength: 8
                     },
                     email: {
                         required: false,

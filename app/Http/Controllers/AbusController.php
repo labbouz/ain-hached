@@ -235,6 +235,11 @@ class AbusController extends Controller
                 break;
         }
 
+        if($abus->date_violation != null && $abus->date_violation != '') {
+            $date_fr = explode('-', $abus->date_violation );
+            $abus->date_violation = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+        }
+
         return view('abus.index', compact('abus'));
     }
 
@@ -318,7 +323,7 @@ class AbusController extends Controller
             $abusUpdated->endommage->genre = $request->genre;
             $abusUpdated->endommage->age = $request->age;
             $abusUpdated->endommage->etat_civile = $request->etat_civile;
-            $abusUpdated->endommage->nb_enfant = $request->nb_enfant;
+            $abusUpdated->endommage->nb_enfant = intval($request->nb_enfant);
             $abusUpdated->endommage->phone_number = $request->phone_number;
             $abusUpdated->endommage->email = $request->email;
             $abusUpdated->endommage->type_contrat = $request->type_contrat;
