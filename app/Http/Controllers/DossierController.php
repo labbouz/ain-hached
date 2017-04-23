@@ -163,6 +163,40 @@ class DossierController extends Controller
             $dossier->societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
         }
 
+        $nb_abus_gravite_danger = 0;
+        $nb_abus_gravite_warning = 0;
+
+        $nb_accrochages_moves = 0;
+        $nb_accrochages_plaintes = 0;
+        $nb_accrochages_medias = 0;
+
+        foreach ($dossier->abus_display as $abu) {
+
+            if($abu->date_violation != null && $abu->date_violation != '') {
+                $date_fr = explode('-', $abu->date_violation );
+                $abu->date_violation = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+            }
+
+            if( $abu->violation->gravite->id == 2 ) {
+                $nb_abus_gravite_danger++;
+            }
+
+            if( $abu->violation->gravite->id == 1 ) {
+                $nb_abus_gravite_warning++;
+            }
+
+            $nb_accrochages_moves += $abu->accrochages_moves->count();
+            $nb_accrochages_plaintes += $abu->accrochages_plaintes->count();
+            $nb_accrochages_medias += $abu->accrochages_medias->count();
+
+        }
+        $dossier->nb_abus_gravite_danger = $nb_abus_gravite_danger;
+        $dossier->nb_abus_gravite_warning = $nb_abus_gravite_warning;
+
+        $dossier->nb_accrochages_moves = $nb_accrochages_moves;
+        $dossier->nb_accrochages_plaintes = $nb_accrochages_plaintes;
+        $dossier->nb_accrochages_medias = $nb_accrochages_medias;
+
         $users_concernes = Role_user::where('gouvernorat_id', $gouvernorat_id)
             ->orWhere('secteur_id', $secteur_id)
             ->orWhere(function ($query) {

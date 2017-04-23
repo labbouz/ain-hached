@@ -451,3 +451,39 @@ h2 a {
     color: #c71618;
 }
 
+.block-show-dossier .detail_abus i {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 32px;
+}
+
+.block-show-dossier h4 {
+    font-size: 15px;
+}
+.box-liste-abus .icon_big {
+    height: 40px;
+}
+.block-show-dossier .box-liste-abus  .icon_big .fa-lg {
+    font-size: 32px;
+    line-height: 40px;
+
+}
+
+.block-show-dossier  .box-liste-abus h2 {
+    font-size: 18px;
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.block-show-dossier {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #ffffff;
+    border: 1px solid #d0d5d6;
+}
+.separator_abus {
+    border-color: #4f5467;
+}
+

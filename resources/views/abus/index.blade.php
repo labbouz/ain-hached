@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-md-1 icon square">
-                <a href="{{ route('societes.show', $abus->dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.gestion_dossiers') {{ $abus->dossier->societe->nom_societe }}">
+                <a href="{{ route('societes.show', $abus->dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.histrory_societe_detaille') {{ $abus->dossier->societe->nom_societe }}">
                     <i class="fa fa-building" aria-hidden="true" ></i>
                 </a>
             </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="row row-rtl">
-            <div class="col-xs-12 col-sm12 col-md-62 col-lg-6">
+            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
                 <div class="box-info box-liste-abus info_p_box">
                     <div class="icon_big"><i class="fa fa-frown-o fa-lg"></i></div>
                     <div class="titlr_box"><h2 dir="rtl">@lang('abus.endommage')</h2></div>

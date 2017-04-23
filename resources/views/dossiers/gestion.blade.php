@@ -18,6 +18,16 @@
                 </a>
             </div>
             <div class="col-md-1 icon square">
+                <a href="{{ route('societe.show.dossiers', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.gestion_dossiers') {{ $dossier->societe->nom_societe }}">
+                    <i class="fa fa-archive" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ route('societes.show', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.histrory_societe_detaille') {{ $dossier->societe->nom_societe }}">
+                    <i class="fa fa-building" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
                 <a href="{{ URL::previous() }}" data-toggle="tooltip" data-placement="right" title="@lang('main.retour_previous')">
                     <i class="fa fa-reply" aria-hidden="true" ></i>
                 </a>

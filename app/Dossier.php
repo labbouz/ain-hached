@@ -26,4 +26,9 @@ class Dossier extends Model
         return $this->hasMany('\App\Abus')->orderBy('id', 'desc');
     }
 
+    public function abus_display()
+    {
+        return $this->hasMany('\App\Abus')->orderBy('date_violation', 'desc');
+    }
+
 }

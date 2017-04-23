@@ -18,6 +18,16 @@
                 </a>
             </div>
             <div class="col-md-1 icon square">
+                <a href="{{ route('societe.show.dossiers', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.gestion_dossiers') {{ $dossier->societe->nom_societe }}">
+                    <i class="fa fa-archive" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ route('societes.show', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.histrory_societe_detaille') {{ $dossier->societe->nom_societe }}">
+                    <i class="fa fa-building" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
                 <a href="{{ URL::previous() }}" data-toggle="tooltip" data-placement="right" title="@lang('main.retour_previous')">
                     <i class="fa fa-reply" aria-hidden="true" ></i>
                 </a>
@@ -64,26 +74,26 @@
                     <br style="clear:both;">
                     <div class="recap_dossier">
                         <div class="col-xs-4 gravite-danger">
-                            <span class="chiffre">0</span> <i class="fa fa-thermometer-full" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_danger')"></i>
+                            <span class="chiffre">{{ $dossier->nb_abus_gravite_danger }}</span> <i class="fa fa-thermometer-full" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_danger')"></i>
                         </div>
                         <div class="col-xs-4 gravite-warning">
-                            <span class="chiffre">0</span> <i class="fa fa-thermometer-half" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_warning')"></i>
+                            <span class="chiffre">{{ $dossier->nb_abus_gravite_warning }}</span> <i class="fa fa-thermometer-half" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_warning')"></i>
                         </div>
                         <div class="col-xs-4">
-                            <span class="chiffre">0</span> <a class="fa fa-fire" href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_abus_gestion') {{ $dossier->abus->count() }}"></a>
+                            <span class="chiffre">{{ $dossier->abus->count() }}</span> <a class="fa fa-fire" href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_abus_gestion') {{ $dossier->abus->count() }}"></a>
                         </div>
 
                     </div>
 
                     <div class="recap_dossier">
                         <div class="col-xs-4">
-                            <span class="chiffre">0</span> <i class="fa fa-map-signs" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_mouvements')"></i>
+                            <span class="chiffre">{{ $dossier->nb_accrochages_moves }}</span> <i class="fa fa-map-signs" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_mouvements')"></i>
                         </div>
                         <div class="col-xs-4">
-                            <span class="chiffre">0</span> <i class="fa fa-gavel" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_plaintes')"></i>
+                            <span class="chiffre">{{ $dossier->nb_accrochages_plaintes }}</span> <i class="fa fa-gavel" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_plaintes')"></i>
                         </div>
                         <div class="col-xs-4">
-                            <span class="chiffre">0</span> <i class="fa fa-bullhorn" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_medias')"></i>
+                            <span class="chiffre">{{ $dossier->nb_accrochages_medias }}</span> <i class="fa fa-bullhorn" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_medias')"></i>
                         </div>
                     </div>
                 </div>
@@ -162,13 +172,263 @@
                     <div class="icon_big"><a class="fa fa-fire fa-lg" href="{{ route('dossier.gestion', $dossier->id ) }}"></a></div>
                     <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_dossier')</h2></div>
 
+                    @if( $dossier->abus->count() == 0)
                     <div class="row">
                         <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
-                            <p class="alert"><strong>@lang('abus.aucun_abus')</strong> .... <strong><a href="javascript:void(0)">@lang('abus.gestion_abus')</a></strong></p>
+                            <p class="alert"><strong>@lang('abus.aucun_abus')</strong> .... <strong><a href="{{ route('dossier.gestion', $dossier->id ) }}">@lang('abus.gestion_abus')</a></strong></p>
                         </div>
                     </div>
-
+                     @endif
                 </div>
+
+                <br style="clear:both;">
+                {{-- /************************* Parti listing Abus****************************/  --}}
+                @foreach($dossier->abus_display as $abus)
+                    <div class="container-fluid block-show-dossier">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm12 col-md-3 col-lg-3 detail_abus">
+                                <i class="fa fa-{{ $abus->violation->type_violation->class_color_type_violation }}"></i>
+                                <i class="fa fa-{{ $abus->violation->gravite->class_color_gravite }}"></i>
+                                <i class="fa statut_reglement_{{ $abus->statut_reglement }}"></i>
+
+                            </div>
+                            <div class="col-xs-12 col-sm12 col-md-9 col-lg-9">
+                                <h4 dir="rtl" class="status_abus">@lang('abus.abu') {{ $abus->violation->gravite->nom_gravite }} {{ $abus->violation->type_violation->nom_type_violation }} @lang('abus.for_date') <strong>{{ $abus->date_violation }}</strong> @lang('abus.resultat_abus_'.$abus->statut_reglement) </h4>
+                            </div>
+                        </div>
+
+                        <div class="row row-rtl">
+                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                <div class="box-info box-liste-abus">
+                                    <div class="icon_big"><a href="{{ route('abus.show', ['abus' => $abus]) }}" data-toggle="tooltip" data-placement="top" title="@lang('abus.display_detail_abus')"><i class="fa fa-eye fa-lg"></i></a></div>
+                                    <div class="titlr_box"><h2 dir="rtl">{{ $abus->violation->nom_violation }}</h2></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-rtl">
+                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                <div class="box-info box-liste-abus info_p_box">
+                                    <div class="icon_big"><i class="fa fa-frown-o fa-lg"></i></div>
+                                    <div class="titlr_box"><h2 dir="rtl">@lang('abus.endommage')</h2></div>
+
+                                    <div class="row row-rtl">
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.structure_syndicale') : <strong>{{ $abus->endommage->structure_syndicale->type_structure_syndicale }}</strong></p>
+                                        </div>
+
+                                        @if($abus->violation->type_violation_id == 1)
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.prenom') : <strong>{{ $abus->endommage->prenom }}</strong></p>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.nom') : <strong>{{ $abus->endommage->nom }}</strong></p>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.genre') : <strong>@lang('abus.'.$abus->endommage->genre)</strong></p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.age') : <strong>@lang('abus.age_type_'.$abus->endommage->age)</strong></p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.etat_civil') :
+                                                    @if($abus->endommage->etat_civile == 0)
+                                                        <strong class="notice">@lang('abus.not_determine')</strong>
+                                                    @else
+                                                        <strong>@lang('abus.etat_civil_'.$abus->endommage->etat_civile)</strong>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.nombre_enfants_parrainage') : <strong>{{ $abus->endommage->nb_enfant }}</strong></p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.telephone') : <strong>{{ $abus->endommage->phone_number }}</strong></p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.email') :
+                                                    @if($abus->endommage->email == null)
+                                                        <strong class="notice">@lang('abus.not_determine')</strong>
+                                                    @else
+                                                        <strong>{{ $abus->endommage->email }}</strong>
+                                                    @endif
+                                                </p>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                                <p dir="rtl">@lang('abus.delimitation') :
+                                                    @if($abus->endommage->type_contrat == 0)
+                                                        <strong class="notice">@lang('abus.not_determine')</strong>
+                                                    @else
+                                                        <strong>@lang('abus.delimitation_'.$abus->endommage->type_contrat)</strong>
+                                                    @endif
+
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                                <p dir="rtl">@lang('abus.la_responsabilite_seniority_syndicale') : <strong>@lang('abus.la_responsabilite_seniority_syndicale_type_'.$abus->endommage->anciennete)</strong></p>
+                                            </div>
+                                        @endif
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm12 col-md-6 col-lg-6">
+                                <div class="box-info box-liste-abus info_p_box">
+                                    <div class="icon_big"><i class="fa fa-hand-paper-o fa-lg"></i></div>
+                                    <div class="titlr_box"><h2 dir="rtl">@lang('abus.agresseur')</h2></div>
+
+                                    <div class="row row-rtl">
+
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.prenom') :
+                                                @if($abus->agresseur->prenom == null)
+                                                    <strong class="notice">@lang('abus.not_determine')</strong>
+                                                @else
+                                                    <strong>{{ $abus->agresseur->prenom }}</strong>
+                                                @endif
+                                            </p>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.nom') :
+                                                @if($abus->agresseur->nom == null)
+                                                    <strong class="notice">@lang('abus.not_determine')</strong>
+                                                @else
+                                                    <strong>{{ $abus->agresseur->nom }}</strong>
+                                                @endif
+                                            </p>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.nationalite') :
+                                                @if($abus->agresseur->nationalite == null)
+                                                    <strong class="notice">@lang('abus.not_determine')</strong>
+                                                @else
+                                                    <strong>{{ $abus->agresseur->nationalite }}</strong>
+                                                @endif
+                                            </p>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <h4 dir="rtl">@lang('abus.responsabilite_represente_par')</h4>
+                                        </div>
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.responsabilite_represente_par_type_1') : <strong>@lang('abus.responsabilite_represente_'.$abus->agresseur->responsabilite_1)</strong></p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.responsabilite_represente_par_type_2') : <strong>@lang('abus.responsabilite_represente_'.$abus->agresseur->responsabilite_2)</strong></p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <p dir="rtl">@lang('abus.responsabilite_represente_par_type_3') : <strong>@lang('abus.responsabilite_represente_'.$abus->agresseur->responsabilite_3)</strong></p>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-rtl">
+                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                <div class="box-info box-liste-abus">
+                                    <div class="icon_big"><i class="fa fa-map-signs fa-lg"></i></div>
+                                    <div class="titlr_box"><h2 dir="rtl">@lang('abus.accrochages_moves') <a href="{{ route('abus.moves', ['abus' => $abus]) }}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_moves_abus') {{ $abus->accrochages_moves->count() }}" >({{ $abus->accrochages_moves->count() }})</a></h2></div>
+
+                                    @foreach ($abus->accrochages_moves as $accrochage)
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <hr>
+                                            <h4 dir="rtl">{{ $accrochage->move->nom_move }}
+
+                                                @if( $accrochage->date_accrochage != null)
+                                                    - <span class="date_accrochage">{{ $accrochage->date_accrochage }}</span>
+                                                @endif
+                                            </h4>
+                                            @if( $accrochage->description_accrochage != null)
+                                                <p dir="rtl">{{ $accrochage->description_accrochage }}</p>
+                                            @endif
+
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row row-rtl">
+                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                <div class="box-info box-liste-abus">
+                                    <div class="icon_big"><i class="fa fa-gavel fa-lg"></i></div>
+                                    <div class="titlr_box"><h2 dir="rtl">@lang('abus.accrochages_plaintes') <a href="{{ route('abus.plaintes', ['abus' => $abus]) }}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_plaintes_abus') {{ $abus->accrochages_plaintes->count() }}" >({{ $abus->accrochages_plaintes->count() }})</a></h2></div>
+
+                                    @foreach ($abus->accrochages_plaintes as $accrochage)
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <hr>
+                                            <h4 dir="rtl">{{ $accrochage->plainte->nom_plainte }}
+
+                                                @if( $accrochage->date_accrochage != null)
+                                                    - <span class="date_accrochage">{{ $accrochage->date_accrochage }}</span>
+                                                @endif
+                                            </h4>
+                                            @if( $accrochage->description_accrochage != null)
+                                                <p dir="rtl">{{ $accrochage->description_accrochage }}</p>
+                                            @endif
+
+                                        </div>
+                                    @endforeach
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-rtl">
+                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                <div class="box-info box-liste-abus">
+                                    <div class="icon_big"><i class="fa fa-bullhorn fa-lg"></i></div>
+                                    <div class="titlr_box"><h2 dir="rtl">@lang('abus.accrochages_medias') <a href="{{ route('abus.medias', ['abus' => $abus]) }}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_medias_abus') {{ $abus->accrochages_medias->count() }}" >({{ $abus->accrochages_medias->count() }})</a></h2></div>
+
+                                    @foreach ($abus->accrochages_medias as $accrochage)
+                                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                            <hr>
+                                            <h4 dir="rtl">{{ $accrochage->media->categorie_media->nom_categorie_media }} {{ $accrochage->media->nom_media }}
+
+                                                @if( $accrochage->date_accrochage != null)
+                                                    - <span class="date_accrochage">{{ $accrochage->date_accrochage }}</span>
+                                                @endif
+                                            </h4>
+                                            @if( $accrochage->description_accrochage != null)
+                                                <p dir="rtl">{{ $accrochage->description_accrochage }}</p>
+                                            @endif
+
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                <hr class="separator_abus">
+
+                @endforeach
+                {{-- /************************* Fin Parti listing Abus****************************/  --}}
+
+
             </div>
 
             <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
@@ -205,45 +465,46 @@
                     </div>
 
                 </div>
+
                 @foreach ($users_concernes as $user_concerne)
                     @if($user_concerne->user->active  == 1)
                         @if($user_concerne->user_id != Auth::user()->id)
                             <div class="modal fade" id="SendMessageA_{{ $user_concerne->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header" dir="rtl">
-                                        <h4 class="modal-title" id="myModalLabel">@lang('dossier.send_observateur')</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>@lang('dossier.send_l_observateur'){{ $user_concerne->role->name }} : <strong>{{ $user_concerne->user->name }}</strong></p>
-
-                                        <p>@lang('dossier.sujet_send') : <strong>@lang('dossier.sujet_dossier_numer') {{ sprintf("%05d", $dossier->id) }} @lang('dossier.pour_societe_agressif') {{ $dossier->societe->nom_societe }}</strong></p>
-                                        <hr>
-                                        <div class="form_send">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="text_message">@lang('dossier.the_send')</label>
-                                                    <textarea id="text_message" class="form-control" rows="3"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="doc_joint">@lang('dossier.piece_jointe')</label>
-                                                    <input type="file" id="doc_joint">
-                                                </div>
-
-                                                <button type="button" class="btn btn-primary send_message">@lang('dossier.send')</button>
-                                            </form>
-                                            <p class="bg-success message_succes_send">@lang('dossier.succes_send_message').</p>
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" dir="rtl">
+                                            <h4 class="modal-title" id="myModalLabel">@lang('dossier.send_observateur')</h4>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                                        <div class="modal-body">
+                                            <p>@lang('dossier.send_l_observateur'){{ $user_concerne->role->name }} : <strong>{{ $user_concerne->user->name }}</strong></p>
+
+                                            <p>@lang('dossier.sujet_send') : <strong>@lang('dossier.sujet_dossier_numer') {{ sprintf("%05d", $dossier->id) }} @lang('dossier.pour_societe_agressif') {{ $dossier->societe->nom_societe }}</strong></p>
+                                            <hr>
+                                            <div class="form_send">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="text_message">@lang('dossier.the_send')</label>
+                                                        <textarea id="text_message" class="form-control" rows="3"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="doc_joint">@lang('dossier.piece_jointe')</label>
+                                                        <input type="file" id="doc_joint">
+                                                    </div>
+
+                                                    <button type="button" class="btn btn-primary send_message">@lang('dossier.send')</button>
+                                                </form>
+                                                <p class="bg-success message_succes_send">@lang('dossier.succes_send_message').</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
 
-                            <div class="modal fade" id="InfoObservateurFor_{{ $user_concerne->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade" id="InfoObservateurFor_{{ $user_concerne->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header" dir="rtl">
