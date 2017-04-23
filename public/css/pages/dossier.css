@@ -132,6 +132,7 @@
 
 .box-societe-dossier .recap_societe > div a {
     font-size: 46px;
+    outline: none;
 }
 
 
@@ -332,4 +333,42 @@
 .box-resumer-dossier .recap_dossier .chiffre {
     font-size: 24px;
     line-height: 32px;
+}
+
+.modal-body strong {
+    font-weight: 700;
+}
+
+
+.icon_observateur {
+    float: right;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+a.icon_observateur {
+    outline: none;
+    margin-top: 4px;
+}
+
+a.icon_info_contact {
+    color: #204bff;
+
+}
+
+a.icon_info_send {
+    float: left;
+color: orange;
+}
+
+.img-user-profile {
+    width: 200px;
+}
+
+.message_succes_send {
+    display: none;
+padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }

@@ -57,8 +57,8 @@ return [
 
     'accord_de_fondation_1' => 'لديها اتفاقية مؤسسة',
     'accord_de_fondation_0' => 'ليست لديها اتفاقية مؤسسة',
-    'convention_cadre_commun_1' => 'لديهااتفاقية قطاعية مشتركة',
-    'convention_cadre_commun_0' => 'ليست لديهااتفاقية قطاعية مشتركة',
+    'convention_cadre_commun_1' => 'لديها اتفاقية قطاعية مشتركة',
+    'convention_cadre_commun_0' => 'ليست لديها اتفاقية قطاعية مشتركة',
 
 
     'message_save_succes_societe' => ' تم اضافة المؤسسة المنتهكة بنجاح',

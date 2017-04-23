@@ -38,6 +38,12 @@ class Societe extends Model
 
     }
 
+    public function convention()
+    {
+        return $this->belongsTo('\App\Convention', 'convention_id');
+
+    }
+
     /*
 
     public function gouvernorat()
@@ -46,11 +52,7 @@ class Societe extends Model
 
     }
 
-    public function convention()
-    {
-        return $this->belongsTo('\App\Convention');
 
-    }
 
     */
     public function dossiers()

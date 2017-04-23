@@ -104,13 +104,51 @@
 
                     <div class="recap_societe">
                         <div class="col-xs-4">
-                            <a class="fa fa-info-circle" href="javascript:void(0)"></a>
+                            <a class="fa fa-info-circle" href="" data-toggle="modal" data-target="#detailSocietes"></a>
                         </div>
                         <div class="col-xs-4">
                             <a class="fa fa-archive" href="{{ route('societe.show.dossiers', $dossier->societe->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {{ $dossier->societe->dossiers->count() }}"></a>
                         </div>
                         <div class="col-xs-4">
                             <a class="fa fa-eye" href="{{ route('societes.show', $dossier->societe->id ) }}"></a>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="detailSocietes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" dir="rtl">
+                                    <h4 class="modal-title" id="myModalLabel">@lang('dossier.info_societe_principale')</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@lang('societe.type_societe') : <strong>{{ $dossier->societe->type_societe->nom_type_societe }}</strong></p>
+
+                                    <p>@lang('societe.date_cration_societe') : <strong>
+                                            @if( $dossier->societe->date_cration_societe == null )
+                                                @lang('dossier.not_info')
+                                            @else
+                                                {{ $dossier->societe->date_cration_societe }}
+                                            @endif
+                                        </strong></p>
+                                    <hr>
+                                    <h4>@lang('dossier.conventions_societe')</h4>
+                                    <p><strong>@lang('societe.accord_de_fondation_'.$dossier->societe->accord_de_fondation)</strong></p>
+                                    <p><strong>@lang('societe.convention_cadre_commun_'.$dossier->societe->convention_cadre_commun)</strong></p>
+                                    <p>@lang('societe.convention') :
+                                        <strong>
+                                        @if( $dossier->societe->convention == null )
+                                            @lang('societe.pas_de_convontion')
+                                        @else
+                                            {{ $dossier->societe->convention->nom_convention }}
+                                        @endif
+                                        </strong></p>
+                                    <p>@lang('societe.nombre_travailleurs_cdi') : <strong>{{ $dossier->societe->nombre_travailleurs_cdi }}</strong></p>
+                                    <p>@lang('societe.nombre_travailleurs_no_cdi') : <strong>{{ $dossier->societe->nombre_travailleurs_cdd }}</strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -140,9 +178,10 @@
                     <div class="clearfix list-user-concernees">
                         <ul>
                             @foreach ($users_concernes as $user_concerne)
+                                @if($user_concerne->user->active  == 1)
                                 <li>
                                 <span class="profile">
-                                    @if($dossier->user->avatar  == null)
+                                    @if($user_concerne->user->avatar  == null)
                                         <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-circle img-responsive">
                                     @else
                                         <img src="{{ Request::root() }}/images/avatars/{{ $user_concerne->user->avatar }}" class="img-circle img-responsive">
@@ -154,12 +193,115 @@
                                     <span class="role"> {{ $user_concerne->role->name }} </span>
                                 </span>
 
+
+                                    @if($user_concerne->user_id != Auth::user()->id)
+                                        <a href="" class="fa fa-envelope icon_observateur icon_info_send" aria-hidden="true" data-toggle="modal" data-target="#SendMessageA_{{ $user_concerne->id }}" ></a>
+                                    @endif
+                                    <a href="" class="fa fa-info-circle icon_observateur icon_info_contact" aria-hidden="true" data-toggle="modal" data-target="#InfoObservateurFor_{{ $user_concerne->id }}"></a>
                                 </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
 
                 </div>
+                @foreach ($users_concernes as $user_concerne)
+                    @if($user_concerne->user->active  == 1)
+                        @if($user_concerne->user_id != Auth::user()->id)
+                            <div class="modal fade" id="SendMessageA_{{ $user_concerne->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" dir="rtl">
+                                        <h4 class="modal-title" id="myModalLabel">@lang('dossier.send_observateur')</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>@lang('dossier.send_l_observateur'){{ $user_concerne->role->name }} : <strong>{{ $user_concerne->user->name }}</strong></p>
+
+                                        <p>@lang('dossier.sujet_send') : <strong>@lang('dossier.sujet_dossier_numer') {{ sprintf("%05d", $dossier->id) }} @lang('dossier.pour_societe_agressif') {{ $dossier->societe->nom_societe }}</strong></p>
+                                        <hr>
+                                        <div class="form_send">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="text_message">@lang('dossier.the_send')</label>
+                                                    <textarea id="text_message" class="form-control" rows="3"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="doc_joint">@lang('dossier.piece_jointe')</label>
+                                                    <input type="file" id="doc_joint">
+                                                </div>
+
+                                                <button type="button" class="btn btn-primary send_message">@lang('dossier.send')</button>
+                                            </form>
+                                            <p class="bg-success message_succes_send">@lang('dossier.succes_send_message').</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                            <div class="modal fade" id="InfoObservateurFor_{{ $user_concerne->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" dir="rtl">
+                                        <h4 class="modal-title" id="myModalLabel">@lang('dossier.card_observateur')</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-center">
+
+                                            @if($user_concerne->user->avatar  == null)
+                                                <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-thumbnail img-user-profile">
+                                            @else
+                                                <img src="{{ Request::root() }}/images/avatars/{{ $user_concerne->user->avatar }}" class="img-thumbnail img-user-profile">
+                                            @endif
+                                        </p>
+                                        <h4><strong>{{ $user_concerne->role->name }}</strong></h4>
+                                        <hr />
+                                        <p>@lang('users.prenom') : <strong>{{ $user_concerne->user->prnom }}</strong></p>
+                                        <p>@lang('users.nom') : <strong>{{ $user_concerne->user->nom }}</strong></p>
+                                        <p>@lang('users.email') : <strong>{{ $user_concerne->user->email }}</strong></p>
+                                        <p>@lang('users.societe') : <strong>
+                                                @if( $user_concerne->user->societe != null)
+                                                    {{ $user_concerne->user->societe }}
+                                                @else
+                                                    @lang('dossier.not_info')
+                                                @endif
+                                            </strong></p>
+                                        <p>@lang('users.structure_syndicale') : <strong>
+                                                @if( $user_concerne->user->structure_syndicale == null )
+                                                    @lang('dossier.not_info')
+                                                @else
+                                                    {{ $user_concerne->user->structure_syndicale->type_structure_syndicale }}
+                                                @endif
+                                            </strong></p>
+                                        <p>@lang('users.telephone') : <strong>
+                                                @if( $user_concerne->user->phone_number != null)
+                                                    {{ $user_concerne->user->phone_number }}
+                                                @else
+                                                    @lang('dossier.not_info')
+                                                @endif
+                                            </strong></p>
+                                        <p>@lang('users.email2') : <strong>
+                                                @if( $user_concerne->user->email2 != null)
+                                                    {{ $user_concerne->user->email2 }}
+                                                @else
+                                                    @lang('dossier.not_info')
+                                                @endif
+                                            </strong></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                @endforeach
+
             </div>
 
         </div>

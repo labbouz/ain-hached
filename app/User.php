@@ -87,4 +87,10 @@ class User extends Authenticatable
         return $this->roleuser->role->slug;
     }
 
+    public function structure_syndicale()
+    {
+        return $this->belongsTo('\App\StructureSyndicale', 'structure_syndicale_id');
+
+    }
+
 }

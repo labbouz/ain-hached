@@ -158,6 +158,11 @@ class DossierController extends Controller
         $gouvernorat_id = $dossier->societe->delegation->gouvernorat_id;
         $secteur_id = $dossier->societe->secteur_id;
 
+        if($dossier->societe->date_cration_societe != null && $dossier->societe->date_cration_societe != '') {
+            $date_fr = explode('-', $dossier->societe->date_cration_societe );
+            $dossier->societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
+        }
+
         $users_concernes = Role_user::where('gouvernorat_id', $gouvernorat_id)
             ->orWhere('secteur_id', $secteur_id)
             ->orWhere(function ($query) {

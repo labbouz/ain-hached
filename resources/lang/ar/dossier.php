@@ -99,6 +99,27 @@ return [
     'display_indicateur_confrontations_mouvements' => 'العدد الكلي لمواجهات التحركات ضد الإنتهاكات المدرجة في هذا الملف',
 
     'management_abus' => 'إدارة جميع الإنتهاكات المدرجة في هذا الملف',
+
+
+    'info_societe_principale' => 'المعلومات الأساسية للمؤسسة المنتهكة',
+    'close_popup' => 'إغلاق',
+    'not_info' => 'المعلومة غير مدرجة',
+    'conventions_societe' => 'الاتفاقيات التي تخص هذه المؤسسة',
+    'card_observateur' => 'بطاقة الراصد',
+    'send_observateur' => 'مراسلة راصد',
+    'send_l_observateur' => 'مراسلة ال',
+
+    'sujet_send' => 'موضوع المراسلة',
+    'sujet_dossier_numer' => 'فيما يخص الملف رقم',
+    'pour_societe_agressif' => 'للمؤسسة المنتهكة',
+    'the_send' => 'المراسلة',
+    'send' => 'قم بالإرسال',
+    'piece_jointe' => 'الوثائق المرفقة',
+    'succes_send_message' => 'لقد تمت عملية الإرسال بنجاح في إنتظار الرد من المرسل إليه',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
     '' => '',
     '' => '',
     '' => '',
