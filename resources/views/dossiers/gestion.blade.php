@@ -95,7 +95,7 @@
                         <a href="javascript:void(0)" class="edit"><i class="fa fa-frown-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_main')"></i></a>
                         <a href="javascript:void(0)" class="edit_gresseur" data-toggle="tooltip" data-placement="top" title="@lang('abus.abus_agresseur_update')"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></a>
                         <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.documentations') 0">0 <i class="fa fa-files-o" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('abus.display_detail_abus')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{url_show_abus}" data-toggle="tooltip" data-placement="top" title="@lang('abus.display_detail_abus')"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
 
                         <a href="{url_accrochages_moves}" data-toggle="tooltip" data-placement="top" title="@lang('abus.gestion_moves_abus') {nb_confrontations_moves}">{nb_confrontations_moves} <i class="fa fa-map-signs" aria-hidden="true"></i></a>

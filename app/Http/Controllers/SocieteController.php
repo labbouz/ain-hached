@@ -184,7 +184,7 @@ class SocieteController extends Controller
      */
     public function show($id)
     {
-        echo $id;
+        echo "Detail Societe = " . $id;
     }
 
     public function showDossiers($id)
@@ -586,6 +586,7 @@ class SocieteController extends Controller
         foreach ($societes as $societe) {
             $societe->nb_dossiers = $societe->dossiers->count();
             $societe->url_show_dossiers = route('societe.show.dossiers', $societe->id);
+            $societe->url_histrory_societe = route('societes.show', $societe);
 
             if($societe->date_cration_societe != null && $societe->date_cration_societe != '') {
                 $date_fr = explode('-', $societe->date_cration_societe );

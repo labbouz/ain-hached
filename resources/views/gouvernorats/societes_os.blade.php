@@ -38,7 +38,7 @@
                             </div>
                             <div class="toolbar_box"  dir="rtl">
 
-                                <a href="{{ route('societes_regional.observateur_secteur', ['id_gouvernorat' => $gouvernorat->id] ) }}">{{ $gouvernorat->nb_societes }} <i class="fa fa-building-o" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $gouvernorat->nb_societes }}" ></i></a>
+                                <a href="{{ route('societes_regional.observateur_secteur', ['id_gouvernorat' => $gouvernorat->id] ) }}">{{ $gouvernorat->nb_societes }} <i class="fa fa-building" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $gouvernorat->nb_societes }}" ></i></a>
                             </div>
                         </div>
 

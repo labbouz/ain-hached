@@ -372,3 +372,47 @@ padding: 10px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+
+.detail_abus i {
+    font-size: 42px;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    float: left;
+
+    color: #000;
+    text-align: center;
+}
+
+.detail_abus .fa-gravite-warning {
+    color: #ff9600;
+}
+.detail_abus .fa-gravite-warning:before {
+    content: "\f2c9";
+
+}
+
+.detail_abus .fa-gravite-danger {
+    color: #ff0000;
+}
+.detail_abus .fa-gravite-danger:before {
+    content: "\f2c7";
+}
+
+.detail_abus .fa-violation-collectif {
+    color: #00a0ff;
+}
+.detail_abus .fa-violation-collectif:before {
+    content: "\f0c0";
+}
+
+.detail_abus .fa-violation-individuel {
+    color: #00c91c;
+}
+
+.detail_abus .fa-violation-individuel:before {
+    content: "\f007";
+}
+

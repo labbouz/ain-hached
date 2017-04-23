@@ -37,7 +37,7 @@
                             </div>
                             <div class="toolbar_box"  dir="rtl">
 
-                                <a href="{{ route('societes_secteur.admin', ['id_secteur' => $secteure->id] ) }}"> {{ $secteure->societes->count() }} <i class="fa fa-building-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $secteure->societes->count() }}" ></i></a>
+                                <a href="{{ route('societes_secteur.admin', ['id_secteur' => $secteure->id] ) }}"> {{ $secteure->societes->count() }} <i class="fa fa-building" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('societe.nb_societes')  : {{ $secteure->societes->count() }}" ></i></a>
                             </div>
                         </div>
 

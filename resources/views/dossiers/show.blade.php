@@ -70,7 +70,7 @@
                             <span class="chiffre">0</span> <i class="fa fa-thermometer-half" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_warning')"></i>
                         </div>
                         <div class="col-xs-4">
-                            <span class="chiffre">0</span> <a class="fa fa-fire" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_abus_gestion') {{ $dossier->abus->count() }}"></a>
+                            <span class="chiffre">0</span> <a class="fa fa-fire" href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_abus_gestion') {{ $dossier->abus->count() }}"></a>
                         </div>
 
                     </div>
@@ -159,7 +159,7 @@
 
             <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
                 <div class="box-info box-liste-abus">
-                    <div class="icon_big"><a class="fa fa-fire fa-lg" href="javascript:void(0)"></a></div>
+                    <div class="icon_big"><a class="fa fa-fire fa-lg" href="{{ route('dossier.gestion', $dossier->id ) }}"></a></div>
                     <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_dossier')</h2></div>
 
                     <div class="row">

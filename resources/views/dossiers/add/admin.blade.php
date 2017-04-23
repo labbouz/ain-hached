@@ -101,7 +101,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 container-action">
                 <div class="container_element">
                     <a id="url_management_societes" href="javascript:void(0)" class="box add">
-                        <span class="fa fa-building-o"></span>
+                        <span class="fa fa-building"></span>
                         <span class="text">@lang('dossier.management_societe') <strong class="indicat_secteur"></strong>
                             @lang('dossier.not_exit_delegation') <strong class="indicat_delegation"></strong>
                             @lang('dossier.not_exit_gouvenorat') <strong class="indicat_gouvenorat"></strong></span>

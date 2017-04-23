@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 
+use Auth;
+
 use App\Abus;
 use App\Endommage;
 use App\Agresseur;
@@ -215,7 +217,25 @@ class AbusController extends Controller
      */
     public function show($id)
     {
-        echo "Detail Abus = " . $id;
+        $abus = Abus::find($id);
+
+        switch (Auth::user()->getRole()) {
+            case "observateur_regional":
+            case "observateur":
+                if( $abus->dossier->societe->delegation->gouvernorat_id != Auth::user()->roleuser->gouvernorat_id) {
+                    return redirect('notacces');
+                }
+                break;
+
+            case "observateur_secteur":
+                if( $abus->dossier->societe->secteur_id != Auth::user()->roleuser->secteur_id) {
+                    return redirect('notacces');
+                }
+
+                break;
+        }
+
+        return view('abus.index', compact('abus'));
     }
 
     /**
@@ -443,6 +463,8 @@ class AbusController extends Controller
             $abu->url_accrochages_moves = route('abus.moves', ['abus' => $abu]);
             $abu->url_accrochages_plaintes = route('abus.plaintes', ['abus' => $abu]);
             $abu->url_accrochages_medias = route('abus.medias', ['abus' => $abu]);
+
+            $abu->url_show_abus = route('abus.show', ['abus' => $abu]);
 
             if($abu->date_violation != null && $abu->date_violation != '') {
                 $date_fr = explode('-', $abu->date_violation );
