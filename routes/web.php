@@ -82,6 +82,12 @@ Route::group( ['middleware' => ['auth'] ], function (){
 
     Route::resource('dossier', 'DossierController');
 
+    // Mes Files
+    Route::get('/mes-dossiers', 'DossierController@mesDossiers')->name('mes.dossiers');
+    Route::get('/new-dossiers', 'DossierController@newDossiers')->name('new.dossiers');
+    Route::get('/important-dossiers', 'DossierController@importantDossiers')->name('important.dossiers');
+
+
     //Abus
     Route::get('/dossier/{dossier}/gestion', 'DossierController@gestionAbus')->name('dossier.gestion');
 

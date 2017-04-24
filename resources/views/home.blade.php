@@ -28,17 +28,17 @@
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-share-alt fa-lg" ></i>
+                <a href="{{ route('home') }}"><i class="fa fa-share-alt fa-lg" ></i>
                     <span>@lang('main.contacts')</span>
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-telegram fa-lg" ></i>
+                <a href="{{ route('home') }}"><i class="fa fa-telegram fa-lg" ></i>
                     <span>@lang('main.notifications')</span>
                 </a>
             </div>
             <div class="col-md-2 icon">
-                <a href="{{ route('users.index') }}"><i class="fa fa-envelope fa-lg" ></i>
+                <a href="{{ route('home') }}"><i class="fa fa-envelope fa-lg" ></i>
                     <span>@lang('main.mesages')</span>
                 </a>
             </div>

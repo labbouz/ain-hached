@@ -292,4 +292,34 @@ class DossierController extends Controller
         return response()->json($response);
 
     }
+
+    public function mesDossiers() {
+
+        $title_page = trans('dossier.myfiles');
+        $desription_page = trans('dossier.description_myfiles');
+
+        $dossiers = Dossier::orderBy('id', 'desc')->get();
+        //Auth::user()
+        return view('dossiers.filtres', compact('title_page', 'desription_page','dossiers'));
+    }
+
+    public function newDossiers() {
+
+        $title_page = trans('dossier.files_non_lus');
+        $desription_page = trans('dossier.description_files_non_lus');
+
+        $dossiers = Dossier::orderBy('id', 'desc')->get();
+        //Auth::user()
+        return view('dossiers.filtres', compact('title_page', 'desription_page','dossiers'));
+    }
+
+    public function importantDossiers() {
+
+        $title_page = trans('dossier.files_important');
+        $desription_page = trans('dossier.description_files_important');
+
+        $dossiers = Dossier::orderBy('id', 'desc')->get();
+        //Auth::user()
+        return view('dossiers.filtres', compact('title_page', 'desription_page','dossiers'));
+    }
 }

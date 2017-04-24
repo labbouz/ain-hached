@@ -30,7 +30,7 @@
             <div class="col-lg-12 col-md-12 col-sm12 col-xs-12">
                 <div class="page-title" dir="rtl">
                     <div id="header_index">
-                        <h3> @lang('societe.gestion_dossiers') : {{ $societe->nom_societe }}  </h3>
+                        <h3> @lang('societe.gestion_dossiers') : {{ $societe->nom_societe }} </h3>
                         <p class="text-muted">@lang('societe.descr_gestion_dossiers')</p>
                     </div>
 

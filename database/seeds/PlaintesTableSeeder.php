@@ -11,6 +11,9 @@ class PlaintesTableSeeder extends Seeder
      */
     public function run()
     {
+        //disable foreign key check for this connection before running seeders
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         //delete plaintes table records
         DB::table('plaintes')->truncate();
         //insert some dummy records
@@ -24,5 +27,9 @@ class PlaintesTableSeeder extends Seeder
             array('nom_plainte'=>trans('plainte.plainte_7'), 'created_at' => date('Y-m-d H:i:s')),
 
         ));
+
+        // supposed to only apply to a single connection and reset it's self
+        // but I like to explicitly undo what I've done for clarity
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

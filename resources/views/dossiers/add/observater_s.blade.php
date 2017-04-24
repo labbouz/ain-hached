@@ -5,6 +5,14 @@
 @endsection
 
 @section('page-title')
+    <div class="container menu-partiel">
+        <div class="row" dir="rtl">
+
+            @include('layouts.menu_dossiers')
+
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm12 col-xs-12">
