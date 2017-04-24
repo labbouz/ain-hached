@@ -242,6 +242,7 @@ select.form-control{
     height: 100%;
     background-color: #ffffff;
     border: 1px solid #d0d5d6;
+    outline: none;
 }
 
 .menu-partiel .icon a:hover {

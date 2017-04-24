@@ -5,12 +5,31 @@
 @endsection
 
 @section('page-title')
+    <div class="container menu-partiel">
+        <div class="row" dir="rtl">
+            <div class="col-md-1 icon square">
+                <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="top" title="@lang('main.dashboard')">
+                    <i class="fa fa-tachometer" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ route('societes.show', $societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.histrory_societe_detaille') {{ $societe->nom_societe }}">
+                    <i class="fa fa-building" aria-hidden="true" ></i>
+                </a>
+            </div>
+            <div class="col-md-1 icon square">
+                <a href="{{ URL::previous() }}" data-toggle="tooltip" data-placement="right" title="@lang('main.retour_previous')">
+                    <i class="fa fa-reply" aria-hidden="true" ></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm12 col-xs-12">
                 <div class="page-title" dir="rtl">
                     <div id="header_index">
-                        <a class="retour_setting" href="{{ URL::previous() }}"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="@lang('main.retour_previous')"></i></a>
                         <h3> @lang('societe.gestion_dossiers') : {{ $societe->nom_societe }}  </h3>
                         <p class="text-muted">@lang('societe.descr_gestion_dossiers')</p>
                     </div>

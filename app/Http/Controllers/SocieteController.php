@@ -15,6 +15,8 @@ use App\Gouvernorat;
 use App\Delegation;
 use App\Societe;
 use App\TypeSociete;
+use App\Role_user;
+use App\Dossier;
 
 class SocieteController extends Controller
 {
@@ -25,8 +27,6 @@ class SocieteController extends Controller
      */
     public function index()
     {
-
-
         switch (Auth::user()->getRole()) {
             case "administrator":
                 $secteures = Secteur::orderBy('id', 'desc')->get();
@@ -184,7 +184,32 @@ class SocieteController extends Controller
      */
     public function show($id)
     {
-        echo "Detail Societe = " . $id;
+        $societe = Societe::find($id);
+        switch (Auth::user()->getRole()) {
+            case "observateur_regional":
+            case "observateur":
+                if( $societe->delegation->gouvernorat_id != Auth::user()->roleuser->gouvernorat_id) {
+                    return redirect('notacces');
+                }
+                break;
+
+            case "observateur_secteur":
+                if( $societe->secteur_id != Auth::user()->roleuser->secteur_id) {
+                    return redirect('notacces');
+                }
+
+                break;
+        }
+
+        $users_concernes = Role_user::where('gouvernorat_id', $societe->delegation->gouvernorat_id)
+            ->orWhere('secteur_id', $societe->secteur_id)
+            ->orWhere(function ($query) {
+                $query->where('gouvernorat_id', 0)->where('secteur_id', 0);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('societes.show', compact('societe','users_concernes'));
     }
 
     public function showDossiers($id)

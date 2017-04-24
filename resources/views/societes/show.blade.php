@@ -13,18 +13,13 @@
                 </a>
             </div>
             <div class="col-md-1 icon square">
-                <a href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('dossier.management_abus')">
-                    <i class="fa fa-fire" aria-hidden="true" ></i>
-                </a>
-            </div>
-            <div class="col-md-1 icon square">
-                <a href="{{ route('societe.show.dossiers', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.gestion_dossiers') {{ $dossier->societe->nom_societe }}">
+                <a href="{{ route('societe.show.dossiers', $societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.gestion_dossiers') {{ $societe->nom_societe }}">
                     <i class="fa fa-archive" aria-hidden="true" ></i>
                 </a>
             </div>
             <div class="col-md-1 icon square">
-                <a href="{{ route('societes.show', $dossier->societe->id) }}" data-toggle="tooltip" data-placement="bottom" title="@lang('societe.histrory_societe_detaille') {{ $dossier->societe->nom_societe }}">
-                    <i class="fa fa-building" aria-hidden="true" ></i>
+                <a href="" data-toggle="modal" data-target="#detailSocietes">
+                    <i class="fa fa-info-circle" aria-hidden="true" ></i>
                 </a>
             </div>
             <div class="col-md-1 icon square">
@@ -33,159 +28,78 @@
                 </a>
             </div>
         </div>
-     </div>
+    </div>
+
+    <div  dir="rtl" class="modal fade" id="detailSocietes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" dir="rtl">
+                    <h4 class="modal-title" id="myModalLabel">@lang('dossier.info_societe_principale')</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@lang('societe.nom_societe') : <strong>{{ $societe->nom_societe }}</strong></p>
+                    <p>@lang('societe.nom_marque') : <strong>{{ $societe->nom_marque }}</strong></p>
+                    <p>@lang('societe.type_societe') : <strong>{{ $societe->type_societe->nom_type_societe }}</strong></p>
+
+                    <p>@lang('societe.date_cration_societe') : <strong>
+                            @if( $societe->date_cration_societe == null )
+                                @lang('dossier.not_info')
+                            @else
+                                {{ $societe->date_cration_societe }}
+                            @endif
+                        </strong></p>
+                    <hr>
+                    <h4>@lang('dossier.conventions_societe')</h4>
+                    <p><strong>@lang('societe.accord_de_fondation_'.$societe->accord_de_fondation)</strong></p>
+                    <p><strong>@lang('societe.convention_cadre_commun_'.$societe->convention_cadre_commun)</strong></p>
+                    <p>@lang('societe.convention') :
+                        <strong>
+                            @if( $societe->convention == null )
+                                @lang('societe.pas_de_convontion')
+                            @else
+                                {{ $societe->convention->nom_convention }}
+                            @endif
+                        </strong></p>
+                    <p>@lang('societe.nombre_travailleurs_cdi') : <strong>{{ $societe->nombre_travailleurs_cdi }}</strong></p>
+                    <p>@lang('societe.nombre_travailleurs_no_cdi') : <strong>{{ $societe->nombre_travailleurs_cdd }}</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('content')
+
     <div class="container">
-        <div class="row row-rtl" dir="rtl">
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-number-dossier">
-                    <p>
-                        <span class="icon_big"><i class="fa fa-folder-open fa-lg"></i></span>
-                        <span class="number_dossier">{{ sprintf("%05d", $dossier->id) }}</span>
-                    </p>
-                    <h6>@lang('societe.cree_par')</h6>
-                    <p>
-                        <span class="profile">
-                            @if($dossier->user->avatar  == null)
-                                <img src="{{ Request::root() }}/images/avatars/anonyme.jpg" class="img-circle img-responsive">
-                            @else
-                                <img src="{{ Request::root() }}/images/avatars/{{ $dossier->user->avatar }}" class="img-circle img-responsive">
-                            @endif
-
-                        </span>
-                        <span class="info">
-                            <span class="name_user">{{ $dossier->user->name }}</span>
-                            <span class="role"> {{ $dossier->user->roleuser->role->name }} </span>
-                        </span>
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-resumer-dossier">
-                    <div class="icon_big"><i class="fa fa-tags fa-lg" aria-hidden="true"></i></div>
-                    <div class="titlr_box"><h2>@lang('dossier.resume_dossier')</h2></div>
-
-                    <br style="clear:both;">
-                    <div class="recap_dossier">
-                        <div class="col-xs-4 gravite-danger">
-                            <span class="chiffre">{{ $dossier->nb_abus_gravite_danger }}</span> <i class="fa fa-thermometer-full" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_danger')"></i>
-                        </div>
-                        <div class="col-xs-4 gravite-warning">
-                            <span class="chiffre">{{ $dossier->nb_abus_gravite_warning }}</span> <i class="fa fa-thermometer-half" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_gravite_warning')"></i>
-                        </div>
-                        <div class="col-xs-4">
-                            <span class="chiffre">{{ $dossier->abus->count() }}</span> <a class="fa fa-fire" href="{{ route('dossier.gestion', $dossier->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_abus_gestion') {{ $dossier->abus->count() }}"></a>
-                        </div>
-
-                    </div>
-
-                    <div class="recap_dossier">
-                        <div class="col-xs-4">
-                            <span class="chiffre">{{ $dossier->nb_accrochages_moves }}</span> <i class="fa fa-map-signs" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_mouvements')"></i>
-                        </div>
-                        <div class="col-xs-4">
-                            <span class="chiffre">{{ $dossier->nb_accrochages_plaintes }}</span> <i class="fa fa-gavel" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_plaintes')"></i>
-                        </div>
-                        <div class="col-xs-4">
-                            <span class="chiffre">{{ $dossier->nb_accrochages_medias }}</span> <i class="fa fa-bullhorn" data-toggle="tooltip" data-placement="top" title="@lang('dossier.display_indicateur_confrontations_medias')"></i>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm12 col-md-4 col-lg-4">
-                <div class="box-info box-societe-dossier">
+        <div class="row row-rtl">
+            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                <div class="box-info box-liste-abus">
                     <div class="icon_big"><i class="fa fa-building fa-lg"></i></div>
-                    <div class="info">
-                        <span class="nom_marque">{{ $dossier->societe->nom_marque }}</span>
-                        <span class="nom_societe">{{ $dossier->societe->nom_societe }}</span>
+                    <div class="titlr_box">
+                        <h2 dir="rtl">{{ $societe->nom_societe }}</h2>
                     </div>
-
-                    <div class="societe_local">
-                        <span class="nom_secteur_delegation">@lang('dossier.societe_secteur') <strong>{{ $dossier->societe->secteur->nom_secteur }}</strong> @lang('dossier.societe_pour_delegation') <strong>{{ $dossier->societe->delegation->nom_delegation }}</strong> @lang('dossier.societe_pour_gouvenorat') <strong>{{ $dossier->societe->delegation->gouvernorat->nom_gouvernorat }}</strong></span>
-                    </div>
-
-                    <div class="recap_societe">
-                        <div class="col-xs-4">
-                            <a class="fa fa-info-circle" href="" data-toggle="modal" data-target="#detailSocietes"></a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a class="fa fa-archive" href="{{ route('societe.show.dossiers', $dossier->societe->id ) }}" data-toggle="tooltip" data-placement="top" title="@lang('societe.display_dossiers_for_societees') {{ $dossier->societe->dossiers->count() }}"></a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a class="fa fa-eye" href="{{ route('societes.show', $dossier->societe->id ) }}"></a>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="detailSocietes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" dir="rtl">
-                                    <h4 class="modal-title" id="myModalLabel">@lang('dossier.info_societe_principale')</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>@lang('societe.nom_societe') : <strong>{{ $dossier->societe->nom_societe }}</strong></p>
-                                    <p>@lang('societe.nom_marque') : <strong>{{ $dossier->societe->nom_marque }}</strong></p>
-                                    <p>@lang('societe.type_societe') : <strong>{{ $dossier->societe->type_societe->nom_type_societe }}</strong></p>
-
-                                    <p>@lang('societe.date_cration_societe') : <strong>
-                                            @if( $dossier->societe->date_cration_societe == null )
-                                                @lang('dossier.not_info')
-                                            @else
-                                                {{ $dossier->societe->date_cration_societe }}
-                                            @endif
-                                        </strong></p>
-                                    <hr>
-                                    <h4>@lang('dossier.conventions_societe')</h4>
-                                    <p><strong>@lang('societe.accord_de_fondation_'.$dossier->societe->accord_de_fondation)</strong></p>
-                                    <p><strong>@lang('societe.convention_cadre_commun_'.$dossier->societe->convention_cadre_commun)</strong></p>
-                                    <p>@lang('societe.convention') :
-                                        <strong>
-                                        @if( $dossier->societe->convention == null )
-                                            @lang('societe.pas_de_convontion')
-                                        @else
-                                            {{ $dossier->societe->convention->nom_convention }}
-                                        @endif
-                                        </strong></p>
-                                    <p>@lang('societe.nombre_travailleurs_cdi') : <strong>{{ $dossier->societe->nombre_travailleurs_cdi }}</strong></p>
-                                    <p>@lang('societe.nombre_travailleurs_no_cdi') : <strong>{{ $dossier->societe->nombre_travailleurs_cdd }}</strong></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('dossier.close_popup')</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <br style="clear: both">
+                    <p dir="rtl"  class="nom_secteur_delegation"><span>@lang('dossier.societe_secteur') <strong>{{ $societe->secteur->nom_secteur }}</strong> @lang('dossier.societe_pour_delegation') <strong>{{ $societe->delegation->nom_delegation }}</strong> @lang('dossier.societe_pour_gouvenorat') <strong>{{ $societe->delegation->gouvernorat->nom_gouvernorat }}</strong></span></p>
                 </div>
-
             </div>
+        </div>
 
+        <div class="row row-rtl" dir="rtl">
             <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
                 <div class="box-info box-liste-abus">
-                    <div class="icon_big"><a class="fa fa-fire fa-lg" href="{{ route('dossier.gestion', $dossier->id ) }}"></a></div>
-                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_dossier')</h2></div>
-
-                    @if( $dossier->abus->count() == 0)
-                    <div class="row">
-                        <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
-                            <p class="alert"><strong>@lang('abus.aucun_abus')</strong> .... <strong><a href="{{ route('dossier.gestion', $dossier->id ) }}">@lang('abus.gestion_abus')</a></strong></p>
-                        </div>
-                    </div>
-                     @endif
+                    <div class="icon_big"><i class="fa fa-fire fa-lg"></i></div>
+                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_societe')</h2></div>
                 </div>
 
                 <br style="clear:both;">
-                {{-- /************************* Parti listing Abus****************************/  --}}
-                @foreach($dossier->abus_display as $abus)
+                {{-- /************************* Parti listing Abus****************************/ --}}
+
+                @foreach($societe->dossiers as $dossier)
+
+                    @foreach($dossier->abus_display as $abus)
                     <div class="container-fluid block-show-dossier">
                         <div class="row">
                             <div class="col-xs-12 col-sm12 col-md-3 col-lg-3 detail_abus">
@@ -425,10 +339,11 @@
 
                     </div>
 
-                <hr class="separator_abus">
+                    <hr class="separator_abus">
 
+                    @endforeach
                 @endforeach
-                {{-- /************************* Fin Parti listing Abus****************************/  --}}
+                {{-- /************************* Fin Parti listing Abus****************************/ --}}
 
 
             </div>
@@ -480,7 +395,7 @@
                                         <div class="modal-body">
                                             <p>@lang('dossier.send_l_observateur'){{ $user_concerne->role->name }} : <strong>{{ $user_concerne->user->name }}</strong></p>
 
-                                            <p>@lang('dossier.sujet_send') : <strong>@lang('dossier.sujet_dossier_numer') {{ sprintf("%05d", $dossier->id) }} @lang('dossier.pour_societe_agressif') {{ $dossier->societe->nom_societe }}</strong></p>
+                                            <p>@lang('dossier.sujet_send') : <strong>@lang('dossier.sujet_societe') {{ $societe->nom_societe }}</strong></p>
                                             <hr>
                                             <div class="form_send">
                                                 <form>

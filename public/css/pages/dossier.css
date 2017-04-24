@@ -461,7 +461,7 @@ h2 a {
 .block-show-dossier h4 {
     font-size: 15px;
 }
-.box-liste-abus .icon_big {
+.block-show-dossier .box-liste-abus .icon_big {
     height: 40px;
 }
 .block-show-dossier .box-liste-abus  .icon_big .fa-lg {
@@ -485,5 +485,10 @@ h2 a {
 }
 .separator_abus {
     border-color: #4f5467;
+}
+
+.box-liste-abus  p.nom_secteur_delegation {
+    padding: 20px;
+    margin: 0;
 }
 
