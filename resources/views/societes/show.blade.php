@@ -113,6 +113,12 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
+                                <h4 dir="rtl" class="status_abus">@lang('abus.from_dossier_numer')  <strong> {{ sprintf("%05d", $abus->dossier_id) }}</strong></h4>
+                            </div>
+                        </div>
+
                         <div class="row row-rtl">
                             <div class="col-xs-12 col-sm12 col-md-12 col-lg-12">
                                 <div class="box-info box-liste-abus">
