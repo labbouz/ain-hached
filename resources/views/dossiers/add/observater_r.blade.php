@@ -174,8 +174,8 @@
                          data-confirm-buttontext="@lang('dossier.confirmButtonText')"
                          data-cancel-buttonText="@lang('main.cancelButtonText')"
                          data-cancelled="@lang('main.cancelled')" >
-                        <span class="nom_marque" dir="rtl">{nom_marque}</span>
-                        <span class="nom_societe" dir="rtl">{nom_societe}</span>
+                        <span class="nom_marque" dir="rtl" data-toggle="tooltip" data-placement="top" title="{nom_marque}">{nom_marque_limite}</span>
+                        <span class="nom_societe" dir="rtl" data-toggle="tooltip" data-placement="bottom" title="{nom_societe}">{nom_societe_limite}</span>
                     </div>
                 </div>
             </div>

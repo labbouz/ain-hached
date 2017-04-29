@@ -224,8 +224,11 @@ $(document).ready(function(){
                         showConfirmButton: false
                     });
 
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).text(data_elemen.nom_societe);
-                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).text(data_elemen.nom_marque);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).attr('title',data_elemen.nom_societe).tooltip('fixTitle');
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).attr('title',data_elemen.nom_marque).tooltip('fixTitle');
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_societe' ).text(data.nom_societe_limite);
+                    _selectorContainer.find( '.label_elemen' ).find( 'span.nom_marque' ).text(data.nom_marque_limite);
+
                     _form.find( '#nom_societe' ).attr('data-reset', data_elemen.nom_societe);
                     _form.find( '#nom_marque' ).attr('data-reset', data_elemen.nom_marque);
                     _form.find( '#type_societe_id' ).attr('data-reset', data_elemen.type_societe_id);

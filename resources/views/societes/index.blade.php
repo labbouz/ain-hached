@@ -61,8 +61,8 @@
 
                 <div class="edit_card card box">
                     <div class="label_elemen">
-                        <span class="edit nom_marque" dir="rtl">{nom_marque}</span>
-                        <span class="edit nom_societe" dir="rtl">{nom_societe}</span>
+                        <span class="edit nom_marque" dir="rtl" data-toggle="tooltip" data-placement="bottom" title="{nom_marque}">{nom_marque_limite}</span>
+                        <span class="edit nom_societe" dir="rtl" data-toggle="tooltip" data-placement="top" title="{nom_societe}">{nom_societe_limite}</span>
                     </div>
 
 

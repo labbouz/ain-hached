@@ -457,6 +457,8 @@ class SocieteController extends Controller
         $response = array(
             'status' => 'success',
             'msg' => trans('societe.message_update_succes_societe'),
+            'nom_societe_limite' => str_limit($societeUpdated->nom_societe, 35),
+            'nom_marque_limite' => str_limit($societeUpdated->nom_marque, 22),
         );
 
         return response()->json($response);
@@ -618,6 +620,8 @@ class SocieteController extends Controller
                 $societe->date_cration_societe = $date_fr[2].'/'.$date_fr[1].'/'.$date_fr[0];
             }
 
+            $societe->nom_societe_limite= str_limit($societe->nom_societe, 35);
+            $societe->nom_marque_limite= str_limit($societe->nom_marque, 22);
         }
 
         switch (Auth::user()->getRole()) {
