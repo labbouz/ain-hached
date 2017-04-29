@@ -47,8 +47,8 @@
                                             <i class="fa fa-building"></i>
                                         </div>
                                         <div class="info_nom_societe">
-                                            <span class="nom_societe">{{ $dossier->societe->nom_societe }}</span>
-                                            <span class="nom_marque">{{ $dossier->societe->nom_marque }}</span>
+                                            <span class="nom_societe" data-toggle="tooltip" data-placement="right" title="{{ $dossier->societe->nom_societe }}">{{ str_limit($dossier->societe->nom_societe, 15) }}</span>
+                                            <span class="nom_marque" data-toggle="tooltip" data-placement="right" title="{{ $dossier->societe->nom_marque }}">{{ str_limit($dossier->societe->nom_marque, 12) }}</span>
                                         </div>
 
                                     </div>
