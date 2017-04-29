@@ -91,15 +91,13 @@
             <div class="col-xs-12 col-sm12 col-md-8 col-lg-8">
                 <div class="box-info box-liste-abus">
                     <div class="icon_big"><i class="fa fa-fire fa-lg"></i></div>
-                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_societe')</h2></div>
+                    <div class="titlr_box"><h2>@lang('abus.abus_inserer_sur_ce_societe') [{{ $societesAbus->count() }}]</h2></div>
                 </div>
 
                 <br style="clear:both;">
                 {{-- /************************* Parti listing Abus****************************/ --}}
 
-                @foreach($societe->dossiers as $dossier)
-
-                    @foreach($dossier->abus_display as $abus)
+                    @foreach($societesAbus as $abus)
                     <div class="container-fluid block-show-dossier">
                         <div class="row">
                             <div class="col-xs-12 col-sm12 col-md-3 col-lg-3 detail_abus">
@@ -348,7 +346,6 @@
                     <hr class="separator_abus">
 
                     @endforeach
-                @endforeach
                 {{-- /************************* Fin Parti listing Abus****************************/ --}}
 
 

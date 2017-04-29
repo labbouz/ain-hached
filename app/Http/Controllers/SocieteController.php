@@ -16,7 +16,7 @@ use App\Delegation;
 use App\Societe;
 use App\TypeSociete;
 use App\Role_user;
-use App\Dossier;
+use App\Abus;
 
 class SocieteController extends Controller
 {
@@ -201,6 +201,12 @@ class SocieteController extends Controller
                 break;
         }
 
+        $dossiers_id = collect();
+        foreach ($societe->dossiers as $dossier) {
+            $dossiers_id->push($dossier->id);
+        }
+        $societesAbus = Abus::whereIn('dossier_id', $dossiers_id->all())->orderBy('date_violation', 'desc')->get();
+
         $users_concernes = Role_user::where('gouvernorat_id', $societe->delegation->gouvernorat_id)
             ->orWhere('secteur_id', $societe->secteur_id)
             ->orWhere(function ($query) {
@@ -209,7 +215,7 @@ class SocieteController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('societes.show', compact('societe','users_concernes'));
+        return view('societes.show', compact('societe','users_concernes', 'societesAbus'));
     }
 
     public function showDossiers($id)
