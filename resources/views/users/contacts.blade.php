@@ -30,7 +30,7 @@
                         <div class="has-rtl has_{{ $role->class_color }}">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="checkboxSuccess" value="{{ $role->id }}">
+                                    <input type="checkbox" id="checkboxSuccess" value="{{ $role->slug }}">
                                     {{ $role->name }}
                                 </label>
                             </div>
@@ -42,7 +42,7 @@
             <div class="col-lg-9 col-md-8 col-sm12 col-xs-12">
                 <div id="list_elements" class="row">
                     @foreach ($users as $user)
-                        <div id="id_{{ $user->id }}" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-card">
+                        <div id="id_{{ $user->id }}" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 container-card" data-role="{{ $user->roleuser->role->slug }}">
                             <div class="container_element">
 
                                 <div class="edit_card card box">
@@ -51,10 +51,12 @@
                                             <i class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_active')"></i>
                                             <i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_inactive')"></i>
                                         </span>
-                                        <span class="edit info" dir="rtl">{{ $user->name }}</span>
-                                            <span class="profile change_avatar">
-                                            <img data-origin="{{ Request::root() }}/{{ $user->avatar }}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive">
-                                        </span>
+                                        <span class="profile change_avatar"><img data-origin="{{ Request::root() }}/{{ $user->avatar }}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive"></span>
+                                        <div class="edit info" dir="rtl">
+                                            <span class="nom_observateur">{{ $user->prnom }} {{ $user->nom }}</span>
+                                            <span class="role_observateur">{{ $user->roleuser->role->name }}</span>
+                                        </div>
+
                                     </div>
 
                                     <div class="toolbar_box"  dir="rtl">

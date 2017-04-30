@@ -18,10 +18,12 @@
 
 
 .container-card .label_elemen {
-    height: 56px;
+    height: auto;
+    min-height: 56px;
     text-align: center;
     padding: 8px;
     line-height: 21px;
+    float: right;
 }
 .container-card .label_elemen span {
     width: 100%;
@@ -33,15 +35,18 @@
 
 }
 
-.container-card .label_elemen span.info {
+.container-card .label_elemen .info {
     width: 80%;
     float: right;
     text-align: right;
+    padding-right: 20px;
 }
 
 .container-card .label_elemen span.profile {
-    width: 40px;
-    float: left;
+    width: 20%;
+    float: right;
+    display: block;
+    height: auto;
 }
 
 .container-card .label_elemen span.profile img {
@@ -239,7 +244,7 @@ i.role_observateur {
 .container-card .label_elemen span.status_active {
     position: absolute;
     top:10px;
-    left:50px;
+    right:54px;
     width: 20px;
     height: 20px;
     cursor: inherit;
@@ -259,4 +264,17 @@ i.role_observateur {
 .container-card .label_elemen span.user_0 .fa-times {
     display: block;
     color: #d90000;
+}
+
+
+.container-card .label_elemen .nom_observateur {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.container-card .label_elemen .role_observateur {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
 }
