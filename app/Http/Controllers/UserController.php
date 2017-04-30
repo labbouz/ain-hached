@@ -580,7 +580,7 @@ class UserController extends Controller
         $gouvernorats = Gouvernorat::orderBy('id', 'asc')->get();
         $secteurs = Secteur::orderBy('id', 'asc')->get();
 
-        
+
 
         return view('users.contacts', compact('users','roles','structures_syndicales','gouvernorats','secteurs'));
     }

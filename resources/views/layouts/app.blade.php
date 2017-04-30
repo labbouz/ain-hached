@@ -56,7 +56,7 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">@lang('auth.submit_login')</a></li>
-                            <li><a href="{{ url('/register') }}">@lang('users.register')</a></li>
+                            {{--<li><a href="{{ url('/register') }}">@lang('users.register')</a></li>--}}
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
