@@ -1,0 +1,262 @@
+.retour_setting {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 96px;
+    text-align: center;
+    line-height: 96px;
+    font-size: 50px;
+    color: #4f5467;
+}
+
+.retour_setting:hover,
+.retour_setting:focus {
+    color: #000000;
+}
+
+
+.container-card .label_elemen {
+    height: 56px;
+    text-align: center;
+    padding: 8px;
+    line-height: 21px;
+}
+.container-card .label_elemen span {
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: 400;
+
+}
+
+.container-card .label_elemen span.info {
+    width: 80%;
+    float: right;
+    text-align: right;
+}
+
+.container-card .label_elemen span.profile {
+    width: 40px;
+    float: left;
+}
+
+.container-card .label_elemen span.profile img {
+    /*border: 1px solid #d0d5d6;*/
+}
+
+.container_element .edit_card .toolbar_box {
+    text-align: right;
+}
+
+.container_element .edit_card .toolbar_box a,
+.container_element .toolbar_box a {
+    margin: 0 10px 0 0;
+}
+.container_element .edit_card .toolbar_box a i {
+    font-size: 20px;
+    line-height: 42px;
+}
+
+.container_element .edit_card .toolbar_box {
+    display: block;
+    float: left;
+    height: 42px;
+    width: 100%;
+    background-color: #4F5467;
+    text-align: center;
+}
+.container_element .edit_card .toolbar_box {
+    display: block;
+    float: left;
+    height: 42px;
+    width: 100%;
+    background-color: #4F5467 ;
+    text-align: center;
+}
+.container_element .edit_card .toolbar_box a {
+    outline: none;
+    text-decoration: none;
+    line-height: 42px;
+    margin: 0 20px;
+    padding: 0;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.container_element .edit_card .toolbar_box a i {
+    font-size: 20px;
+    line-height: 42px;
+}
+
+.container_element .toolbar_box a:hover {
+    color: #d9d9d9;
+}
+
+.container_element {
+    height: 100px;
+    position: relative;
+}
+
+i.info_bloc {
+    position: absolute;
+    top:10px;
+    left:10px;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+
+i.role_admin {
+    color: #fb9678;
+}
+i.role_observateur_regional {
+    color: #03a9f3;
+}
+i.role_observateur_secteur {
+    color: #fec107;
+}
+i.role_observateur {
+    color: #00c292;
+}
+
+.has-rtl .checkbox,
+.has-rtl .radio {
+    padding-right: 7px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.has-rtl .checkbox label,
+.has-rtl .radio label {
+    padding-left: 0;
+    padding-right:20px ;
+    font-weight: 700;
+}
+
+.has-rtl .checkbox input[type=checkbox],
+.has-rtl .checkbox-inline input[type=checkbox],
+.has-rtl .radio input[type=radio],
+.has-rtl .radio-inline input[type=radio] {
+    margin-left:0;
+    margin-right: -20px;
+    margin-top: 15px;
+}
+
+
+.has_role_admin .checkbox label,
+.has_role_admin .radio label {
+    color: #fb9678;
+}
+
+.has_role_observateur_regional .checkbox label,
+.has_role_observateur_regional .radio label {
+    color: #03a9f3;
+}
+
+.has_role_observateur_secteur .checkbox label,
+.has_rrole_observateur_secteur .radio label {
+    color: #fec107;
+}
+
+.has_role_observateur .checkbox label,
+.has_role_observateur .radio label {
+    color: #00c292;
+}
+
+.indicat {
+    display: block;
+    float: left;
+    height: 42px;
+    padding: 5px 10px;
+}
+
+.indicat i {
+    display: none;
+    font-size: 18px;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    float: left;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+}
+
+.indicat .fa-gravite-warning {
+    background-color: #ff9600;
+}
+.indicat .fa-gravite-warning:before {
+    content: "\f06d";
+
+}
+
+.indicat .fa-gravite-danger {
+    background-color: #ff0000;
+}
+.indicat .fa-gravite-danger:before {
+    content: "\f06d";
+}
+
+.indicat .fa-violation-collectif {
+    background-color: #00a0ff;
+}
+.indicat .fa-violation-collectif:before {
+    content: "\f0c0";
+}
+
+.indicat .fa-violation-individuel {
+    background-color: #00c91c;
+}
+
+.indicat .fa-violation-individuel:before {
+    content: "\f007";
+}
+
+.type_violation_1 .fa-violation-individuel,
+.type_violation_2 .fa-violation-collectif,
+.gravite_1 .fa-gravite-warning ,
+.gravite_2 .fa-gravite-danger {
+    display: block;
+}
+
+.container_element .edit_card .toolbar_box a.connected {
+    float: left;
+    margin: 0 10px;
+}
+
+.container_element .edit_card .toolbar_box a.on {
+    color: #46ff5b;
+}
+.container_element .edit_card .toolbar_box a.off {
+    color: #ff3b3b;
+}
+
+.container-card .label_elemen span.status_active {
+    position: absolute;
+    top:10px;
+    left:50px;
+    width: 20px;
+    height: 20px;
+    cursor: inherit;
+}
+
+.container-card .label_elemen span.status_active i {
+    display: none;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.container-card .label_elemen span.user_1 .fa-check {
+    display: block;
+    color: #1daf00;
+}
+
+.container-card .label_elemen span.user_0 .fa-times {
+    display: block;
+    color: #d90000;
+}

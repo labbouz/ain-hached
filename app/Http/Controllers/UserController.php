@@ -553,4 +553,35 @@ class UserController extends Controller
         return response()->json($reponse);
     }
 
+    public function contacts()
+    {
+        $users = User::orderBy('id', 'desc')->get();
+
+        foreach($users as $user){
+            if($user->avatar  == null) {
+                $user->avatar = 'images/avatars/anonyme.jpg';
+            } else {
+                $nom_image = $user->avatar;
+                $user->avatar = 'images/avatars/' . $nom_image;
+            }
+
+            if( $user->isOnline() ) {
+                $user->online = 'on';
+                $user->text_online = trans('users.loged_user_online_on');
+            } else {
+                $user->online = 'off';
+                $user->text_online = trans('users.loged_user_online_off');
+            }
+        }
+
+        $roles = Role::orderBy('id', 'asc')->get();
+
+        $structures_syndicales = Role::orderBy('id', 'asc')->get();
+        $gouvernorats = Gouvernorat::orderBy('id', 'asc')->get();
+        $secteurs = Secteur::orderBy('id', 'asc')->get();
+
+
+        return view('users.contacts', compact('users','roles','structures_syndicales','gouvernorats','secteurs'));
+    }
+
 }
