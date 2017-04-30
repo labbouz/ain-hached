@@ -161,7 +161,7 @@
 
 .box-observateurs-dossier h2 {
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     line-height:32px;
     font-weight: 700;
     margin: 0;
@@ -490,5 +490,20 @@ h2 a {
 .box-liste-abus  p.nom_secteur_delegation {
     padding: 20px;
     margin: 0;
+}
+
+.title_accordion {
+    cursor: pointer;
+}
+
+.title_accordion h2 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: 700;
+}
+
+.content_accordion {
+    margin-top: 15px;
 }
 
