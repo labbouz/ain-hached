@@ -576,13 +576,12 @@ class UserController extends Controller
 
         $roles = Role::orderBy('id', 'asc')->get();
 
-        $structures_syndicales = Role::orderBy('id', 'asc')->get();
         $gouvernorats = Gouvernorat::orderBy('id', 'asc')->get();
         $secteurs = Secteur::orderBy('id', 'asc')->get();
 
 
 
-        return view('users.contacts', compact('users','roles','structures_syndicales','gouvernorats','secteurs'));
+        return view('users.contacts', compact('users','roles','gouvernorats','secteurs'));
     }
 
 }

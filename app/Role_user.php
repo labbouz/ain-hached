@@ -21,4 +21,16 @@ class Role_user extends Model
         return $this->belongsTo('\App\Role');
 
     }
+
+    public function gouvernorat()
+    {
+        return $this->belongsTo('\App\Gouvernorat', 'gouvernorat_id');
+
+    }
+
+    public function secteur()
+    {
+        return $this->belongsTo('\App\Secteur', 'secteur_id');
+
+    }
 }
