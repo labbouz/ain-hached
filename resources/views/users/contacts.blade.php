@@ -73,7 +73,7 @@
                                             <i class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_active')"></i>
                                             <i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="@lang('users.user_inactive')"></i>
                                         </span>
-                                        <span class="profile change_avatar"><img data-origin="{{ Request::root() }}/{{ $user->avatar }}" src="{{ asset('images/avatars/anonyme.jpg') }}" alt="user-img" class="img-circle img-responsive"></span>
+                                        <span class="profile change_avatar"><img src="{{ Request::root() }}/{{ $user->avatar }}" alt="user-img" class="img-circle img-responsive"></span>
                                         <div class="edit info" dir="rtl">
                                             <span class="nom_observateur">{{ $user->prnom }} {{ $user->nom }}</span>
                                             <span class="info_role_observateur">{{ $user->roleuser->role->name }}
